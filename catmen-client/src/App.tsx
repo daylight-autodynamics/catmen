@@ -26,8 +26,7 @@ function App() {
                     <Route exact path="/manage-attributes" component={ ()=><LandingPageView message={"jjj"}/> }/>
                     <Route exact path="/" component={ ()=><LandingPageView message={"this is the landing page"}/> }/>
                 </Switch>
-        </Router>
-
+        </Router> 
 
   );
 }

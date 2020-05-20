@@ -8,7 +8,7 @@ interface iSTATE{
 
 }
 
-export class LandingPageView extends React.Component<iPROPS, iSTATE>{
+export class ManageAttributeMappingView extends React.Component<iPROPS, iSTATE>{
     // constructor(props:iPROPS) {
     //     super(props);
     //

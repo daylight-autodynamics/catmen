@@ -16,7 +16,7 @@ export class LandingPageView extends React.Component<iPROPS, iSTATE>{
     render(){
         return(
             <>
-                <h1>Landing Page</h1>
+                <h1>Manage Attribute Group</h1>
                 <h3>{this.props.message}</h3>
             </>
         );
