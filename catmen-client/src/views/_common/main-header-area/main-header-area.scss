@@ -1,0 +1,8 @@
+@import "../../../app-colors";
+@import "../../../index";
+
+.overlay{
+  background-color: $translucent-black;
+  @include blurred-bg-dark;
+  @include stretch-all-absolute;
+}

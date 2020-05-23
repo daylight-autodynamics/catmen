@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {WindowLevelCapture} from "./view-components/heru-tool-tip/tool-tip";
 
+export let win = new WindowLevelCapture();
+win.windowEvent();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App mousePos={ {x:win.mousePos.x, y:win.mousePos.y}} />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,0 +1,6 @@
+$translucent-black: rgba(0, 0, 0, 0.65);
+
+@mixin blurred-bg-dark {
+  background-color: $translucent-black;
+  backdrop-filter: blur(0.65rem);
+}

@@ -1,0 +1,22 @@
+.menu-sub-group{
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr);
+}
+
+.menu-container{
+  display: grid;
+  grid-template-columns: minmax(25vw, auto) minmax(25vw,auto);
+}
+
+.menu-main{
+  grid-column-start: 1;
+  grid-column-end: 1;
+  background-color: #61dafb;
+  grid-row: 1;
+}
+
+.info-panel{
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row: 1;
+}

@@ -1,0 +1,5 @@
+@import "../../app-colors";
+
+.app-tool-tip{
+  @include blurred-bg-dark;
+}
