@@ -41,6 +41,7 @@ interface iPROPS{
     toolTipCustomElement? : ReactElement;
     btnReference? : RefObject<HTMLButtonElement>;
     linkReference? : RefObject<HTMLAnchorElement>;
+    timeoutInMS : number
 }
 
 interface iSTATE {
@@ -61,7 +62,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         this.toolTipContainerRef = React.createRef<HTMLDivElement>();
         this.mousePosition = { x:-1000, y:-1000};
         this.initialized = false;
-        this.toolTipTimeOutCounter = 34;
+        this.toolTipTimeOutCounter = this.props.timeoutInMS
     }
     //TODO give mouse position a data type
     mousePosition : any;
@@ -124,7 +125,8 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             //top : this.state.mousePosition.y, left: this.state.mousePosition.x
             this.setState({isHovering : true})
         }
-        console.log(this.state.isHovering);
+
+
 
     }
 
@@ -181,8 +183,8 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
     }
 
     startHover(){
-        console.log("hovered here****");
-        this.toolTipTimeOutCounter = 34;
+        console.log("hovered here****", this.toolTipTimeOutCounter);
+        this.toolTipTimeOutCounter = this.props.timeoutInMS;
         this.intervalID = setInterval(
             ()=>{
                 if(this.initialized === false){
@@ -190,13 +192,11 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
                     this.setState({isHovering:true});
                     console.log("start hover", this.state.isHovering);
                 }
-                this.toolTipTimeOutCounter--;
+                this.toolTipTimeOutCounter -= 50;
                 if(this.toolTipTimeOutCounter <= 0){
                     this.clearHover();
                 }
                 this.updateMousePos();
-
-
 
             }, 50);
     }
@@ -216,6 +216,59 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         console.log("first hover");
     }
 
+    handleFadeInOut(){
+        if(this.toolTipTimeOutCounter <= 800 && this.toolTipTimeOutCounter > 700 ){
+            return "fade-1"
+        }else
+        if(this.toolTipTimeOutCounter <= 700 && this.toolTipTimeOutCounter > 600 ){
+            return "fade-11"
+        }else
+        if(this.toolTipTimeOutCounter <= 600 && this.toolTipTimeOutCounter > 500){
+            return "fade-2"
+        }else
+        if(this.toolTipTimeOutCounter <= 500 && this.toolTipTimeOutCounter > 400){
+            return "fade-21"
+        }else
+        if(this.toolTipTimeOutCounter <= 400 && this.toolTipTimeOutCounter > 300){
+            return "fade-3"
+        }else
+        if(this.toolTipTimeOutCounter <= 300 && this.toolTipTimeOutCounter > 200){
+            return "fade-31"
+        }else
+        if(this.toolTipTimeOutCounter <= 200 && this.toolTipTimeOutCounter > 100  ){
+            return "fade-4"
+        }else
+        if(this.toolTipTimeOutCounter <= 100 && this.toolTipTimeOutCounter > 20  ){
+            return "fade-41"
+        }else
+        if(this.toolTipTimeOutCounter < 20 && this.toolTipTimeOutCounter > 0  ){
+            return "fade-5"
+        }
+
+        //HANDLE FADE IN
+
+        if(this.toolTipTimeOutCounter <= this.props.timeoutInMS && this.toolTipTimeOutCounter > this.props.timeoutInMS-100 ){
+            return "fade-5"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-100 && this.toolTipTimeOutCounter > this.props.timeoutInMS-150 ){
+            return "fade-41"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-150 && this.toolTipTimeOutCounter > this.props.timeoutInMS-200){
+            return "fade-4"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-200 && this.toolTipTimeOutCounter > this.props.timeoutInMS-250){
+            return "fade-31"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-250 && this.toolTipTimeOutCounter > this.props.timeoutInMS-300){
+            return "fade-3"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-300 && this.toolTipTimeOutCounter > this.props.timeoutInMS-350){
+            return "fade-21"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-350 && this.toolTipTimeOutCounter > this.props.timeoutInMS-400  ){
+            return "fade-2"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-400 && this.toolTipTimeOutCounter > this.props.timeoutInMS-450  ){
+            return "fade-11"
+        }else if(this.toolTipTimeOutCounter <= this.props.timeoutInMS-450 && this.toolTipTimeOutCounter > this.props.timeoutInMS-500  ){
+            return "fade-0"
+        }
+    }
+
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
 
@@ -227,7 +280,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
         let constructedToolTip = (
           <>
-              {tooltip}
+              <span className={this.handleFadeInOut()}>{tooltip}</span>
                <p style={{position:"fixed", top:0, right:0}}>{`x: ${this.state.mousePosition.x} y: ${this.state.mousePosition.y} `}</p>
           </>
         );

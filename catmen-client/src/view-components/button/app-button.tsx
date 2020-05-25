@@ -64,15 +64,15 @@ constructor(props:iPROPS) {
     //this will generate the tooltip, ref this wherever you need one
     handleToolTip(){
         if(this.state.isHovered === false){
-            return <ToolTip ref={this.toolTipRef}/>;
+            return <ToolTip ref={this.toolTipRef} timeoutInMS={5000}/>;
         }else{
             return (
-
                       <ToolTip
                           ref={this.toolTipRef}
                           btnReference={this.btnRef}
                           tooltipType="custom"
                           toolTipCustomElement={this.props.tooltip}
+                          timeoutInMS={5000}
                       />
 
             )
