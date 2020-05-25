@@ -36,7 +36,7 @@ class App extends React.Component<iPROPS, iSTATE>{
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
       return (
           <>
-              <ToolTip toolTipPos={ {x:win.mousePos.x, y: win.mousePos.y}  }/>
+
               <Router>
                   <Switch>
                       <Route exact path={navSettings.catalog} component={ ()=><CatalogOverviewView message={"catalog"}/> }/>

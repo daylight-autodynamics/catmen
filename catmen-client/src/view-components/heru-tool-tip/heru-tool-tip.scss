@@ -1,5 +1,9 @@
 @import "../../app-colors";
 
 .app-tool-tip{
-  @include blurred-bg-dark;
+  @include blurred-bg-dark-40;
+  width:3rem;
+  height: 4rem;
+  position: fixed;
+  pointer-events: none;
 }

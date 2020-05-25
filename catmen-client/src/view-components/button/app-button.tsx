@@ -1,5 +1,7 @@
 import * as React from "react";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {ToolTip} from "../heru-tool-tip/tool-tip";
+import {ReactElement, Ref, RefObject} from "react";
 
 
 type AppButtonType = "from-left" | "main-action" | "secondary-action" | "menu-link";
@@ -7,27 +9,34 @@ type AppButtonType = "from-left" | "main-action" | "secondary-action" | "menu-li
 interface iPROPS{
     buttonType: AppButtonType;
     buttonLabel? : string;
-    functionality? : any;
+    OnClick? : any;
     icon? : any;
     navPath? : any;
     index? : number;
     param? : string;
     hoverActions? : any[];
+    tooltip? : ReactElement;
 }
 
 interface iSTATE{
-
+    isHovered : boolean
 }
 
 export class AppButton extends React.Component<iPROPS, iSTATE>{
 constructor(props:iPROPS) {
     super(props);
+    this.state = {
+        isHovered : false
+    };
     this.hoverActions = this.props.hoverActions;
 }
     hoverActions :any[] | undefined = [];
+    btnRef:RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>();
+    linkRef : RefObject<HTMLAnchorElement> = React.createRef<HTMLAnchorElement>();
+    toolTipRef = React.createRef<ToolTip>();
+
 
     doHoverActions(){
-      console.log("hovered inside:", this.hoverActions);
       if(this.hoverActions !== undefined){
           for(let i=0; i < this.hoverActions.length; i++){
               if(this.hoverActions[i] !== undefined){
@@ -35,52 +44,127 @@ constructor(props:iPROPS) {
               }
           }
       }
+      this.setState({isHovered : true});
+
+      //GO TO TOOL TIP:
+      //when hovering on the button, we'll start the hovering actions in the tool tip
+      if(this.toolTipRef.current != null){
+          console.log("do action hover");
+          this.toolTipRef.current.startHover();
+      }
     };
+    quickHoverTest(){
+        console.log("do action hover");
+        if(this.toolTipRef.current != null){
+            console.log("do action hover");
+            this.toolTipRef.current.quickTestHover();
+        }
+    }
+
+    //this will generate the tooltip, ref this wherever you need one
+    handleToolTip(){
+        if(this.state.isHovered === false){
+            return <ToolTip ref={this.toolTipRef}/>;
+        }else{
+            return (
+
+                      <ToolTip
+                          ref={this.toolTipRef}
+                          btnReference={this.btnRef}
+                          tooltipType="custom"
+                          toolTipCustomElement={this.props.tooltip}
+                      />
+
+            )
+        }
+    }
 
     getButton(){
         switch (this.props.buttonType) {
             case "main-action":
                 return(
-                    <button
-                        onClick={()=>this.props.functionality()}
-                        onMouseOver={()=>this.doHoverActions()}
-                        className="btn-main-action"
-                    >
-                        {this.props.buttonLabel}
-                    </button>
+                    <>
+                        {this.handleToolTip()}
+                        <button
+                            ref={this.btnRef}
+                            onClick={()=>this.props.OnClick()}
+                            onMouseOver={()=>this.doHoverActions()}
+                            className="btn-main-action"
+                        >
+                            {this.props.buttonLabel}
+                        </button>
+                    </>
                 );
 
             case "from-left":
+
                 return(
-                    <button
-                        onClick={()=>this.props.functionality()}
-                        onMouseOver={()=>this.doHoverActions()}
-                        className="btn-from-left"
-                    >
-                        {this.props.buttonLabel}
-                    </button>
+                    <>
+                        {this.handleToolTip()}
+                        <button
+                            ref={this.btnRef}
+                            onClick={()=>this.props.OnClick()}
+
+                            onMouseOver={()=>this.doHoverActions()}
+                            className="btn-from-left"
+                        >
+                            {this.props.buttonLabel}
+                        </button>
+                    </>
                 );
 
 
             case "menu-link":
                 if(this.props.navPath !== undefined ){
                     return(
-                        <Link onMouseOver={()=>this.doHoverActions()} to={this.props.navPath} className="btn-main-action">{this.props.buttonLabel}</Link>
+                        <>
+                            {this.handleToolTip()}
+                            <Link ref={this.linkRef}
+                                  onMouseOver={()=>this.doHoverActions()}
+                                  to={this.props.navPath}
+                                  className="btn-main-action"
+                            >
+                                {this.props.buttonLabel}
+                            </Link>
+                        </>
                     );
                 }else {
                     return(
-                        <button onMouseOver={()=>this.doHoverActions()} className="btn-main-action">{this.props.buttonLabel}</button>
+                        <>
+                            {this.handleToolTip()}
+                            <button
+                                onMouseOver={()=>this.doHoverActions()}
+                                className="btn-main-action"
+                            >
+                                {this.props.buttonLabel}
+                            </button>
+                        </>
                     );
                 }
 
             case "secondary-action":
                 return(
-                    <button onMouseOver={()=>this.doHoverActions()} className="btn-secondary">{this.props.buttonLabel}</button>
+                    <>
+                        {this.handleToolTip()}
+                        <button
+                            onMouseOver={()=>this.doHoverActions()}
+                            className="btn-secondary"
+                        >
+                            {this.props.buttonLabel}
+                        </button>
+                    </>
                 );
 
             default:
                 return(
-                    <button>Default Button</button>
+                    <>
+                        <button
+                            onMouseOver={()=>this.doHoverActions()}
+                            className="btn-default"
+                        >
+                            Default Button
+                        </button>
+                    </>
                 )
         }
     }

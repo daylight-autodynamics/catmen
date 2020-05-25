@@ -2,7 +2,7 @@
 @import "../../../index";
 
 .overlay{
-  background-color: $translucent-black;
-  @include blurred-bg-dark;
+  background-color: $translucent-black-65;
+  @include blurred-bg-dark-65;
   @include stretch-all-absolute;
 }

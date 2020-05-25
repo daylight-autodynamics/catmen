@@ -2,6 +2,8 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {iNavItem} from "../_common/component-data-types";
 import AppButton from "../button/app-button";
+import {win} from "../../index";
+import {ToolTip} from "../heru-tool-tip/tool-tip";
 
 
 export type menuFormatDataType = "fly-out" | "slide-in" | "drop-down";
@@ -98,7 +100,13 @@ export class Navigation extends React.Component<iPROPS, iSTATE> {
                     }
                 }
 
-                let newButton : ReactElement = (<AppButton hoverActions={[()=>this.hoverInfoPanel(count)]} key={`${i+j}${i}${j}`} navPath={itemGroups[i][j].navPath} buttonType="menu-link" buttonLabel={itemGroups[i][j].label} /> );
+                let newButton : ReactElement = (
+                    <AppButton
+                        tooltip={<p>menu tool tip</p> }
+                        hoverActions={[()=>this.hoverInfoPanel(count)]} key={`${i+j}${i}${j}`}
+                        navPath={itemGroups[i][j].navPath}
+                        buttonType="menu-link" buttonLabel={itemGroups[i][j].label}
+                    /> );
                 subMenuItems.push(newButton);
             }
 
