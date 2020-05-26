@@ -5,6 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {WindowLevelCapture} from "./view-components/heru-tool-tip/tool-tip";
 
+import './fonts/proximanova-reg.woff';
+import './fonts/sofia-bold.woff';
+import './fonts/sofia-reg.woff';
+import './fonts/sofia-bold.woff';
 export let win = new WindowLevelCapture();
 win.windowEvent();
 

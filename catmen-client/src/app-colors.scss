@@ -11,3 +11,89 @@ $translucent-black-40: rgba(0, 0, 0, 0.4);
   background-color: $translucent-black-40;
   backdrop-filter: blur(0.3rem);
 }
+
+$grey-main: #F6F5F6;
+
+//base color for additive actions
+$action: #360036;
+
+//from 2020 refresh
+
+$Primary_shade: #1f596f;
+$Primary: #2b758c;
+
+//blacks
+$black_80: #231924;
+$black_70: #231924;
+$black_60: #473f4a;
+$black_50: #625c67;
+$black_40: #8d8b90;
+$black_30: #b9b7bc;
+$black_20: #d9d9db;
+$black_10: #f4f4f4;
+
+//Core (brand purple, for launchpad we will use this as an action)
+
+$Core_80: #520f54;
+$Core_70: #691768;
+$Core_60: #851888;
+$Core_50: #934398;
+$Core_40: #af77b4;
+$Core_30: #cfadd2;
+$Core_20: #e6d4e4;
+$Core_10: #f8f3f7;
+
+//reds
+
+$Red_80: #5b1314;
+$Red_70: #6f1a19;
+$Red_60: #9c1000;
+$Red_50: #ca0000;
+$Red_40: #f3535d;
+$Red_30: #f69fa3;
+$Red_20: #facdcf;
+$Red_10: #fcf2f1;
+
+//Green
+
+$Green_80: #1c331b;
+$Green_70: #234415;
+$Green_60: #235727;
+$Green_50: #237138;
+$Green_40: #4b9c4f;
+$Green_30: #85c690;
+$Green_20: #bee2bc;
+$Green_10: #edf7ec;
+
+//Yellow
+
+$Yellow_80: #342d17;
+$Yellow_70: #523807;
+$Yellow_60: #664707;
+$Yellow_50: #855b07;
+$Yellow_40: #f6b71c;
+$Yellow_30: #f8ce73;
+$Yellow_20: #f8ce73;
+$Yellow_10: #fdf3dd;
+
+//WARNINGS and STATUSES
+
+$dark-purple: #531a54;
+$light-grey: #f0f0f0;
+$font-color: #505052;
+
+$red: #bd2026;
+$orange: #e17926;
+$white: #ffffff;
+$sky-blue: #30b7ea;
+$light-grey: #ededed;
+$khaki: #7f6d2b;
+$dark-grey: #4e4e4f;
+
+$turquoise: #01768b;
+
+$beige: #f6f4ee;
+
+.selected-shadow {
+  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.5);
+}

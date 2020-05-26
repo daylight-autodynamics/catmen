@@ -10,12 +10,16 @@ interface iPROPS{
     buttonType: AppButtonType;
     buttonLabel? : string;
     OnClick? : any;
-    icon? : any;
+    iconCenter? : ReactElement;
+    iconRight? : ReactElement;
+    iconLeft? : ReactElement;
     navPath? : any;
     index? : number;
     param? : string;
     hoverActions? : any[];
     tooltip? : ReactElement;
+    toolTipTimeOutInMS? : number;
+    classes? : string;
 }
 
 interface iSTATE{
@@ -29,12 +33,18 @@ constructor(props:iPROPS) {
         isHovered : false
     };
     this.hoverActions = this.props.hoverActions;
+    if(this.props.toolTipTimeOutInMS != null){
+        this.toolTipTimeOut = this.props.toolTipTimeOutInMS
+    }else{
+        this.toolTipTimeOut = 5000
+    }
 }
     hoverActions :any[] | undefined = [];
     btnRef:RefObject<HTMLButtonElement> = React.createRef<HTMLButtonElement>();
     linkRef : RefObject<HTMLAnchorElement> = React.createRef<HTMLAnchorElement>();
     toolTipRef = React.createRef<ToolTip>();
-
+    //In Milliseconds
+    toolTipTimeOut : number;
 
     doHoverActions(){
       if(this.hoverActions !== undefined){
@@ -53,18 +63,19 @@ constructor(props:iPROPS) {
           this.toolTipRef.current.startHover();
       }
     };
-    quickHoverTest(){
-        console.log("do action hover");
+
+    doHoverClear(){
         if(this.toolTipRef.current != null){
-            console.log("do action hover");
-            this.toolTipRef.current.quickTestHover();
+            console.log("do end hover");
+            this.toolTipRef.current.clearHover();
         }
     }
+
 
     //this will generate the tooltip, ref this wherever you need one
     handleToolTip(){
         if(this.state.isHovered === false){
-            return <ToolTip ref={this.toolTipRef} timeoutInMS={5000}/>;
+            return <ToolTip ref={this.toolTipRef} timeoutInMS={this.toolTipTimeOut}/>;
         }else{
             return (
                       <ToolTip
@@ -72,7 +83,7 @@ constructor(props:iPROPS) {
                           btnReference={this.btnRef}
                           tooltipType="custom"
                           toolTipCustomElement={this.props.tooltip}
-                          timeoutInMS={5000}
+                          timeoutInMS={this.toolTipTimeOut}
                       />
 
             )
@@ -104,11 +115,20 @@ constructor(props:iPROPS) {
                         <button
                             ref={this.btnRef}
                             onClick={()=>this.props.OnClick()}
-
                             onMouseOver={()=>this.doHoverActions()}
-                            className="btn-from-left"
+                            onMouseOut={()=>this.doHoverClear()}
+                            className="btn-from-left btn-default btn-global"
                         >
-                            {this.props.buttonLabel}
+                            <div className="btn-descriptors">
+                                <div className="label">
+                                    {this.props.buttonLabel}
+                                    {this.props.iconCenter}
+                                </div>
+
+                                <div className="cm-icon">
+                                    {this.props.iconRight}
+                                </div>
+                            </div>
                         </button>
                     </>
                 );
@@ -121,6 +141,7 @@ constructor(props:iPROPS) {
                             {this.handleToolTip()}
                             <Link ref={this.linkRef}
                                   onMouseOver={()=>this.doHoverActions()}
+                                  onMouseOut={()=>this.doHoverClear()}
                                   to={this.props.navPath}
                                   className="btn-main-action"
                             >

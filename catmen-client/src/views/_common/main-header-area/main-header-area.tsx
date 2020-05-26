@@ -3,6 +3,7 @@ import {ReactElement} from "react";
 import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
 import AppButton from "../../../view-components/button/app-button";
 import {ToolTip} from "../../../view-components/heru-tool-tip/tool-tip";
+import {CatmanIcon} from "../../../svg/icons/icons";
 
 interface iPROPS{
     sectionTitle? : string;
@@ -32,7 +33,6 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                     </StickyThing>
                     <AppButton
                         buttonType="from-left"
-                        OnClick={()=>this.handleMenu}
                     />
                     <div onClick={()=>this.handleMenu()} className="overlay"/>
                 </>
@@ -51,28 +51,34 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
 
     }
 
+    navButton(){
+        if(this.state.menuIsOpen === false){
+
+            return (
+                <AppButton
+                    buttonType={"from-left"}
+                    buttonLabel="catalog manager"
+                    tooltip={<p>This is a bla test tool tip</p>}
+                    OnClick={()=>this.handleMenu()}
+                    toolTipTimeOutInMS={10000}
+                    iconRight={<CatmanIcon iconName="down-arrow" classes="ui-icon"/>}
+                />
+            )
+            }else{
+            return(<div className="zzz"></div>);
+        }
+    }
+
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         let constructedHeader = (
-          <header>
-              <AppButton
-                  buttonType={"from-left"}
-                  buttonLabel="label for test"
-                  tooltip={<p>This is a bla test tool tip</p>}
-                  OnClick={()=>this.handleMenu()}
-              />
-              <AppButton
-                  buttonType={"main-action"}
-                  buttonLabel="Menu"
-                  tooltip={<h2>Menu - click here</h2>}
-                  OnClick={()=>this.handleMenu()}
-              />
-              <button className="main-nav" onClick={()=>this.handleMenu()}>Menu</button>
-              <div className="main-ribbon"></div>
-              {this.navMenu()}
-              <h1>{this.props.sectionTitle}</h1>
-
-          </header>
+          <>
+              <header className="header-area">
+                  {this.navButton()}
+                  <div className="main-ribbon"></div>
+                  {this.navMenu()}
+              </header>
+          </>
         );
 
         return constructedHeader;

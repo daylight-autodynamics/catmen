@@ -1,0 +1,50 @@
+$btn-padding : 1rem;
+
+.catman-app{
+  button{
+    outline: none;
+  }
+}
+
+.btn-from-left{
+  border-radius: 0 2rem 2rem 0;
+  padding: $btn-padding;
+}
+
+.btn-global{
+  text-transform: uppercase;
+  background-color: white;
+  font-weight: 400;
+  font-family: "Sofia Pro";
+  display: grid;
+  grid-template-columns: auto 1rem;
+  padding: 0.5rem 1rem 0.5rem;
+  .label{
+    pointer-events: none;
+  }
+  .cm-icon{
+    pointer-events: none;
+  }
+}
+
+.btn-default{
+  grid-template-columns: auto auto auto;
+  div.btn-descriptors{
+    pointer-events: none;
+    display: grid;
+    align-items: center;
+    .cm-icon{
+      padding: 0.27rem 0 0.25rem 0;
+      height: 1rem;
+      width: 1rem;
+    }
+    .ui-icon{
+      height: 100%;
+      width: 50%;
+    }
+    div{
+      grid-row: 1;
+    }
+  }
+}
+

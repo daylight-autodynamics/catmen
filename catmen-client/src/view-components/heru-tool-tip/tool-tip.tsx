@@ -33,7 +33,7 @@ export class WindowLevelCapture implements iWindow{
 }
 
 interface iPROPS{
-    tooltipType? : "standard" | "custom";
+    tooltipType? : "standard" | "custom" | "none";
     tooltipStandardContent? : {
         headerText : string,
         copy : string
@@ -125,9 +125,10 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             //top : this.state.mousePosition.y, left: this.state.mousePosition.x
             this.setState({isHovering : true})
         }
-
-
-
+        console.log("tooltip timer counter:",this.toolTipTimeOutCounter)
+        if(this.toolTipTimeOutCounter <= 0){
+            this.clearHover();
+        }
     }
 
     getToolTip(){
@@ -164,8 +165,8 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             }
 
             return (
-                //<div ref={this.toolTipContainerRef} style={{zIndex: 10000, border: "3px solid red", width:"1px", height:"1px", position: "fixed", top : this.state.mousePosition.y, left: this.state.mousePosition.x}} >
-                <div ref={this.toolTipContainerRef} style={{zIndex: 10000, border: "3px solid red", width:"1px", height:"1px", position: "fixed"}} >
+
+                <div ref={this.toolTipContainerRef} style={{zIndex: 10000, border: "none", width:"1px", height:"1px", position: "fixed"}} >
                     {tooltipInner}
                 </div>
             )
@@ -179,6 +180,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
     clearInterval(){
         console.log("clear interval");
+        console.log(this.intervalID);
         clearInterval(this.intervalID);
     }
 
@@ -202,10 +204,14 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
     }
 
     clearHover(){
+        console.clear();
+        console.log(this.intervalID);
+        clearInterval(this.intervalID);
+        console.log(this.intervalID);
         console.log("clear hover");
+        debugger;
         this.initialized = false;
         this.setState({isHovering:false} );
-        clearInterval(this.intervalID);
     }
 
     componentDidMount(): void {
@@ -271,12 +277,10 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
-
         let tooltip : ReactElement = (<></>);
         if(this.state.isHovering === true && this.toolTipTimeOutCounter > 0){
             tooltip = this.getToolTip();
         }
-
 
         let constructedToolTip = (
           <>

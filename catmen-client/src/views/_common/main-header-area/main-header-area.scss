@@ -6,3 +6,8 @@
   @include blurred-bg-dark-65;
   @include stretch-all-absolute;
 }
+
+.header-area{
+  background-color: $grey-main;
+  padding: 0.75rem 0 0.75rem;
+}

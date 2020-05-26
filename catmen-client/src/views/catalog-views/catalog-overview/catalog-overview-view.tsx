@@ -21,10 +21,6 @@ export class CatalogOverviewView extends React.Component<iPROPS, iSTATE>{
     render(){
         return (
             <>
-                <MainHeaderArea
-                    sectionTitle="Landing Page"
-                    navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
-                />
                 <h2>Your Catalog: OverView</h2>
                 <h3>{this.props.message}</h3>
             </>
