@@ -16,7 +16,7 @@ import {CatalogLanding, CatalogLandingPageView} from "./views/catalog-views/main
 import {CatalogDetailsView} from "./views/catalog-views/catalog-details/catalog-details-view";
 import {CatalogDashboardView} from "./views/catalog-views/catalog-dashboard/catalog-dashboard-view";
 
-import {Topics} from "./views/catalog-views/main-catalog/main-catalog";
+import {ProductViews} from "./views/catalog-views/main-catalog/main-catalog";
 
 interface iSTATE{
     mousePos : {x:number, y: number}
@@ -44,7 +44,7 @@ class App extends React.Component<iPROPS, iSTATE>{
                   <Switch>
                       <Route exact path={navSettings.catalog} component={ ()=> <CatalogLanding/>} />
 
-                      <Route path="/topics">
+                      <Route path="/catalog">
                           <CatalogLanding/>
                       </Route>
 
@@ -53,8 +53,6 @@ class App extends React.Component<iPROPS, iSTATE>{
                       <Route exact path={navSettings.manageAttributeMappings} component={ ()=><ManageAttributeMappingView message={"manage attribute mappings"}/> }/>
 
                       <Route exact path="/manage-classes" component={ ()=><ManageClassesView message={"attribute mappings"}/> }/>
-
-
 
                       <Route exact path="/" component={ ()=><LandingPageView message={"this is the landing page"}/> }/>
                   </Switch>

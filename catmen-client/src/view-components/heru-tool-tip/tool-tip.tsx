@@ -137,7 +137,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             switch(this.props.tooltipType){
                 case "standard":
                     tooltipInner = (<>
-                        <div className="app-tool-tip">
+                        <div className="app-tool-tip ">
                             <h3>{this.props.tooltipStandardContent?.headerText}</h3>
                             <p>{this.props.tooltipStandardContent?.copy}</p>
                         </div>
@@ -152,21 +152,22 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
                                 {
                                     top: this.state.mousePosition.y,
                                     left: this.state.mousePosition.x,
-                                    width:"100px",
-                                    height:"100px"
+                                    paddingLeft:"1rem",
                                 }
                             }
                         >
-                            <h2>my custom tooltip</h2>
                             {this.props.toolTipCustomElement}
                         </div>
                     </>);
                     break;
+                case "none":
+                    tooltipInner = (
+                        <></>
+                    )
             }
 
             return (
-
-                <div ref={this.toolTipContainerRef} style={{zIndex: 10000, border: "none", width:"1px", height:"1px", position: "fixed"}} >
+                <div ref={this.toolTipContainerRef} style={{  zIndex: 10000, border: "none", width:"1px", height:"1px", position: "fixed"}} >
                     {tooltipInner}
                 </div>
             )
@@ -187,39 +188,32 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
     startHover(){
         console.log("hovered here****", this.toolTipTimeOutCounter);
         this.toolTipTimeOutCounter = this.props.timeoutInMS;
-        this.intervalID = setInterval(
-            ()=>{
-                if(this.initialized === false){
-                    this.initialized = true;
-                    this.setState({isHovering:true});
-                    console.log("start hover", this.state.isHovering);
-                }
-                this.toolTipTimeOutCounter -= 50;
-                if(this.toolTipTimeOutCounter <= 0){
-                    this.clearHover();
-                }
-                this.updateMousePos();
-
-            }, 50);
+        if(this.props.tooltipType !== "none"){
+            this.intervalID = setInterval(
+                ()=>{
+                    if(this.initialized === false){
+                        this.initialized = true;
+                        this.setState({isHovering:true});
+                        console.log("start hover", this.state.isHovering);
+                    }
+                    this.toolTipTimeOutCounter -= 50;
+                    if(this.toolTipTimeOutCounter <= 0){
+                        this.clearHover();
+                    }
+                    this.updateMousePos();
+                }, 50);
+        }
     }
 
     clearHover(){
-        console.clear();
-        console.log(this.intervalID);
         clearInterval(this.intervalID);
-        console.log(this.intervalID);
-        console.log("clear hover");
-        debugger;
+        console.log("clear tooltip hover");
         this.initialized = false;
         this.setState({isHovering:false} );
     }
 
     componentDidMount(): void {
         //this.startHover();
-    }
-
-    quickTestHover():void {
-        console.log("first hover");
     }
 
     handleFadeInOut(){
@@ -274,6 +268,11 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         }
     }
 
+    debugPosition(){
+        return(
+            <p style={{position:"fixed", top:0, right:0}}>{`x: ${this.state.mousePosition.x} y: ${this.state.mousePosition.y} `}</p>
+        )
+    }
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
@@ -285,7 +284,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         let constructedToolTip = (
           <>
               <span className={this.handleFadeInOut()}>{tooltip}</span>
-               <p style={{position:"fixed", top:0, right:0}}>{`x: ${this.state.mousePosition.x} y: ${this.state.mousePosition.y} `}</p>
+
           </>
         );
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {Switch,
         Route,
         Link,
@@ -26,27 +26,38 @@ interface iSTATE{
 export function CatalogLanding() {
     let match = useRouteMatch();
 
+    let ribbonMenu = (
+        <>
+            <Link to={`${match.url}/overview`}>Overview</Link>
+            <Link to={`${match.url}/dashboard`}>Dash</Link>
+            <Link to={`${match.url}/spreadsheet`}>Spreadsheet</Link>
+        </>
+    );
+
     return(
        <div>
            <MainHeaderArea
                sectionTitle="Landing Page"
                navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
+               ribbonElement={ribbonMenu}
            />
-           <Link to={`${match.url}/overview`}>Overview</Link>
-           <Link to={`${match.url}/dashboard`}>Dash</Link>
-           <Link to={`${match.url}/spreadsheet`}>Spreadsheet</Link>
+
            <br/>
 
            <Switch>
                <Route path={`${match.path}/:bla`}>
-                   <Topics />
+                   <ProductViews />
                </Route>
            </Switch>
        </div>
     )
 }
 
-export function Topics() {
+interface iProdView{
+    ribbon : ReactElement;
+}
+
+export function ProductViews() {
     let { bla } = useParams();
     console.log("topic id: ", bla);
     switch(bla){

@@ -4,6 +4,8 @@ import {MainHeaderArea} from "../../_common/main-header-area/main-header-area";
 
 //Configuration data:
 import {mainNavConfig} from "../../_common/common-app-configuration";
+import {CatmanIcon} from "../../../svg/icons/icons";
+import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 
 interface iPROPS {
     message: string;
@@ -21,10 +23,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
     render(){
         return (
             <>
-                <MainHeaderArea
-                    sectionTitle="Landing Page"
-                    navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
-                />
                 <h2>Your Catalog: Detailed View</h2>
                 <h3>{this.props.message}</h3>
             </>

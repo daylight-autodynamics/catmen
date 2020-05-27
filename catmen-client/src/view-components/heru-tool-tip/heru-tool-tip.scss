@@ -1,11 +1,51 @@
 @import "../../app-colors";
 
 .app-tool-tip{
-  @include blurred-bg-dark-40;
-  width:3rem;
-  height: 4rem;
+  width:auto;
+  height:auto;
+  min-width: 4rem;
+  min-height: 2rem;
   position: fixed;
   pointer-events: none;
+}
+
+.app-tool-tip{
+  &.deluxe{
+    padding: 0.5rem 1rem 1rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid $black_10;
+    width: 20vw;
+    @include drop-shadow-offset;
+    @include blurred-bg-dark-65;
+    display: grid;
+    color: white;
+    h3{
+      grid-row: 1;
+      grid-column: 1;
+      align-self: center;
+      font-family: Sofia Pro;
+      font-weight: 100;
+      font-size: 1rem;
+    }
+    p{
+      font-size: 0.75rem;
+      line-height: 0.8rem;
+    }
+    .tool-tip-icon{
+      grid-row: 1;
+      grid-column: 2;
+      align-self: center;
+    }
+    .tool-tip-copy{
+      grid-row: 2;
+    }
+  }
+}
+
+
+
+.frosted-bg{
+  @include blurred-bg-dark-40;
 }
 
 .no-fade{  opacity: 1;}

@@ -4,6 +4,8 @@ import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
 import AppButton from "../../../view-components/button/app-button";
 import {ToolTip} from "../../../view-components/heru-tool-tip/tool-tip";
 import {CatmanIcon} from "../../../svg/icons/icons";
+import {ContentToolTips, toolTipContent} from "../tool-tip-content/content-tool-tips";
+import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 
 interface iPROPS{
     sectionTitle? : string;
@@ -32,6 +34,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                         {this.props.navigationElement}
                     </StickyThing>
                     <AppButton
+                        tooltipType="none"
                         buttonType="from-left"
                     />
                     <div onClick={()=>this.handleMenu()} className="overlay"/>
@@ -58,10 +61,18 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                 <AppButton
                     buttonType={"from-left"}
                     buttonLabel="catalog manager"
-                    tooltip={<p>This is a bla test tool tip</p>}
                     OnClick={()=>this.handleMenu()}
+                    tooltipType="custom"
+                    tooltip={toolTipContent.mainNav}
                     toolTipTimeOutInMS={10000}
-                    iconRight={<CatmanIcon iconName="down-arrow" classes="ui-icon"/>}
+                    iconRight={
+                        <CatmanIcon
+                            iconName="down-arrow"
+                            classes="ui-icon"
+                            height="100%"
+                            width="100%"
+                        />
+                    }
                 />
             )
             }else{

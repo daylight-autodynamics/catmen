@@ -6,6 +6,13 @@ export interface iNavItem{
     navPath : string;
     presentationGroup : string;
     buttonType : any;
+    iconRight?:React.ReactElement;
+    iconLeft?:React.ReactElement;
     infoPanel? : React.ReactElement;
     tooltipHoverAction? : any;
+}
+
+export type graphicSize = {
+    height : string,
+    width : string
 }

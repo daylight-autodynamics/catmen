@@ -1,4 +1,6 @@
 import * as React from "react";
+import {CatmanIcon} from "../../../svg/icons/icons";
+import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 
 
 interface iSTATE{
@@ -21,8 +23,19 @@ export class ContentToolTips extends React.Component<iPROPS, iSTATE>{
 }
 
 export let toolTipContent = {
-  mainNav : {
-     headerText : "Navigate around your catalog manager",
-     copy : "manage how your product data is stored, how the catalog manager works, and more"
-  }
+  mainNav : (
+      <ToolTipContent
+          header="Navigation"
+          copy="Use this menu to access different sections of the app"
+          tooltipType="deluxe"
+          icon={
+              <CatmanIcon
+                  iconName="compass"
+                  classes=""
+                  height="1.5rem"
+                  width="1.5rem"
+              />
+          }
+      />
+  )
 };
