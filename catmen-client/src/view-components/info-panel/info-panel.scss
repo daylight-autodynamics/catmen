@@ -1,0 +1,23 @@
+.info-panel{
+  padding: 1.5rem 1.5rem 0 0;
+}
+
+.info-panel-container{
+  width: 40vw;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  background-color: white;
+  margin: -1rem -1.5rem -2rem 0;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  p.info-panel-item{
+    font-size: 0.85rem;
+    line-height: 1rem;
+  }
+  .info-panel-item{
+    box-sizing: border-box;
+    &:last-child{
+      flex-grow: 1;
+    }
+  }
+}

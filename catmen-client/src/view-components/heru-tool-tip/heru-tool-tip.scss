@@ -48,13 +48,13 @@
   @include blurred-bg-dark-40;
 }
 
-.no-fade{  opacity: 1;}
-.fade-1{  opacity: .8;}
-.fade-11{  opacity: .7;}
-.fade-2{  opacity: .6;}
-.fade-21{  opacity: .5;}
-.fade-3{  opacity: .4;}
-.fade-31{  opacity: .3;}
-.fade-4{  opacity: .2;}
-.fade-41{  opacity: .1;}
-.fade-5{  opacity: 0;}
+.no-fade{  opacity: 1; z-index: 11000; }
+.fade-1{  opacity: .8; z-index: 11000;}
+.fade-11{  opacity: .7; z-index: 11000;}
+.fade-2{  opacity: .6; z-index: 11000;}
+.fade-21{  opacity: .5; z-index: 11000;}
+.fade-3{  opacity: .4; z-index: 11000;}
+.fade-31{  opacity: .3; z-index: 11000;}
+.fade-4{  opacity: .2; z-index: 11000;}
+.fade-41{  opacity: .1; z-index: 11000;}
+.fade-5{  opacity: 0; z-index: 11000;}

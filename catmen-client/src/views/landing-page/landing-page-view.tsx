@@ -1,7 +1,8 @@
 import React from "react";
 import {MainHeaderArea} from "../_common/main-header-area/main-header-area";
 import {Navigation} from "../../view-components/list-menu/intra-app-navigation";
-import {mainNavConfig} from "../_common/common-app-configuration";
+import {mainNavConfig} from "../_catman-configuration/common-app-configuration";
+import {toolTipContent} from "../_common/tool-tip-content/content-tool-tips";
 
 interface iPROPS {
     message: string;
@@ -24,7 +25,7 @@ export class LandingPageView extends React.Component<iPROPS, iSTATE>{
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
                 />
                 <h2>Get Started</h2>
-                <h3>{this.props.message}</h3>
+                <h3>{toolTipContent.mainNav}</h3>
             </>
         );
     }

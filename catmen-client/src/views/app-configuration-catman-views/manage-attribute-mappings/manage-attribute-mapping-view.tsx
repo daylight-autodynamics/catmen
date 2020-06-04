@@ -1,6 +1,6 @@
 import React from "react";
 import {Navigation} from "../../../view-components/list-menu/intra-app-navigation";
-import {mainNavConfig} from "../../_common/common-app-configuration";
+import {mainNavConfig} from "../../_catman-configuration/common-app-configuration";
 import {MainHeaderArea} from "../../_common/main-header-area/main-header-area";
 
 interface iPROPS {

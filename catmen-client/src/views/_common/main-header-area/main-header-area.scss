@@ -5,9 +5,23 @@
   background-color: $translucent-black-65;
   @include blurred-bg-dark-65;
   @include stretch-all-absolute;
+  z-index: 990;
 }
 
 .header-area{
   background-color: $grey-main;
   padding: 0.75rem 0 0.75rem;
+  display: grid;
+  .header-item{
+    grid-row: 1;
+  }
 }
+
+.catman-main-nav{
+  background-color: $grey-main;
+  margin-top: 1rem;
+  border: 1px solid #cecece;
+  border-radius: 0 0.5rem 0.5rem 0;
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+}
+

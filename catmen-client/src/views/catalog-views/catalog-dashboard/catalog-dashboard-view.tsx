@@ -3,7 +3,7 @@ import {Navigation} from "../../../view-components/list-menu/intra-app-navigatio
 import {MainHeaderArea} from "../../_common/main-header-area/main-header-area";
 
 //Configuration data:
-import {mainNavConfig} from "../../_common/common-app-configuration";
+import {mainNavConfig} from "../../_catman-configuration/common-app-configuration";
 
 interface iPROPS {
     message: string;

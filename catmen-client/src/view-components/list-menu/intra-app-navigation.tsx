@@ -3,7 +3,6 @@ import {ReactElement} from "react";
 import {iNavItem} from "../_common/component-data-types";
 import AppButton from "../button/app-button";
 
-
 export type menuFormatDataType = "fly-out" | "slide-in" | "drop-down";
 export type menuHelpStyleDataType = "panel" | "searchable" | "no-help";
 
@@ -16,13 +15,15 @@ interface iPROPS {
 
 interface iSTATE{
     infoPanelIndex : number;
+    isHover : boolean
 }
 
 export class Navigation extends React.Component<iPROPS, iSTATE> {
     constructor(props:iPROPS) {
         super(props);
         this.state ={
-            infoPanelIndex : 1
+            infoPanelIndex : 1,
+            isHover : false
         }
     }
 
@@ -68,13 +69,21 @@ export class Navigation extends React.Component<iPROPS, iSTATE> {
     }
 
     hoverInfoPanel(index:number){
-        this.setState({infoPanelIndex : index});
-        console.log(this.state.infoPanelIndex);
+        this.setState({
+            infoPanelIndex : index,
+            isHover : true
+        });
+
+    }
+
+    hoverOutPanel(){
+        this.setState({
+            isHover : false
+        });
     }
 
     createElements(){
         let itemGroups = this.sortNavItems();
-        console.log("grouped items: ", itemGroups);
         let constructedMenuItems : ReactElement[] = [];
         //let's keep track of all of the
         let counter : number =0;
@@ -90,8 +99,7 @@ export class Navigation extends React.Component<iPROPS, iSTATE> {
             for(let j=0; j < itemGroups[i].length; j++){
                 counter++;
                 let count = counter;
-                console.log("index comparison",this.state.infoPanelIndex, count);
-                if(count === this.state.infoPanelIndex){
+                if(count === this.state.infoPanelIndex && this.state.isHover === true){
                     if(itemGroups[i][j].infoPanel !== undefined){
                         infoPanel = itemGroups[i][j].infoPanel;
                     }
@@ -102,6 +110,7 @@ export class Navigation extends React.Component<iPROPS, iSTATE> {
                         tooltipType="none"
                         tooltip={<p>menu tool tip</p> }
                         hoverActions={[()=>this.hoverInfoPanel(count)]} key={`${i+j}${i}${j}`}
+                        hoverLeaveActions={[()=>this.hoverOutPanel()]}
                         navPath={itemGroups[i][j].navPath}
                         buttonType="nav-link"
                         buttonLabel={itemGroups[i][j].label}
@@ -117,17 +126,20 @@ export class Navigation extends React.Component<iPROPS, iSTATE> {
             constructedMenuItems.push(subMenuGroup);
         }
 
+        let infoPanelFinal : ReactElement = (<></>);
+
+        if(this.state.isHover === true){
+            infoPanelFinal = (<div className="info-panel">{infoPanel}</div>);
+        }
+
         //assemble those groups and put them in another main menu container
         let finalMenu : ReactElement = (
             <div key={0} className="menu-container">
                <div className="menu-main">{constructedMenuItems}</div>
-               <div className="info-panel">{infoPanel}</div>
+                {infoPanelFinal}
             </div>);
         return finalMenu;
     }
-
-
-
     render(){
         return (<>
             {this.createElements()}

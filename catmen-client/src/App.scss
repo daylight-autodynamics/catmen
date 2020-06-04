@@ -10,3 +10,18 @@
 @import "view-components/toggle-menu/toggle-component";
 @import "svg/icons/icons";
 @import "svg/illustrations/illustrations";
+@import "view-components/info-panel/info-panel";
+@import "view-components/title-area/title-area";
+
+.catman-app{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  .data-grid{
+    flex-grow: 1;
+  }
+  .title-area{
+    margin: 0 0.5rem 0 0.5rem;
+  }
+}

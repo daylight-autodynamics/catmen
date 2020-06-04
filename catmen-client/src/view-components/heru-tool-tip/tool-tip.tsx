@@ -10,6 +10,11 @@ interface iMousePos{
 interface iWindow{
 
 }
+
+export type windowSize = {
+    height : number;
+    width : number;
+}
 export class WindowLevelCapture implements iWindow{
     private mousePosition : iMousePos;
     constructor() {
@@ -22,8 +27,11 @@ export class WindowLevelCapture implements iWindow{
 
     getMousePosition(evt:MouseEvent){
         this.mousePosition = { x : evt.clientX, y : evt.clientY};
-        //console.log("mouse position", evt.clientX, evt.clientY);
+    }
 
+    windowSize(){
+        let measurment : windowSize = {width: window.innerWidth, height: window.innerHeight}
+        return measurment;
     }
 
     windowEvent(){
@@ -63,12 +71,15 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         this.mousePosition = { x:-1000, y:-1000};
         this.initialized = false;
         this.toolTipTimeOutCounter = this.props.timeoutInMS
+
+
     }
     //TODO give mouse position a data type
     mousePosition : any;
     initialized : boolean;
     toolTipTimeOutCounter : number;
     toolTipContainerRef : React.RefObject<HTMLDivElement>;
+    tooltipWidth : number = 0;
     private intervalID : any = 0;
 
     updateMousePos(){
@@ -115,17 +126,31 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
         if(checkMouseIsOver() === false){
             this.clearHover();
-            console.log("false caused hover clear");
         }else{
-            if(this.toolTipContainerRef.current !== null){
-                this.toolTipContainerRef.current.style.top = (this.state.mousePosition.y).toString();
-                this.toolTipContainerRef.current.style.left = (this.state.mousePosition.x).toString();
+            let yPos = this.state.mousePosition.y;
+            let xPos = this.state.mousePosition.x;
+            if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current != undefined ){
+                this.tooltipWidth = this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0].getBoundingClientRect().width;
+                console.log("tooltip element:", this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0]);
             }
 
-            //top : this.state.mousePosition.y, left: this.state.mousePosition.x
+
+            console.log("tool tip behavior check:");
+            console.log("x position:", xPos);
+            console.log("tooltip width:", this.tooltipWidth);
+
+
+
+            if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current !== undefined){
+                if(this.state.mousePosition.x >= win.windowSize().width - this.tooltipWidth  ){
+                    xPos = (xPos - this.tooltipWidth -30);
+                    this.setState({mousePosition:{x:xPos, y:yPos}})
+                }
+            }
+
             this.setState({isHovering : true})
         }
-        console.log("tooltip timer counter:",this.toolTipTimeOutCounter)
+
         if(this.toolTipTimeOutCounter <= 0){
             this.clearHover();
         }
@@ -180,13 +205,10 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
     }
 
     clearInterval(){
-        console.log("clear interval");
-        console.log(this.intervalID);
         clearInterval(this.intervalID);
     }
 
     startHover(){
-        console.log("hovered here****", this.toolTipTimeOutCounter);
         this.toolTipTimeOutCounter = this.props.timeoutInMS;
         if(this.props.tooltipType !== "none"){
             this.intervalID = setInterval(
@@ -194,7 +216,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
                     if(this.initialized === false){
                         this.initialized = true;
                         this.setState({isHovering:true});
-                        console.log("start hover", this.state.isHovering);
+
                     }
                     this.toolTipTimeOutCounter -= 50;
                     if(this.toolTipTimeOutCounter <= 0){
@@ -207,7 +229,6 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
     clearHover(){
         clearInterval(this.intervalID);
-        console.log("clear tooltip hover");
         this.initialized = false;
         this.setState({isHovering:false} );
     }
@@ -284,7 +305,6 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         let constructedToolTip = (
           <>
               <span className={this.handleFadeInOut()}>{tooltip}</span>
-
           </>
         );
 

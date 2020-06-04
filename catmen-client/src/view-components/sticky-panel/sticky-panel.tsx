@@ -88,7 +88,6 @@ export class StickyThing extends React.Component<iStickyPROPS, iStickySTATE>{
     }
 
     render(){
-        console.log("bg color:",this.props.bgColor);
         let baseSticky : ReactElement = (<></>);
         if(this.state.isOpen === true){
             let style = {

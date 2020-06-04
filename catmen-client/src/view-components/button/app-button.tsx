@@ -8,7 +8,8 @@ type AppButtonType = "from-left"
     | "main-action"
     | "secondary-action"
     | "menu-link"
-    |"nav-link";
+    |"nav-link"
+    |"transparent-bg";
 
 interface iPROPS{
     buttonType: AppButtonType;
@@ -21,6 +22,7 @@ interface iPROPS{
     index? : number;
     param? : string;
     hoverActions? : any[];
+    hoverLeaveActions? : any[];
     tooltipType : "basic" | "custom" | "none";
     tooltip? : ReactElement;
     toolTipTimeOutInMS? : number;
@@ -41,6 +43,7 @@ constructor(props:iPROPS) {
     if(this.props.toolTipTimeOutInMS != null){
         this.toolTipTimeOut = this.props.toolTipTimeOutInMS
     }else{
+        //if timeout isn't set, this is default
         this.toolTipTimeOut = 5000
     }
 }
@@ -63,20 +66,39 @@ constructor(props:iPROPS) {
 
       //GO TO TOOL TIP:
       //when hovering on the button, we'll start the hovering actions in the tool tip
-      if(this.toolTipRef.current != null && this.props.tooltipType != "none"){
-          console.log("do action hover");
+      if(this.toolTipRef.current != null && this.props.tooltipType !== "none"){
+
           this.toolTipRef.current.startHover();
       }
     };
 
+    doHoverOutActions(){
+
+        this.doHoverClear();
+        if(this.props.hoverLeaveActions != undefined && this.props.hoverLeaveActions != null){
+            for(let i=0; i < this.props.hoverLeaveActions.length; i++){
+                this.props.hoverLeaveActions[i]()
+            }
+        }
+    }
+
     doHoverClear(){
+        //do any hover actions that were passed along
+        if(this.props.hoverLeaveActions !== null && this.props.hoverLeaveActions !== undefined ){
+            for(let i=0; i < this.props.hoverLeaveActions.length; i++){
+                this.props.hoverLeaveActions[i]();
+            }
+        }
         if(this.toolTipRef.current != null){
-            console.log("do end hover");
             this.toolTipRef.current.clearHover();
         }
     }
 
+
+
     //this will generate the tooltip, ref this wherever you need one
+
+
     handleToolTip(){
         if(this.state.isHovered === false){
             return <ToolTip ref={this.toolTipRef} timeoutInMS={this.toolTipTimeOut}/>;
@@ -100,7 +122,7 @@ constructor(props:iPROPS) {
                 ref={this.btnRef}
                 onClick={()=>this.props.OnClick()}
                 onMouseOver={()=>this.doHoverActions()}
-                onMouseOut={()=>this.doHoverClear()}
+                onMouseOut={()=>this.doHoverOutActions()}
                 className={`btn-from-left btn-default ${btnStyles} `}
             >
                 <div className="btn-descriptors">
@@ -127,9 +149,27 @@ constructor(props:iPROPS) {
                             ref={this.btnRef}
                             onClick={()=>this.props.OnClick()}
                             onMouseOver={()=>this.doHoverActions()}
+                            onMouseOut={()=>this.doHoverOutActions()}
                             className="btn-main-action"
                         >
                             {this.props.buttonLabel}
+                        </button>
+                    </>
+                );
+
+            case "transparent-bg":
+                return(
+                    <>
+                        {this.handleToolTip()}
+                        <button
+                            ref={this.btnRef}
+                            onClick={()=>this.props.OnClick()}
+                            onMouseOver={()=>this.doHoverActions()}
+                            onMouseOut={()=>this.doHoverOutActions()}
+                            className={`btn-transparent-bg ${this.props.classes}`}
+                        >
+                            {this.props.buttonLabel}
+                            {this.props.iconCenter}
                         </button>
                     </>
                 );
@@ -141,34 +181,41 @@ constructor(props:iPROPS) {
 
             case "nav-link":
                 if(this.props.navPath !== undefined ){
-                    console.log("icon left", this.props.iconLeft)
+
                     return(
                         <>
-                            {this.handleToolTip()}
-                            <NavLink ref={this.linkRef}
+
+                            <NavLink
+                                  ref={this.linkRef}
                                   onMouseOver={()=>this.doHoverActions()}
-                                  onMouseOut={()=>this.doHoverClear()}
+                                  onMouseOut={()=>this.doHoverOutActions()}
+                                  exact
                                   to={this.props.navPath}
-                                  className={`btn-main-action ${this.props.classes}`}
+                                  className={`app-btn btn-main-action nav-link ${this.props.classes}`}
                             >
-                                <div className=" ">
-                                    {this.props.iconLeft}
-                                    {this.props.buttonLabel}
-                                    {this.props.iconRight}
+                                <div className="hover-panel"></div>
+                                <div className="button-decorator">
+                                    <div className="icon-left">{this.props.iconLeft}</div>
+                                    <p className="btn-label">{this.props.buttonLabel}</p>
+                                    <div className="icon-right">{this.props.iconRight}</div>
                                 </div>
+
                             </NavLink>
+                            {this.handleToolTip()}
                         </>
                     );
                 }else {
                     return(
                         <>
-                            {this.handleToolTip()}
+
                             <button
                                 onMouseOver={()=>this.doHoverActions()}
+                                onMouseOut={()=>this.doHoverOutActions()}
                                 className={`btn-main-action ${this.props.classes}`}
                             >
                                 {this.props.buttonLabel}
                             </button>
+                            {this.handleToolTip()}
                         </>
                     );
                 }
@@ -233,7 +280,6 @@ constructor(props:iPROPS) {
         }
     }
     render() {
-
 
         return (
             <>

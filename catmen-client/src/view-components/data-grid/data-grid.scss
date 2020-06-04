@@ -1,0 +1,67 @@
+@import "../../app-colors";
+
+.data-grid{
+  margin: 0 0.5rem 0 0.5rem;
+  box-sizing: border-box;
+  overflow: auto;
+  .viewport{
+    display: grid;
+    grid-auto-columns: minmax(max-content, 100%) max-content;
+    .cell{
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      display: inline;
+      min-width: 3rem;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.cell{
+  &.details{
+    position: sticky;
+    right: 0;
+    background-color: white;
+    button{
+      position: absolute;
+      top: 0;
+
+      right: 0rem;
+      bottom: 0;
+      height: 100%;
+    }
+  }
+  &.checkbox-main{
+    position: sticky;
+    left: 0;
+    background-color: white;
+    min-width: 1rem !important;
+  }
+}
+
+.cell-editable{
+  position: relative;
+  height: 100%;
+  width: 100%;
+     .affordance{
+       position: absolute;
+       top: 0;
+       right: 0;
+       border: dashed $black_30;
+       bottom: -0.25rem;
+       left: -0.5rem;
+       border-width: 0 0 1px 1px;
+     }
+}
+
+.cell{
+  &.checkbox-main{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    btn.btn-transparent-bg{
+
+    }
+  }
+}
+
+

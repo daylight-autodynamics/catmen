@@ -6,7 +6,7 @@ import {Switch,
         useParams
         } from "react-router-dom";
 
-import {mainNavConfig} from "../../_common/common-app-configuration";
+import {mainNavConfig} from "../../_catman-configuration/common-app-configuration";
 
 import {MainHeaderArea} from "../../_common/main-header-area/main-header-area";
 import {Navigation} from "../../../view-components/list-menu/intra-app-navigation";
@@ -14,6 +14,7 @@ import {CatalogOverviewView} from "../catalog-overview/catalog-overview-view";
 import {CatalogDetailsView} from "../catalog-details/catalog-details-view";
 import {CatalogDashboardView} from "../catalog-dashboard/catalog-dashboard-view";
 import {LandingPageView} from "../../landing-page/landing-page-view";
+import {ToggleMenu} from "../../../view-components/toggle-menu/toggle-component";
 
 interface iPROPS {
     message: string;
@@ -26,19 +27,20 @@ interface iSTATE{
 export function CatalogLanding() {
     let match = useRouteMatch();
 
+
     let ribbonMenu = (
-        <>
-            <Link to={`${match.url}/overview`}>Overview</Link>
-            <Link to={`${match.url}/dashboard`}>Dash</Link>
-            <Link to={`${match.url}/spreadsheet`}>Spreadsheet</Link>
-        </>
+        <ToggleMenu message={"toggle menu"} />
     );
 
     return(
-       <div>
+       <>
            <MainHeaderArea
                sectionTitle="Landing Page"
-               navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
+               navigationElement={
+                   <Navigation
+                       menuHelpStyle="panel"
+                       navElements={mainNavConfig}
+                   />}
                ribbonElement={ribbonMenu}
            />
 
@@ -49,7 +51,7 @@ export function CatalogLanding() {
                    <ProductViews />
                </Route>
            </Switch>
-       </div>
+       </>
     )
 }
 
@@ -59,7 +61,7 @@ interface iProdView{
 
 export function ProductViews() {
     let { bla } = useParams();
-    console.log("topic id: ", bla);
+
     switch(bla){
         case "overview":
             return (<CatalogOverviewView message="this is the overviews page" />);

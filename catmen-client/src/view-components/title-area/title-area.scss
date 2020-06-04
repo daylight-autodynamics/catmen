@@ -1,0 +1,17 @@
+@import "../../app-colors";
+
+
+.title-area{
+  color: $black_60;
+  margin-bottom: 0.5rem;
+  p{
+    font-size: 0.65rem;
+    font-weight: 300;
+    margin-left: 0.12rem;
+  }
+  h2{
+    margin-top: -0.5rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}

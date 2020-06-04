@@ -30,7 +30,15 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
         if(this.state.menuIsOpen === true){
             return (
                 <>
-                    <StickyThing enterFromThisSide="left" lastResortClasses={""} animateIn={true} heightIncludeUnits="90vh" widthIncludeUnits={"auto"} stickyOpen={true} bgColor={"white"} doAnimation={true}>
+                    <StickyThing
+                        enterFromThisSide="left"
+                        lastResortClasses={"catman-main-nav"}
+                        animateIn={true}
+                        heightIncludeUnits="90vh"
+                        widthIncludeUnits={"auto"}
+                        stickyOpen={true}
+                        bgColor={""}
+                        doAnimation={true}>
                         {this.props.navigationElement}
                     </StickyThing>
                     <AppButton
@@ -76,7 +84,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                 />
             )
             }else{
-            return(<div className="zzz"></div>);
+            return(<div className="empty"></div>);
         }
     }
 
@@ -85,9 +93,15 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
         let constructedHeader = (
           <>
               <header className="header-area">
-                  {this.navButton()}
-                  <div className="main-ribbon"></div>
-                  {this.navMenu()}
+                  <div className="header-item">
+                      {this.navButton()}
+                  </div>
+                  <div className="main-ribbon header-item">
+                      {this.props.ribbonElement}
+                  </div>
+                  <div className="header-item">
+                      {this.navMenu()}
+                  </div>
               </header>
           </>
         );
