@@ -40,8 +40,10 @@ export class WindowLevelCapture implements iWindow{
     }
 }
 
+export type toolTipType = "standard" | "custom" | "none";
+
 interface iPROPS{
-    tooltipType? : "standard" | "custom" | "none";
+    tooltipType? : toolTipType;
     tooltipStandardContent? : {
         headerText : string,
         copy : string

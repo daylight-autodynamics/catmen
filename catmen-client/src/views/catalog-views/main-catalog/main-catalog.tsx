@@ -1,10 +1,11 @@
 import React, {ReactElement} from "react";
-import {Switch,
-        Route,
-        Link,
-        useRouteMatch,
-        useParams
-        } from "react-router-dom";
+import {
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams, useLocation
+} from "react-router-dom";
 
 import {mainNavConfig} from "../../_catman-configuration/common-app-configuration";
 
@@ -15,6 +16,7 @@ import {CatalogDetailsView} from "../catalog-details/catalog-details-view";
 import {CatalogDashboardView} from "../catalog-dashboard/catalog-dashboard-view";
 import {LandingPageView} from "../../landing-page/landing-page-view";
 import {ToggleMenu} from "../../../view-components/toggle-menu/toggle-component";
+import {CatalogSingleProduct} from "../catalog-details/single-product-view";
 
 interface iPROPS {
     message: string;
@@ -22,6 +24,10 @@ interface iPROPS {
 
 interface iSTATE{
 
+}
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
 }
 
 export function CatalogLanding() {
@@ -48,7 +54,7 @@ export function CatalogLanding() {
 
            <Switch>
                <Route path={`${match.path}/:bla`}>
-                   <ProductViews />
+                   <ProductViews  />
                </Route>
            </Switch>
        </>
@@ -61,6 +67,16 @@ interface iProdView{
 
 export function ProductViews() {
     let { bla } = useParams();
+    let query = useQuery();
+    //console.log("query: ", query.get("product"));
+    let productID = ()=>{
+      if(query !== null){
+          let q = query.get("product");
+          return(q)
+      }else{
+          return "none"
+      }
+    };
 
     switch(bla){
         case "overview":
@@ -70,39 +86,9 @@ export function ProductViews() {
             return (<CatalogDashboardView message="this is the dashboards view" />);
 
         case "spreadsheet":
-            return (<CatalogDetailsView message="this is the spreadsheets view"/>)
+            return (<CatalogDetailsView query={productID()}  message={bla}/>)
     }
 
     return (<h3>Requested topic ID: {bla}</h3>);
 }
 
-export class CatalogLandingPageView extends React.Component<iPROPS, iSTATE>{
-    constructor(props:iPROPS) {
-        super(props);
-    }
-
-    render(){
-
-
-        return(
-            <>
-                <MainHeaderArea
-                    sectionTitle="Landing Page"
-                    navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
-                />
-                <Link to={`overview`}>Overview</Link>
-                <Link to={`dashboard`}>Dash</Link>
-                <Link to={`spreadsheet`}>Spreadsheet</Link>
-
-                <Switch>
-                    <Route exact path={`/overview`} component={()=><LandingPageView message={"this is the overview page"}/>} />
-
-                    <Route path={`/catalog/spreadsheet`} component={()=><CatalogDetailsView message="nested spreadsheet"/>} />
-                </Switch>
-
-                <h2>Your Catalog</h2>
-                <h3>{this.props.message}</h3>
-            </>
-        );
-    }
-}

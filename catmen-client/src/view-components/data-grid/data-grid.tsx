@@ -3,8 +3,9 @@ import {ReactElement} from "react";
 import {iDataGridItem} from "./data-types-for-data-grid";
 import AppButton from "../button/app-button";
 import {CatmanIcon} from "../../svg/icons/icons";
-import {Tile} from "../tiles/tile-component";
+import {selectedStateType, Tile} from "../tiles/tile-component";
 import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import camelcase from "camelcase";
 
 //data grid data should be an array of arrays
 //each product is an array of attributes
@@ -13,7 +14,13 @@ interface iPROPS {
 }
 
 interface iSTATE {
+    selectionSet : selectionObject[];
+}
 
+export type selectionObject = {
+    row : number;
+    cell : number;
+    selected : boolean;
 }
 
 export class DataGrid extends React.Component<iPROPS, iSTATE>{
@@ -21,10 +28,99 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         super(props);
         this.numCols = this.getNumColumns();
         this.numRows = this.getNumRows();
-    }
+        this.state = {
+            selectionSet : []
+        }
+        this.startSelectionRow = 0;
+        this.startSelectionCell = 0;
 
+        this.cellRange = {
+            startCell : 0,
+            endCell : 0,
+            startRow : 0,
+            endRow : 0,
+        }
+    }
+    selectionSet : selectionObject[] = [];
     numCols : number;
     numRows: number;
+    startSelectionRow : number;
+    startSelectionCell : number;
+
+    cellRange : any;
+
+
+    manageSelection(row:number, cell:number, clearSelection : boolean){
+
+        if(clearSelection){
+            this.selectionSet = [];
+        }
+
+
+
+        if(this.startSelectionRow > row){
+            this.cellRange.startRow = row;
+            this.cellRange.endRow = this.startSelectionRow
+        }else{
+            this.cellRange.startRow = this.startSelectionRow;
+            this.cellRange.endRow = row;
+        }
+
+        if(this.startSelectionCell > cell){
+            this.cellRange.startCell = cell;
+            this.cellRange.endCell = this.startSelectionCell;
+        }else {
+            this.cellRange.startCell = this.startSelectionCell;
+            this.cellRange.endCell = cell;
+        }
+
+
+        // let found : boolean = false;
+        // for(let i=0; i < this.selectionSet.length; i++){
+        //     if( this.selectionSet[i].cell === cell && this.selectionSet[i].row === row ){
+        //         this.selectionSet.splice(i, 1);
+        //         found = true;
+        //     }
+        // }
+
+        if(row === this.startSelectionRow && cell === this.startSelectionCell){
+            this.selectionSet.push(
+                {
+                    row: row,
+                    cell: cell,
+                    selected : true
+                }
+            );
+        }
+        console.log( "start row: ", this.startSelectionRow, "end row: ", row);
+        console.log( "start cell: ", this.startSelectionCell, "end cell: ", cell);
+        for( let i = this.cellRange.startRow; i < this.cellRange.endRow+1; i++){
+            for(let j= this.cellRange.startCell; j < this.cellRange.endCell+1; j++){
+                this.selectionSet.push(
+                    {
+                        row: i,
+                        cell: j,
+                        selected : true
+                    }
+                );
+            }
+        }
+
+        console.log(this.selectionSet);
+        this.setState({selectionSet : this.selectionSet});
+        console.log(this.state.selectionSet);
+
+    }
+
+    checkSelected(row:number, cell:number):selectedStateType{
+        for(let i=0; i<this.state.selectionSet.length; i++){
+            if( this.state.selectionSet[i].row === row && this.state.selectionSet[i].cell === cell){
+                return "selected";
+            }
+        }
+        //if nothing is found, return false becasue it isn't selected
+        return "";
+    }
 
     getNumColumns(){
         //TODO swap this out to calculating total normalized columns
@@ -33,6 +129,27 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     getNumRows(){
         return this.props.data.length;
+    }
+
+    getProductUniqueID(index : number){
+        for(let j=0; j < this.props.data[index].length; j++){
+            if(this.props.data[index][j].column === "uniqueID"){
+                return this.props.data[index][j].value;
+            }
+        }
+    }
+
+    mouseDownAction(row : number, cell:number){
+        this.startSelectionCell = cell;
+        this.startSelectionRow = row;
+        console.log(this.selectionSet);
+        console.log("mouse down: ", row, " ",cell);
+    }
+
+    mouseUpAction(row:number, cell:number){
+        this.manageSelection(row, cell, true);
+        console.log("mouse up:");
+        console.log("row: ",  row, "cell: ", cell);
     }
 
     getGridItems(){
@@ -60,7 +177,13 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
                 let cell = (
                     <div className="cell" style={{gridColumn : j+2, gridRow : i+1 }}>
-                        <Tile tileType="edit-cell" tileLabel={this.props.data[i][j].value}/>
+                        <Tile
+                            tileType="edit-cell"
+                            tileLabel={this.props.data[i][j].value}
+                            mouseDownAction={() => this.mouseDownAction(i+1,j+2)}
+                            mouseUpAction={() => this.mouseUpAction(i+1,j+2)}
+                            selectedClass={this.checkSelected(i+1, j+2)}
+                        />
                     </div>
                 );
 
@@ -70,7 +193,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     cells.push(
                         <div className="cell details" style={{gridColumn : j+3, gridRow : i+1, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
-                                buttonType="transparent-bg"
+                                buttonType="nav-link"
+                                navPath={`/catalog/spreadsheet?product=${this.getProductUniqueID(i)}`}
                                 tooltipType="custom"
                                 tooltip={toolTipContent.mainNav}
                                 iconCenter={(

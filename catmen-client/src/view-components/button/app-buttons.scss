@@ -60,7 +60,7 @@ $btn-padding : 1rem;
   &.nav-link{
     .button-decorator{
       display: grid;
-      grid-template-columns: 1.5rem auto 1.5rem;
+      grid-template-columns: auto auto auto;
       .icon-left, .btn-label, .icon-right{
         grid-row: 1;
       }
@@ -97,6 +97,7 @@ $btn-padding : 1rem;
 }
 
 .app-btn{
+
   .hover-panel{
     position: absolute;
   }
@@ -107,7 +108,6 @@ $btn-padding : 1rem;
 
 .app-btn{
   &.active{
-
     .icon-catalog{
       .stroked{
         stroke: white;

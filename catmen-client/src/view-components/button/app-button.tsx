@@ -196,7 +196,7 @@ constructor(props:iPROPS) {
                                 <div className="hover-panel"></div>
                                 <div className="button-decorator">
                                     <div className="icon-left">{this.props.iconLeft}</div>
-                                    <p className="btn-label">{this.props.buttonLabel}</p>
+                                    <p className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</p>
                                     <div className="icon-right">{this.props.iconRight}</div>
                                 </div>
 

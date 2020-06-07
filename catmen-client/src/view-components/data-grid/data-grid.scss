@@ -22,10 +22,10 @@
     position: sticky;
     right: 0;
     background-color: white;
+    min-width: 2rem !important;
     button{
       position: absolute;
       top: 0;
-
       right: 0rem;
       bottom: 0;
       height: 100%;
@@ -40,17 +40,38 @@
 }
 
 .cell-editable{
+  cursor: cell;
   position: relative;
   height: 100%;
   width: 100%;
+  p{
+    &.selected{
+      color: white;
+    }
+    user-select: none;
+  }
+
+  &:hover .affordance{
+    background-color: $Primary;
+  }
+  &:hover p{
+    color: white;
+    pointer-events: none;
+  }
      .affordance{
+       &.selected{
+         background-color: $black_60;
+       }
+
        position: absolute;
-       top: 0;
-       right: 0;
-       border: dashed $black_30;
+       border: dashed #b9b7bc;
        bottom: -0.25rem;
        left: -0.5rem;
        border-width: 0 0 1px 1px;
+       background-color: aquamarine;
+       z-index: -1;
+       right: -0.5rem;
+       top: -0.25rem;
      }
 }
 

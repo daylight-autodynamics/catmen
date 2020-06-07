@@ -3,7 +3,6 @@ import {ReactElement} from "react";
 import {iColumnHeader, iComponentType, iDataGridItem} from "../view-components/data-grid/data-types-for-data-grid";
 
 
-
 class demoData{
 
     productData: iDataGridItem[][] = [

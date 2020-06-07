@@ -12,11 +12,12 @@ import ManageClassesView from "./views/app-configuration-catman-views/manage-cla
 import {ToolTip, WindowLevelCapture} from "./view-components/heru-tool-tip/tool-tip";
 import {navSettings} from "./views/_common/nav-settings";
 import {win} from "./index";
-import {CatalogLanding, CatalogLandingPageView} from "./views/catalog-views/main-catalog/main-catalog";
+import {CatalogLanding } from "./views/catalog-views/main-catalog/main-catalog";
 import {CatalogDetailsView} from "./views/catalog-views/catalog-details/catalog-details-view";
 import {CatalogDashboardView} from "./views/catalog-views/catalog-dashboard/catalog-dashboard-view";
 
 import {ProductViews} from "./views/catalog-views/main-catalog/main-catalog";
+import {CatalogSingleProduct} from "./views/catalog-views/catalog-details/single-product-view";
 
 interface iSTATE{
     mousePos : {x:number, y: number}
