@@ -12,6 +12,7 @@ export class ProductsData{
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "required", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
+            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "OverallDimensions", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
@@ -30,6 +31,7 @@ export class ProductsData{
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
+            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
@@ -43,11 +45,12 @@ export class ProductsData{
             {value: `3"`, column: "Clearance from Floor to Bottom of Sofa", attrType: "user-gen", class: "sofa"},
         ],
         [
-            {value: "000002", column: "uniqueID", attrType: "hidden", class: "default"},
+            {value: "000003", column: "uniqueID", attrType: "hidden", class: "default"},
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
+            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
@@ -61,11 +64,12 @@ export class ProductsData{
             {value: `3"`, column: "Clearance from Floor to Bottom of Sofa", attrType: "user-gen", class: "sofa"},
         ],
         [
-            {value: "000002", column: "uniqueID", attrType: "hidden", class: "default"},
+            {value: "000004", column: "uniqueID", attrType: "hidden", class: "default"},
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
+            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
@@ -79,11 +83,12 @@ export class ProductsData{
             {value: `3"`, column: "Clearance from Floor to Bottom of Sofa", attrType: "user-gen", class: "sofa"},
         ],
         [
-            {value: "000002", column: "uniqueID", attrType: "hidden", class: "default"},
-            {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
-            {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
+            {value: "000005", column: "uniqueID", attrType: "hidden", class: "default"},
+            {value: "sof-121-112", column: "PartNumber", attrType: "standard", class: "default"},
+            {value: "Rosina classic loveseat", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
-            {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
+            {value: "Love Seat", column: "ProductType", attrType: "standard", class: "default"},
+            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
@@ -97,7 +102,6 @@ export class ProductsData{
             {value: `3"`, column: "Clearance from Floor to Bottom of Sofa", attrType: "user-gen", class: "sofa"},
         ]
     ];
-
 };
 
 export let catmanData = new ProductsData();

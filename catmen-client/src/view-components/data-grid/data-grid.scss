@@ -35,6 +35,9 @@
     }
   }
   &.checkbox-main{
+    &:active{
+      box-shadow: none;
+    }
     position: sticky;
     left: 0;
     background-color: white;

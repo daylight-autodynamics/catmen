@@ -19,15 +19,14 @@ import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-d
 interface iPROPS   {
     message: string;
     query:string | null;
-
 }
 
 interface iSTATE{
     productViewOpen : boolean;
     editDrawerOpen : boolean;
+    footerOpen : boolean;
     selectionSet : selectionObject[]
 }
-
 
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
@@ -35,6 +34,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          this.state = {
              productViewOpen : false,
              editDrawerOpen : false,
+             footerOpen : false,
              selectionSet : []
          }
      }
@@ -68,10 +68,10 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      <>
                          <StickyThing
                              enterFromThisSide="bottom"
-                             lastResortClasses={"catman-main-nav"}
+                             lastResortClasses={"catman-edit-drawer"}
                              animateIn={true}
                              heightIncludeUnits="40vh"
-                             widthIncludeUnits={"100vw"}
+                             widthIncludeUnits={"97vw"}
                              stickyOpen={true}
                              bgColor={"#CECECE"}
                              doAnimation={true}
@@ -84,15 +84,42 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          return drawer;
      }
 
-     manageEditDrawer(){
+     manageEditDrawer( ){
          this.setState({editDrawerOpen : true});
          console.log("drawer opens here")
      }
 
-     manageSelectionSet(selectionSet : iDataGridItem[]){
-
-        console.log("!!!!!!!!!! this is callback selection set",selectionSet)
+     getFooterMenu(){
+         let footer = (<></>);
+         if(this.state.footerOpen === true){
+             footer = (
+                 <>
+                     <StickyThing
+                         enterFromThisSide="bottom"
+                         lastResortClasses={"catman-footer"}
+                         animateIn={true}
+                         heightIncludeUnits="4rem"
+                         widthIncludeUnits={"auto"}
+                         stickyOpen={true}
+                         bgColor={"#CECECE"}
+                         doAnimation={true}
+                     >
+                         <p>Footer!</p>
+                     </StickyThing>
+                 </>
+             );
+         }
+         return footer;
      }
+
+     manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[] )=>{
+        if(checkBoxSelections.length > 0){
+            this.setState({editDrawerOpen : false, footerOpen : true});
+        }else{
+            this.setState({footerOpen : false});
+        }
+        console.log("!!!!!!!!!! this is callback selection set",selectionSet);
+     };
 
      render(){
             console.log("this.props.query");
@@ -106,14 +133,12 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      manageParentViews={()=>this.manageEditDrawer()}
                      selectionCallback={this.manageSelectionSet}
                  />
-                 {this.getEditDrawer()}
+                 {this.getEditDrawer() }
+                 {this.getFooterMenu() }
                  {this.getProductViewDrawer()}
              </>
          )
      }
-
-
-
 
 
 }

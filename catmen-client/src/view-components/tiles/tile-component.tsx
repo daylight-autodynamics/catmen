@@ -46,7 +46,7 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                         onMouseDown={()=>this.mouseDownAction()}
                         className={`${this.props.selectedClass} cell-editable`}
                     >
-                        <p className={`${this.props.selectedClass}`}>{this.props.tileLabel}</p>
+                        <p className={`${this.props.selectedClass}`}>{`${this.props.tileLabel}`}&nbsp;</p>
                         <div className={`affordance ${this.props.selectedClass}`}></div>
                     </div>
                 );

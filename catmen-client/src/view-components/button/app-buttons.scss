@@ -171,6 +171,7 @@ $btn-padding : 1rem;
     }
     position: relative;
     .button-decorator{
+      height: 100%;
       z-index: 2;
     }
     &.active{

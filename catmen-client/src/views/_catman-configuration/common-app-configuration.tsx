@@ -113,7 +113,6 @@ export let mainNavConfig : iNavItem[] = [
                         widthWithUnits="100%"
                     />
                 }
-
             />
 
         )

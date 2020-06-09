@@ -58,6 +58,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
         if(clearSelection){
             this.selectionSet = [];
+            this._checkedRows = [];
         }
 
         if(this.startSelectionRow > row){
@@ -75,7 +76,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             this.cellRange.startCell = this.startSelectionCell;
             this.cellRange.endCell = cell;
         }
-
 
         if(row === this.startSelectionRow && cell === this.startSelectionCell){
             this.selectionSet.push(
@@ -99,15 +99,64 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             }
         }
 
-        this.setState({selectionSet : this.selectionSet});
-        console.log("selection set after drag", this.state.selectionSet);
+        // handle single cell as start and end
+
+        if(this.selectionSet.length === 2){
+            if( this.selectionSet[0].row === this.selectionSet[1].row && this.selectionSet[0].cell === this.selectionSet[1].cell  ){
+                this.selectionSet.splice(1,1);
+            }
+        }
+
+        this.setState({
+            selectionSet : this.selectionSet,
+            checkedRows : this._checkedRows
+        });
+        console.log("seke/:", this.state.selectionSet);
+
+
         if(this.props.selectionCallback !== undefined && this.props.selectionCallback !== null){
-           let selectedItems : iDataGridItem[] = [];
-            for(let i=0; i < this.selectionSet.length; i++){
-               selectedItems.push( this.props.data[this.selectionSet[i].row][this.selectionSet[i].cell]);
+           type iSelectedItems = { row : number, cells : number[], productFields : iDataGridItem[] };
+            let selectedItems : iSelectedItems[] = [  ];
+            let lastRow : number = 0;
+
+            // work through the selection set to organize things
+           i: for(let i=0; i < this.state.selectionSet.length; i++){
+                if(i===0){
+                    //if it's the first one let's create a new entry
+                    lastRow = this.state.selectionSet[0].row;
+                    let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
+                    selectedItems.push(newItem);
+                }
+
+                //loop over the existing list of rows to create new ones
+                    if(this.state.selectionSet[i].row === lastRow){
+                        //one more loop over the list to grab all the cells that belong to the row
+                        if(selectedItems[selectedItems.length-1].cells.length === 0){
+                            for(let j=0; j < this.state.selectionSet.length; j++){
+                                if(this.state.selectionSet[j].row === lastRow){
+                                    //if the row matches the last row, then push in the selected cell
+                                    selectedItems[selectedItems.length-1].cells.push( this.state.selectionSet[j].cell );
+                                }
+                            }
+                        }
+
+                    }else{
+                        lastRow = this.state.selectionSet[i].row;
+                        let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
+                        selectedItems.push(newItem);
+                    }
+            }
+
+            console.log("inner callback", selectedItems);
+
+           for(let x=0; x < selectedItems.length; x++){
+                console.log(selectedItems[x]);
+                for(let y=0; y < this.props.data[selectedItems[x].row].length; y++){
+                    selectedItems[x].productFields.push(this.props.data[selectedItems[x].row][y] )
+                }
            }
 
-            this.props.selectionCallback(selectedItems);
+            this.props.selectionCallback(selectedItems, this._checkedRows);
         }
     }
 
@@ -164,14 +213,13 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             this.setState({checkedRows : this._checkedRows});
         }
 
-
         //handle selecting the checked
         this.selectionSet = [];
 
         for(let i=0; i < this._checkedRows.length; i++){
             for(let j=0; j < this.props.data[this._checkedRows[i]].length; j++ ){
                 let selectedCell : selectionObject = {
-                    row : this._checkedRows[i],
+                    row : this._checkedRows[i]+1,
                     cell : j,
                     selected : true
                 };
@@ -180,7 +228,9 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
 
         this.setState({selectionSet : this.selectionSet});
-        console.log("selection state: ", this.state.selectionSet);
+        if(this.props.selectionCallback !== undefined){
+            this.props.selectionCallback(this.state.selectionSet, this.state.checkedRows);
+        }
     }
 
     iconCheck = (row : number):string=>{
@@ -190,6 +240,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             }
         }
         return "checkbox-unchecked"
+    };
+
+    updateSelectionState = ()=>{
+        this.setState({selectionSet : this.selectionSet});
+        console.log("selection state: ", this.state.selectionSet);
     };
 
     getGridItems(){

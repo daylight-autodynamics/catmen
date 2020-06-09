@@ -40,7 +40,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
 
     render(){
         return (
-            <>
+            <>Ω¸¸¸¸¸¸¸¸¸
                 <TitleArea mainTitle="Detailed Spreadsheet View" subTitle="My Catalog" />
                 <DataGrid manageParentViews={()=>this.manageDrawer()} data={catmanData.productData} />
             </>
