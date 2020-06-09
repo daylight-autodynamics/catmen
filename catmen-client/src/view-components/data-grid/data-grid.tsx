@@ -10,7 +10,9 @@ import camelcase from "camelcase";
 //data grid data should be an array of arrays
 //each product is an array of attributes
 interface iPROPS {
-    data : iDataGridItem[][]
+    data : iDataGridItem[][];
+    manageParentViews : Function;
+    selectionCallback? : Function
 }
 
 interface iSTATE {
@@ -30,7 +32,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         this.numRows = this.getNumRows();
         this.state = {
             selectionSet : []
-        }
+        };
         this.startSelectionRow = 0;
         this.startSelectionCell = 0;
 
@@ -55,8 +57,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         if(clearSelection){
             this.selectionSet = [];
         }
-
-
 
         if(this.startSelectionRow > row){
             this.cellRange.startRow = row;
@@ -106,10 +106,16 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             }
         }
 
-        console.log(this.selectionSet);
         this.setState({selectionSet : this.selectionSet});
-        console.log(this.state.selectionSet);
 
+        if(this.props.selectionCallback !== undefined && this.props.selectionCallback !== null){
+           let selectedItems : iDataGridItem[] = [];
+            for(let i=0; i < this.selectionSet.length; i++){
+               selectedItems.push( this.props.data[this.selectionSet[i].row][this.selectionSet[i].cell]);
+           }
+
+            this.props.selectionCallback(selectedItems);
+        }
     }
 
     checkSelected(row:number, cell:number):selectedStateType{
@@ -118,7 +124,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 return "selected";
             }
         }
-        //if nothing is found, return false becasue it isn't selected
+        //if nothing is found, return false because it isn't selected
         return "";
     }
 
@@ -180,8 +186,15 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                         <Tile
                             tileType="edit-cell"
                             tileLabel={this.props.data[i][j].value}
-                            mouseDownAction={() => this.mouseDownAction(i+1,j+2)}
-                            mouseUpAction={() => this.mouseUpAction(i+1,j+2)}
+                            mouseDownActions={
+                                [() => this.mouseDownAction(i+1,j+2)]
+                            }
+                            mouseUpActions={
+                                [
+                                    () => this.props.manageParentViews(),
+                                    () => this.mouseUpAction(i+1,j+2)
+                                ]
+                            }
                             selectedClass={this.checkSelected(i+1, j+2)}
                         />
                     </div>

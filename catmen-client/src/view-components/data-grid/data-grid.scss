@@ -9,7 +9,7 @@
     grid-auto-columns: minmax(max-content, 100%) max-content;
     .cell{
       font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
+     // padding: 0.25rem 0.5rem;
       display: inline;
       min-width: 3rem;
       box-sizing: border-box;
@@ -18,6 +18,9 @@
 }
 
 .cell{
+  &:active{
+    box-shadow: inset 0px 0px 0.25rem 0px rgba(0,0,0,0.75);
+  }
   &.details{
     position: sticky;
     right: 0;
@@ -40,6 +43,7 @@
 }
 
 .cell-editable{
+  padding: 0.5rem 0.75rem;
   cursor: cell;
   position: relative;
   height: 100%;
@@ -65,13 +69,13 @@
 
        position: absolute;
        border: dashed #b9b7bc;
-       bottom: -0.25rem;
-       left: -0.5rem;
+       bottom: 0;
+       left: 0;
        border-width: 0 0 1px 1px;
        background-color: aquamarine;
        z-index: -1;
-       right: -0.5rem;
-       top: -0.25rem;
+       right: 0;
+       top: 0;
      }
 }
 

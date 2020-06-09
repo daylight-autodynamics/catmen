@@ -18,6 +18,14 @@
 }
 
 .catman-main-nav{
+  .btn-main-action.nav-link {
+    .button-decorator{
+      grid-template-columns: 2rem auto auto;
+    }
+  }
+}
+
+.catman-main-nav{
   background-color: $grey-main;
   margin-top: 1rem;
   border: 1px solid #cecece;

@@ -5,7 +5,7 @@ import {ReactElement} from "react";
 export type iDataGridItem = {
     value : string
     column : string
-    attrType : "user-gen" | "standard" | "hidden"
+    attrType : "user-gen" | "standard" | "hidden" | "required";
     class : "default" | string
 }
 

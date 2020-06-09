@@ -34,11 +34,15 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
 
     }
 
+    manageDrawer(){
+
+    }
+
     render(){
         return (
             <>
                 <TitleArea mainTitle="Detailed Spreadsheet View" subTitle="My Catalog" />
-                <DataGrid data={catmanData.productData} />
+                <DataGrid manageParentViews={()=>this.manageDrawer()} data={catmanData.productData} />
             </>
         )
     }

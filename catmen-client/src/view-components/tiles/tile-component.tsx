@@ -6,8 +6,8 @@ interface iPROPS{
     tileType : string;
     tileLabel : string;
     tileCustomElement? : ReactElement;
-    mouseDownAction? : Function;
-    mouseUpAction? : Function;
+    mouseDownActions? : Function[];
+    mouseUpActions? : Function[];
     selectedClass : selectedStateType;
 }
 
@@ -21,15 +21,18 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
     }
 
     mouseDownAction(){
-        if(this.props.mouseDownAction !== null && this.props.mouseDownAction !== undefined){
-            this.props.mouseDownAction();
-
+        if(this.props.mouseDownActions !== null && this.props.mouseDownActions !== undefined){
+            for(let i=0; i < this.props.mouseDownActions.length; i++){
+                this.props.mouseDownActions[i]();
+            }
         }
     }
 
     mouseUpAction(){
-        if(this.props.mouseUpAction !== null && this.props.mouseUpAction !== undefined){
-            this.props.mouseUpAction();
+        if(this.props.mouseUpActions !== null && this.props.mouseUpActions !== undefined){
+            for(let i=0; i < this.props.mouseUpActions.length; i++){
+                this.props.mouseUpActions[i]();
+            }
         }
     }
 
@@ -40,7 +43,8 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                     <div
                         draggable={"false"}
                         onMouseUp={()=>this.mouseUpAction()}
-                        onMouseDown={()=>this.mouseDownAction()} className={`${this.props.selectedClass} cell-editable`}
+                        onMouseDown={()=>this.mouseDownAction()}
+                        className={`${this.props.selectedClass} cell-editable`}
                     >
                         <p className={`${this.props.selectedClass}`}>{this.props.tileLabel}</p>
                         <div className={`affordance ${this.props.selectedClass}`}></div>

@@ -9,15 +9,24 @@ import './fonts/proximanova-reg.woff';
 import './fonts/sofia-bold.woff';
 import './fonts/sofia-reg.woff';
 import './fonts/sofia-bold.woff';
+
+import {ProductDataService} from "./services/product-data-service";
+
+//initialization
 export let win = new WindowLevelCapture();
 win.windowEvent();
 
+let productData = new ProductDataService();
+productData.initialize();
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App mousePos={ {x:win.mousePos.x, y:win.mousePos.y}} />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <App mousePos={ {x:win.mousePos.x, y:win.mousePos.y}} />
+    </React.StrictMode>,
+    document.getElementById('root')
 );
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

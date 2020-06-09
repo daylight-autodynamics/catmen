@@ -86,7 +86,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
     updateMousePos(){
         //Only update if the mouse is moving, check if position values have changed
-       // console.log("check update mouse");
+
         if(this.mousePosition.x !== win.mousePos.x && this.mousePosition.y !== win.mousePos.y){
             this.setState(
                 {
@@ -101,27 +101,30 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
 
         let checkMouseIsOver = ()=>{
             let hoverCheck : boolean = true;
-            if(this.props.btnReference?.current != undefined){
+            if(this.props.btnReference?.current !== undefined){
                 let rect = this.props.btnReference?.current?.getBoundingClientRect();
                 // if mouse is too far the the left, the mouse x is less that the button x
-                if(this.state.mousePosition.x < rect.x ){
-                    hoverCheck = false;
+                if(rect !== undefined){
+                    if(this.state.mousePosition.x < rect.x  ){
+                        hoverCheck = false;
+                    }
+
+                    // if mouse is too far to the right
+                    if(this.state.mousePosition.x > (rect.x + rect?.width) ){
+                        hoverCheck = false
+                    }
+
+                    // if mouse is too far the the left, the mouse x is less that the button x
+                    if(this.state.mousePosition.y < rect.y ){
+                        hoverCheck = false;
+                    }
+
+                    // if mouse is too far to the right
+                    if(this.state.mousePosition.y > (rect.y + rect?.height) ){
+                        hoverCheck = false
+                    }
                 }
 
-                // if mouse is too far to the right
-                if(this.state.mousePosition.x > (rect.x + rect?.width) ){
-                    hoverCheck = false
-                }
-
-                // if mouse is too far the the left, the mouse x is less that the button x
-                if(this.state.mousePosition.y < rect.y ){
-                    hoverCheck = false;
-                }
-
-                // if mouse is too far to the right
-                if(this.state.mousePosition.y > (rect.y + rect?.height) ){
-                    hoverCheck = false
-                }
             }
             return hoverCheck;
         };
