@@ -14,7 +14,6 @@ type AppButtonType = "from-left"
 interface iPROPS{
     buttonType: AppButtonType;
     buttonLabel? : string;
-    OnClick? : any;
     iconCenter? : ReactElement;
     iconRight? : ReactElement;
     iconLeft? : ReactElement;
@@ -23,10 +22,12 @@ interface iPROPS{
     param? : string;
     hoverActions? : any[];
     hoverLeaveActions? : any[];
+    OnClick? : any;
     tooltipType : "basic" | "custom" | "none";
     tooltip? : ReactElement;
     toolTipTimeOutInMS? : number;
     classes? : string;
+    state? : string;
 }
 
 interface iSTATE{

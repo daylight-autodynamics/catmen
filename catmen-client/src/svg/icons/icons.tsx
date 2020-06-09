@@ -37,7 +37,7 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
 
             case "checkbox-checked":
                 return(
-                    <svg className="checked" x="0px" y="0px" width="18.6px" height="18.4px" viewBox="0 0 18.6 18.4" style={{overflow:"visible"}} >
+                    <svg className="checked" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 18.6 18.4" style={{overflow:"visible"}} >
                         <path className="filled" d="M16.8,17.8H1.9c-0.7,0-1.3-0.6-1.3-1.3V1.9c0-0.7,0.6-1.3,1.3-1.3h14.9c0.7,0,1.3,0.6,1.3,1.3v14.7 C18,17.3,17.5,17.8,16.8,17.8z"/>
                         <polygon className="filled-highlight" points="13.6,4.3 7.1,10.9 5,8.8 2.9,11 7.1,15.1 9.2,13 15.7,6.4 "/>
                     </svg>

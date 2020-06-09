@@ -74,7 +74,6 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         this.initialized = false;
         this.toolTipTimeOutCounter = this.props.timeoutInMS
 
-
     }
     //TODO give mouse position a data type
     mousePosition : any;
@@ -136,14 +135,13 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             let xPos = this.state.mousePosition.x;
             if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current != undefined ){
                 this.tooltipWidth = this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0].getBoundingClientRect().width;
-                console.log("tooltip element:", this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0]);
+              //  console.log("tooltip element:", this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0]);
             }
 
 
-            console.log("tool tip behavior check:");
-            console.log("x position:", xPos);
-            console.log("tooltip width:", this.tooltipWidth);
-
+            // console.log("tool tip behavior check:");
+            // console.log("x position:", xPos);
+            // console.log("tooltip width:", this.tooltipWidth);
 
 
             if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current !== undefined){

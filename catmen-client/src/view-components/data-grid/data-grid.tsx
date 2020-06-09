@@ -17,6 +17,7 @@ interface iPROPS {
 
 interface iSTATE {
     selectionSet : selectionObject[];
+    checkedRows :number[];
 }
 
 export type selectionObject = {
@@ -31,7 +32,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         this.numCols = this.getNumColumns();
         this.numRows = this.getNumRows();
         this.state = {
-            selectionSet : []
+            selectionSet : [],
+            checkedRows : []
         };
         this.startSelectionRow = 0;
         this.startSelectionCell = 0;
@@ -50,7 +52,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     startSelectionCell : number;
 
     cellRange : any;
-
+    _checkedRows : number[] = [];
 
     manageSelection(row:number, cell:number, clearSelection : boolean){
 
@@ -75,14 +77,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
 
 
-        // let found : boolean = false;
-        // for(let i=0; i < this.selectionSet.length; i++){
-        //     if( this.selectionSet[i].cell === cell && this.selectionSet[i].row === row ){
-        //         this.selectionSet.splice(i, 1);
-        //         found = true;
-        //     }
-        // }
-
         if(row === this.startSelectionRow && cell === this.startSelectionCell){
             this.selectionSet.push(
                 {
@@ -92,8 +86,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 }
             );
         }
-        console.log( "start row: ", this.startSelectionRow, "end row: ", row);
-        console.log( "start cell: ", this.startSelectionCell, "end cell: ", cell);
+
         for( let i = this.cellRange.startRow; i < this.cellRange.endRow+1; i++){
             for(let j= this.cellRange.startCell; j < this.cellRange.endCell+1; j++){
                 this.selectionSet.push(
@@ -107,7 +100,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
 
         this.setState({selectionSet : this.selectionSet});
-
+        console.log("selection set after drag", this.state.selectionSet);
         if(this.props.selectionCallback !== undefined && this.props.selectionCallback !== null){
            let selectedItems : iDataGridItem[] = [];
             for(let i=0; i < this.selectionSet.length; i++){
@@ -148,30 +141,74 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     mouseDownAction(row : number, cell:number){
         this.startSelectionCell = cell;
         this.startSelectionRow = row;
-        console.log(this.selectionSet);
-        console.log("mouse down: ", row, " ",cell);
     }
 
     mouseUpAction(row:number, cell:number){
         this.manageSelection(row, cell, true);
-        console.log("mouse up:");
-        console.log("row: ",  row, "cell: ", cell);
     }
+
+    manageCheckbox(row : number){
+
+        //find if this number is in the list
+        let found : boolean = false;
+        for(let i=0; i < this._checkedRows.length; i++){
+            if(this._checkedRows[i] === row){
+                //if it is in the list remove it which unchecks
+                this._checkedRows.splice(i, 1);
+                this.setState({checkedRows : this._checkedRows});
+                found = true;
+            }
+        }
+        if(found === false){
+            this._checkedRows.push(row);
+            this.setState({checkedRows : this._checkedRows});
+        }
+
+
+        //handle selecting the checked
+        this.selectionSet = [];
+
+        for(let i=0; i < this._checkedRows.length; i++){
+            for(let j=0; j < this.props.data[this._checkedRows[i]].length; j++ ){
+                let selectedCell : selectionObject = {
+                    row : this._checkedRows[i],
+                    cell : j,
+                    selected : true
+                };
+                this.selectionSet.push(selectedCell);
+            }
+        }
+
+        this.setState({selectionSet : this.selectionSet});
+        console.log("selection state: ", this.state.selectionSet);
+    }
+
+    iconCheck = (row : number):string=>{
+        for(let i=0; i < this.state.checkedRows.length; i++){
+            if(row === this.state.checkedRows[i]){
+                return "checkbox-checked"
+            }
+        }
+        return "checkbox-unchecked"
+    };
 
     getGridItems(){
         let cells : ReactElement[] = [];
         for(let i=0; i < this.props.data.length; i++){
             for(let j=0; j < this.props.data[i].length; j++){
                 if(j === 0){
+
                     cells.push(
                         <div className="cell checkbox-main" style={{gridColumn : j+1, gridRow : i+1, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
+                                OnClick={()=>this.manageCheckbox(i)}
                                 buttonType="transparent-bg"
                                 tooltipType="custom"
                                 tooltip={toolTipContent.mainNav}
+                                classes={`${this.iconCheck(i)}`}
                                 iconCenter={(
                                     <CatmanIcon
-                                        iconName="checkbox-unchecked"
+                                        iconName={`${this.iconCheck(i)}`}
                                         width="0.5rem"
                                         height="100%"
                                     />

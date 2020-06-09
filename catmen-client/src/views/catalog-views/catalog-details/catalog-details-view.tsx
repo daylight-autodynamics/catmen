@@ -90,6 +90,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      }
 
      manageSelectionSet(selectionSet : iDataGridItem[]){
+
         console.log("!!!!!!!!!! this is callback selection set",selectionSet)
      }
 
