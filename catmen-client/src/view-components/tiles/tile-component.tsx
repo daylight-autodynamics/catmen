@@ -38,7 +38,7 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
 
     getTile(){
         switch (this.props.tileType) {
-            case "edit-cell":
+            case "text-input":
                 return (
                     <div
                         draggable={"false"}
@@ -50,6 +50,23 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                         <div className={`affordance ${this.props.selectedClass}`}></div>
                     </div>
                 );
+            case "media":
+                return(
+                    <div className={`media-cell `}>
+                        <div className="thumb" style={{backgroundImage : `url(${this.props.tileLabel})` }}>
+                            <p></p>
+                        </div>
+                        <div className={`affordance ${this.props.selectedClass}`}></div>
+                    </div>
+                );
+
+            case "hidden":
+                return(
+                    <div className="hidden-cell">
+
+                    </div>
+                );
+
             case "read-only-cell":
                 return (
                     <div>

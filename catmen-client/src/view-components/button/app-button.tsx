@@ -95,10 +95,7 @@ constructor(props:iPROPS) {
         }
     }
 
-
-
     //this will generate the tooltip, ref this wherever you need one
-
 
     handleToolTip(){
         if(this.state.isHovered === false){
@@ -124,9 +121,12 @@ constructor(props:iPROPS) {
                 onClick={()=>this.props.OnClick()}
                 onMouseOver={()=>this.doHoverActions()}
                 onMouseOut={()=>this.doHoverOutActions()}
-                className={`btn-from-left btn-default ${btnStyles} `}
+                className={`btn-default ${btnStyles} ${this.props.classes} `}
             >
                 <div className="btn-descriptors">
+                    <div className="cm-icon">
+                        {this.props.iconLeft}
+                    </div>
                     <div className="label">
                         {this.props.buttonLabel}
                         {this.props.iconCenter}
@@ -177,7 +177,7 @@ constructor(props:iPROPS) {
 
             case "from-left":
                 return(
-                    this.baseButton('btn-global')
+                    this.baseButton('btn-global btn-from-left')
                 );
 
             case "nav-link":
@@ -185,7 +185,6 @@ constructor(props:iPROPS) {
 
                     return(
                         <>
-
                             <NavLink
                                   ref={this.linkRef}
                                   onMouseOver={()=>this.doHoverActions()}
@@ -200,7 +199,6 @@ constructor(props:iPROPS) {
                                     <p className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</p>
                                     <div className="icon-right">{this.props.iconRight}</div>
                                 </div>
-
                             </NavLink>
                             {this.handleToolTip()}
                         </>
@@ -208,7 +206,6 @@ constructor(props:iPROPS) {
                 }else {
                     return(
                         <>
-
                             <button
                                 onMouseOver={()=>this.doHoverActions()}
                                 onMouseOut={()=>this.doHoverOutActions()}
@@ -257,13 +254,7 @@ constructor(props:iPROPS) {
             case "secondary-action":
                 return(
                     <>
-                        {this.handleToolTip()}
-                        <button
-                            onMouseOver={()=>this.doHoverActions()}
-                            className="btn-secondary"
-                        >
-                            {this.props.buttonLabel}
-                        </button>
+                        {this.baseButton("secondary-action")}
                     </>
                 );
 

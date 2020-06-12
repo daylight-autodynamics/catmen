@@ -73,14 +73,15 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
         this.mousePosition = { x:-1000, y:-1000};
         this.initialized = false;
         this.toolTipTimeOutCounter = this.props.timeoutInMS
-
     }
+
     //TODO give mouse position a data type
     mousePosition : any;
     initialized : boolean;
     toolTipTimeOutCounter : number;
     toolTipContainerRef : React.RefObject<HTMLDivElement>;
     tooltipWidth : number = 0;
+    tooltipHeight : number = 0;
     private intervalID : any = 0;
 
     updateMousePos(){
@@ -135,6 +136,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             let xPos = this.state.mousePosition.x;
             if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current != undefined ){
                 this.tooltipWidth = this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0].getBoundingClientRect().width;
+                this.tooltipHeight = this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0].getBoundingClientRect().height;
               //  console.log("tooltip element:", this.toolTipContainerRef.current.getElementsByClassName("tt-element-main")[0]);
             }
 
@@ -143,12 +145,44 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             // console.log("x position:", xPos);
             // console.log("tooltip width:", this.tooltipWidth);
 
-
+            //null check
             if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current !== undefined){
+
+                // if too far to the right offset
                 if(this.state.mousePosition.x >= win.windowSize().width - this.tooltipWidth  ){
-                    xPos = (xPos - this.tooltipWidth -30);
-                    this.setState({mousePosition:{x:xPos, y:yPos}})
+                    xPos = (xPos - this.tooltipWidth - 30);
+
+                   // this.setState({mousePosition:{x:xPos, y:yPos}})
                 }
+
+
+                if(this.state.mousePosition.y >= (win.windowSize().height-10) - this.tooltipHeight  ){
+                    yPos = (win.windowSize().height - (this.tooltipHeight + 60));
+
+                    //handle colliding to the right
+                    if( this.state.mousePosition.x < (win.windowSize().width - this.tooltipWidth) && this.state.mousePosition.x > this.tooltipWidth){
+                        xPos = (xPos - (this.tooltipWidth / 2) );
+                        console.log("win minus tooltip: ", win.windowSize().width - this.tooltipWidth);
+                        console.log("2: ", xPos);
+                    }
+                    else if( this.state.mousePosition.x > (win.windowSize().width - this.tooltipWidth) && this.state.mousePosition.x < win.windowSize().width - 40 ){
+                        //if mouse is towards bottom of screen but not within the tooltip width to left
+                        xPos = win.windowSize().width - ( (this.tooltipWidth/2) + (  Math.abs( win.windowSize().width -  this.state.mousePosition.x + 40   )  ));
+                        console.log("3: ", xPos);
+                    }
+                    else if( this.state.mousePosition.x < this.tooltipWidth && this.state.mousePosition.x > 40 ){
+                        //if mouse is closer to the left than the width of tooltip
+                        xPos = win.windowSize().width - ( (this.tooltipWidth/2) + (  Math.abs( win.windowSize().width -  this.state.mousePosition.x + 20   )  ));
+                        console.log("3: ", xPos)
+                    }
+                    else if( this.state.mousePosition.x < 40 ){
+                        xPos = this.state.mousePosition.x + 5;
+                    }else if( this.state.mousePosition.x > win.windowSize().width - 40 ){
+                        xPos = this.state.mousePosition.x - (this.tooltipWidth + 40);
+                    }
+                }
+
+                this.setState({mousePosition:{x:xPos, y:yPos}});
             }
 
             this.setState({isHovering : true})

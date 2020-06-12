@@ -10,26 +10,34 @@
 }
 
 .app-tool-tip{
+  user-select: none;
   &.deluxe{
-    padding: 0.5rem 1rem 1rem 1rem;
+    .tooltip-illustration{
+      height: 6rem;
+      width: 100%;
+    }
+    padding: 0.25rem 0.5rem 0.5rem 0.5rem;
     border-radius: 0.5rem;
     border: 1px solid $black_10;
-    width: 20vw;
+    width: 30vw;
     @include drop-shadow-offset;
     @include blurred-bg-dark-65;
     display: grid;
+    grid-template-columns: auto 1.5rem;
     color: white;
     h3{
       grid-row: 1;
       grid-column: 1;
       align-self: center;
       font-family: Sofia Pro;
-      font-weight: 100;
+      font-weight: 300;
       font-size: 1rem;
+      margin-bottom: -0.25rem;
+      align-self: flex-start;
     }
     p{
-      font-size: 0.75rem;
-      line-height: 0.8rem;
+      font-size: 0.65rem;
+      line-height: 0.65rem;
     }
     .tool-tip-icon{
       grid-row: 1;
@@ -37,6 +45,7 @@
       align-self: center;
     }
     .tool-tip-copy{
+      font-size: 0.75rem;
       grid-row: 2;
     }
   }

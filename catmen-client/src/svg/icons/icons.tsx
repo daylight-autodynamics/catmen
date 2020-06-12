@@ -27,6 +27,86 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                   </>
                 );
 
+            case "single-product":
+                return(
+                    <>
+                        <svg className={`icon-single-product ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 39.8 39.8" style={{overflow:"visible"}} >
+                            <polygon className="filled" points="14.7,0.6 0.8,6.8 5.8,13.3 1,19.7 5.7,22.1 5.7,32.6 19.8,39.4 33.8,32.5 34,22 38.8,19.7 33.9,13.5 38.9,6.8 25.1,0.6 19.9,6.5 "/>
+                            <polygon className="filled-dark st1" points="19.8,20.1 5.8,13.3 19.9,6.5 33.8,13.2 "/>
+                            <g className="stroked">
+                                <polygon points="19.5,6.4 14.7,0.6 0.8,6.8 5.7,13 "/>
+                                <polygon points="34.1,13 39,6.8 25.1,0.6 20.3,6.4 "/>
+                                <polygon points="20.1,20.1 25,25.9 38.8,19.7 33.9,13.5 "/>
+                                <polygon points="19.5,20.2 14.7,26 0.8,19.8 5.7,13.6 "/>
+                                <polyline points="34,22 34,32.6 20.2,39.3 19.5,39.3 5.7,32.6 5.7,22.1 "/>
+                            </g>
+                            <line className="stroked stroked-highlight st3" x1="19.8" y1="20.1" x2="19.8" y2="39.2"/>
+                            <polygon className="filled-darker st4" points="19.8,6.8 20,19.7 33.3,13.2 "/>
+                        </svg>
+                    </>
+                );
+
+            case "select-row":
+                return(
+                    <svg className={`icon-select-row ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 38.5 31.6" style={{overflow:"visible"}} >
+                        <path className="st0 filled" d="M33.6,30.6H12.7c-2.4,0-4.3-1.9-4.3-4.3V4.7c0-2.4,1.9-4.3,4.3-4.3h20.9c2.4,0,4.3,1.9,4.3,4.3v21.7 C37.9,28.7,36,30.6,33.6,30.6z"/>
+                        <rect className="st1 filled-highlight" x="15.7" y="14.2" width="21.8" height="5.8"/>
+                        <g className="stroked-highlight no-fill st2">
+                            <line x1="8.4" y1="7.4" x2="37.8" y2="7.4"/>
+                            <line x1="8.4" y1="20.1" x2="37.8" y2="20.1"/>
+                            <line x1="8.4" y1="25.6" x2="37.8" y2="25.6"/>
+                            <line x1="8.4" y1="13.8" x2="37.8" y2="13.8"/>
+                            <line x1="23.9" y1="30.8" x2="23.9" y2="1.1"/>
+                            <line x1="14.3" y1="30.8" x2="14.3" y2="1.1"/>
+                            <line x1="32.7" y1="31.2" x2="32.7" y2="1.1"/>
+                        </g>
+                        <path className="stroked st3" d="M33.9,31.2H12.4c-2.3,0-4.1-1.8-4.1-4.1V4.6c0-2.3,1.8-4.1,4.1-4.1h21.5c2.3,0,4.1,1.8,4.1,4.1v22.5 C38,29.3,36.2,31.2,33.9,31.2z"/>
+                        <path className="st4" d="M16.8,20.3H1.9c-0.7,0-1.3-0.6-1.3-1.3V4.3C0.6,3.6,1.2,3,1.9,3h14.9C17.5,3,18,3.6,18,4.3V19	C18,19.7,17.5,20.3,16.8,20.3z"/>
+                        <polygon className="action-highlight st5" points="13.6,6.8 7.1,13.3 5,11.3 2.9,13.4 7.1,17.6 9.2,15.4 15.7,8.9 "/>
+                    </svg>
+            );
+
+            case "cancel":
+                return(
+
+                    <svg className={`icon-cancel ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34 34" style={{overflow:"visible"}}>
+                        <circle className="filled" cx="17" cy="17" r="17"/>
+                        <line className="stroked no-fill" x1="8.3" y1="17.2" x2="27" y2="17.2"/>
+                        <polyline className="stroked no-fill" points="13.1,21.2 7.7,17.2 13.1,13.2"/>
+                    </svg>
+
+                );
+
+            case "icon-delete":
+                return(
+                    <svg className={`icon-delete ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34 34" style={{overflow:"visible"}}>
+ 	                    <circle className="filled" cx="17" cy="17" r="17"/>
+                        <rect className="filled-highlight" x="6.8" y="15.7" transform="matrix(0.707 -0.7072 0.7072 0.707 -7.0562 17.2692)" width="20.9" height="2.8"/>
+                    </svg>
+                );
+
+            case "icon-edit":
+                return(
+                         <svg className={`icon-edit ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35 35" style={{overflow:"visible"}} >
+                            <circle className="filled-highlight" cx="17.5" cy="17.5" r="17"/>
+                            <g className="stroked no-fill">
+                                <path d="M15.7,25.5l11.7-11.7c1-1,1-2.5,0-3.5L25.1,8c-1-1-2.5-1-3.5,0L10,19.7l-1.2,7L15.7,25.5z"/>
+                                <line x1="20.5" y1="9.5" x2="25.9" y2="15"/>
+                                <line x1="10.4" y1="19.6" x2="15.8" y2="25"/>
+                            </g>
+                            <polygon className="filled" points="11.3,26 9.4,24.1 9,26.4 "/>
+                        </svg>
+
+                );
+
+            case "icon-add":
+                return(
+                    <svg className={`${this.props.classes} icon-add`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35 35" style={{overflow:"visible"}} >
+                        <circle className="filled stroked st0" cx="17.5" cy="17.5" r="17"/>
+                        <polygon className="filled-highlight st1" points="28.1,19.2 28.1,16.4 19,16.4 19,7.3 16.2,7.3 16.2,16.4 7.1,16.4 7.1,19.2 16.2,19.2 16.2,28.2 19,28.2 19,19.2 "/>
+                    </svg>
+                );
+
             case "checkbox-unchecked":
                 return(
                     <svg className="unchecked" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 17.5 17.2" style={{overflow:"visible"}} >

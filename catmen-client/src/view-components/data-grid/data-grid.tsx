@@ -6,13 +6,15 @@ import {CatmanIcon} from "../../svg/icons/icons";
 import {selectedStateType, Tile} from "../tiles/tile-component";
 import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
 import camelcase from "camelcase";
+import {appColumns, iColumn} from "../../_sample-data/columns";
 
 //data grid data should be an array of arrays
 //each product is an array of attributes
 interface iPROPS {
     data : iDataGridItem[][];
     manageParentViews : Function;
-    selectionCallback? : Function
+    selectionCallback? : Function;
+    columns : iColumn[];
 }
 
 interface iSTATE {
@@ -111,7 +113,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             selectionSet : this.selectionSet,
             checkedRows : this._checkedRows
         });
-        console.log("seke/:", this.state.selectionSet);
+
 
 
         if(this.props.selectionCallback !== undefined && this.props.selectionCallback !== null){
@@ -150,14 +152,20 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             console.log("inner callback", selectedItems);
 
            for(let x=0; x < selectedItems.length; x++){
-                console.log(selectedItems[x]);
+
                 for(let y=0; y < this.props.data[selectedItems[x].row].length; y++){
                     selectedItems[x].productFields.push(this.props.data[selectedItems[x].row][y] )
                 }
            }
 
-            this.props.selectionCallback(selectedItems, this._checkedRows);
+            this.props.selectionCallback(selectedItems, this._checkedRows, "standard-launch");
         }
+    }
+
+    clearSelection(){
+        this.setState({selectionSet:[], checkedRows:[]});
+        this._checkedRows = [];
+        this.selectionSet = [];
     }
 
     checkSelected(row:number, cell:number):selectedStateType{
@@ -172,7 +180,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     getNumColumns(){
         //TODO swap this out to calculating total normalized columns
-        return this.props.data[0].length;
+
+        return appColumns.getColumns().length;
     }
 
     getNumRows(){
@@ -180,6 +189,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     }
 
     getProductUniqueID(index : number){
+
         for(let j=0; j < this.props.data[index].length; j++){
             if(this.props.data[index][j].column === "uniqueID"){
                 return this.props.data[index][j].value;
@@ -198,26 +208,40 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     manageCheckbox(row : number){
 
+
         //find if this number is in the list
         let found : boolean = false;
+
+
         for(let i=0; i < this._checkedRows.length; i++){
+
+            console.log( "from inside checbox loop", `${i}:`, this._checkedRows[i]);
             if(this._checkedRows[i] === row){
                 //if it is in the list remove it which unchecks
                 this._checkedRows.splice(i, 1);
                 this.setState({checkedRows : this._checkedRows});
                 found = true;
+
             }
         }
         if(found === false){
             this._checkedRows.push(row);
             this.setState({checkedRows : this._checkedRows});
+            console.log( "Added", this._checkedRows[this._checkedRows.length-1]);
         }
 
+
+        console.log( "this._checkedRows.length", this._checkedRows);
+        console.log( "this.state.checkedRows", this.state.checkedRows);
+
+
+
         //handle selecting the checked
+        //First reset the cell selection
         this.selectionSet = [];
 
         for(let i=0; i < this._checkedRows.length; i++){
-            for(let j=0; j < this.props.data[this._checkedRows[i]].length; j++ ){
+            for(let j=0; j < this.props.data[this._checkedRows[i]-1].length; j++ ){
                 let selectedCell : selectionObject = {
                     row : this._checkedRows[i]+1,
                     cell : j,
@@ -227,10 +251,14 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             }
         }
 
+
+
         this.setState({selectionSet : this.selectionSet});
         if(this.props.selectionCallback !== undefined){
-            this.props.selectionCallback(this.state.selectionSet, this.state.checkedRows);
+            this.props.selectionCallback(this.state.selectionSet, this.state.checkedRows, "checkbox-launched");
         }
+        //once people use the tool, we can hide the tool tip
+        toolTipContent.showSelectRow = false;
     }
 
     iconCheck = (row : number):string=>{
@@ -244,7 +272,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     updateSelectionState = ()=>{
         this.setState({selectionSet : this.selectionSet});
-        console.log("selection state: ", this.state.selectionSet);
+
     };
 
     getGridItems(){
@@ -252,18 +280,17 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         for(let i=0; i < this.props.data.length; i++){
             for(let j=0; j < this.props.data[i].length; j++){
                 if(j === 0){
-
                     cells.push(
-                        <div className="cell checkbox-main" style={{gridColumn : j+1, gridRow : i+1, zIndex : 100 + (this.numRows - i) }}>
+                        <div className="cell checkbox-main" style={{gridColumn : j+1, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
-                                OnClick={()=>this.manageCheckbox(i)}
+                                OnClick={()=>this.manageCheckbox(i+1)}
                                 buttonType="transparent-bg"
                                 tooltipType="custom"
-                                tooltip={toolTipContent.mainNav}
-                                classes={`${this.iconCheck(i)}`}
+                                tooltip={toolTipContent.selectRow()}
+                                classes={`${this.iconCheck(i+1)}`}
                                 iconCenter={(
                                     <CatmanIcon
-                                        iconName={`${this.iconCheck(i)}`}
+                                        iconName={`${this.iconCheck(i+1)}`}
                                         width="0.5rem"
                                         height="100%"
                                     />
@@ -274,34 +301,37 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 }
 
                 let cell = (
-                    <div className="cell" style={{gridColumn : j+2, gridRow : i+1 }}>
+                    <div className="cell" style={{gridColumn : j+2, gridRow : i+2 }}>
                         <Tile
-                            tileType="edit-cell"
+                            tileType={this.props.columns[j].control}
                             tileLabel={this.props.data[i][j].value}
                             mouseDownActions={
-                                [() => this.mouseDownAction(i+1,j+2)]
+                                [() => this.mouseDownAction(i+2,j+2)]
                             }
                             mouseUpActions={
                                 [
                                     () => this.props.manageParentViews(),
-                                    () => this.mouseUpAction(i+1,j+2)
+                                    () => this.mouseUpAction(i+2,j+2)
                                 ]
                             }
-                            selectedClass={this.checkSelected(i+1, j+2)}
+                            selectedClass={this.checkSelected(i+2, j+2)}
                         />
                     </div>
                 );
 
-                cells.push(cell);
+
+                if(this.props.columns[j].control != "hidden"){
+                    cells.push(cell);
+                }
 
                 if(j === this.props.data[i].length-1){
                     cells.push(
-                        <div className="cell details" style={{gridColumn : j+3, gridRow : i+1, zIndex : 100 + (this.numRows - i) }}>
+                        <div className="cell details" style={{gridColumn : j+3, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
                                 buttonType="nav-link"
                                 navPath={`/catalog/spreadsheet?product=${this.getProductUniqueID(i)}`}
                                 tooltipType="custom"
-                                tooltip={toolTipContent.mainNav}
+                                tooltip={toolTipContent.singleProduct()}
                                 iconCenter={(
                                     <CatmanIcon
                                         iconName="go-arrow"
@@ -316,20 +346,98 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             }
         }
 
-
-
         return cells;
+    }
+
+    getColumnHeaders(){
+        let columnsHeads : ReactElement[] = [];
+        for(let i=0; i < this.props.columns.length; i++ ){
+            if(i === 0){
+                columnsHeads.push(
+                    <div className="cell checkbox-main grid-header" style={{gridColumn : i+1, gridRow : 1, zIndex : 100 + (this.numRows - i) }}>
+                        <AppButton
+                            OnClick={()=>this.manageCheckbox(i)}
+                            buttonType="transparent-bg"
+                            tooltipType="custom"
+                            tooltip={toolTipContent.selectRow()}
+                            classes={` `}
+                            iconCenter={(
+                                <CatmanIcon
+                                    iconName={`${this.iconCheck(i)}`}
+                                    width="0.5rem"
+                                    height="100%"
+                                />
+                            )}
+                        />
+                    </div>
+                )
+            }
+            let columnHead = (
+                <div className="cell grid-header" style={{gridColumn : i+2, gridRow : 1, zIndex: this.numRows+10 }}>
+                    <Tile
+                        tileType="text-input"
+                        tileLabel={this.props.columns[i].columnLabel}
+                        mouseDownActions={
+                            [ ]
+                        }
+                        mouseUpActions={
+                            [
+                                () => this.props.manageParentViews()
+                            ]
+                        }
+                        selectedClass={""}
+                    />
+                </div>
+            );
+
+            if(this.props.columns[i].control != "hidden"){
+                columnsHeads.push(columnHead);
+            }
+
+
+            //final column head action
+            if(i === this.props.columns.length-1){
+                columnsHeads.push(
+                    <div className="cell details grid-header"
+                         style={{gridColumn : this.props.columns.length+2, gridRow : 1, zIndex : 100 + (this.numRows - i) }}
+                        >
+                        <AppButton
+                            buttonType="nav-link"
+                            navPath={`/catalog/spreadsheet`}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.singleProduct()}
+                            iconCenter={(
+                                <CatmanIcon
+                                    iconName="go-arrow"
+                                    width="1rem"
+                                    height="100%"
+                                />
+                            )}
+                        />
+                    </div>
+                )
+            }
+
+
+
+        }
+
+
+
+        return( columnsHeads );
     }
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
-        let gridItems : ReactElement[] = [];
-        let columnHeaders : ReactElement[]=[];
+        let columnHeaders : ReactElement[] = this.getColumnHeaders();
 
+
+        //having some trouble with layout of grid and checkboxes
+        // style={{gridTemplateColumns : `1.5rem repeat(${this.getNumColumns().toString()}, max-content) 1rem`}}
         let constructedGrid : ReactElement = (
             <>
                 <div className="data-grid">
-                    <div className="viewport" style={{gridTemplateColumns : `1.5rem repeat(${this.getNumColumns().toString()}, max-content) 1rem`}}>
+                    <div className="viewport">
                         {columnHeaders}
                         {this.getGridItems()}
                     </div>

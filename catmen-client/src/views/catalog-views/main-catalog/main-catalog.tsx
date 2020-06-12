@@ -33,7 +33,6 @@ function useQuery() {
 export function CatalogLanding() {
     let match = useRouteMatch();
 
-
     let ribbonMenu = (
         <ToggleMenu message={"toggle menu"} />
     );

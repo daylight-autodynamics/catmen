@@ -1,0 +1,13 @@
+.media-cell{
+  height: 75%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.25rem;
+  margin: 0.25rem;
+  border: 1px solid #cecece;
+}
+
+.hidden-cell{
+  width: 0;
+  pointer-events: none;
+}

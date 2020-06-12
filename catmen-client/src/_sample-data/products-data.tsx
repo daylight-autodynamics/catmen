@@ -8,6 +8,13 @@ export class ProductsData{
     productData: iDataGridItem[][] = [
         [
             {value: "000001", column: "uniqueID", attrType: "hidden", class: "default"},
+
+            {
+                value: "https://secure.img1-fg.wfcdn.com/im/46577228/resize-h800-w800%5Ecompr-r85/8736/87366205/Fallinerlea+Indoor/Outdoor+Throw+Pilow.jpg",
+                column: "ReferenceImage",
+                attrType: "standard",
+                class: "default"
+            },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "required", class: "default"},
@@ -27,6 +34,12 @@ export class ProductsData{
         ],
         [
             {value: "000002", column: "uniqueID", attrType: "hidden", class: "default"},
+            {
+                value: "https://secure.img1-fg.wfcdn.com/im/89777776/resize-h800-w800%5Ecompr-r85/6623/66233441/Marcela+Geometric+Links+Accent+Decorative+18%2522+Square+Pillow+Cover.jpg",
+                column: "ReferenceImage",
+                attrType: "standard",
+                class: "default"
+            },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
@@ -46,6 +59,12 @@ export class ProductsData{
         ],
         [
             {value: "000003", column: "uniqueID", attrType: "hidden", class: "default"},
+            {
+                value: "https://secure.img1-fg.wfcdn.com/im/09257425/resize-h800-w800%5Ecompr-r85/9445/94458967/Besmira+Square+Pillow+Cover.jpg",
+                column: "ReferenceImage",
+                attrType: "standard",
+                class: "default"
+            },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
@@ -65,6 +84,12 @@ export class ProductsData{
         ],
         [
             {value: "000004", column: "uniqueID", attrType: "hidden", class: "default"},
+            {
+                value: "https://secure.img1-fg.wfcdn.com/im/09257425/resize-h800-w800%5Ecompr-r85/9445/94458967/Besmira+Square+Pillow+Cover.jpg",
+                column: "ReferenceImage",
+                attrType: "standard",
+                class: "default"
+            },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
@@ -84,6 +109,12 @@ export class ProductsData{
         ],
         [
             {value: "000005", column: "uniqueID", attrType: "hidden", class: "default"},
+            {
+                value: "https://secure.img1-fg.wfcdn.com/im/69737061/resize-h800-w800%5Ecompr-r85/8621/86216371/Scully+Striped+Cotton+17%2522+Throw+Pillow.jpg",
+                column: "ReferenceImage",
+                attrType: "standard",
+                class: "default"
+            },
             {value: "sof-121-112", column: "PartNumber", attrType: "standard", class: "default"},
             {value: "Rosina classic loveseat", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},

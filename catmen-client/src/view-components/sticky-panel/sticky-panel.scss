@@ -88,13 +88,45 @@
   left: 50%;
   transform: translateX(-50%);
   width: 97vw;
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
+  z-index: 900;
+}
+
+.catman-footer-container{
+  backdrop-filter: none;
+  padding-bottom: 0;
+  border: none;
+  outline: none;
+  margin-bottom: 8px;
 }
 
 .catman-footer{
-  height: 4rem !important;
-  background-color: $Core_80 !important;
-  left: 50%;
-  transform: translateX(-50%);
+  height: 3rem !important;
+  background-color: #520f54 !important;
+  border-radius: 1rem 1rem 0 0;
+  border-width: 1px 1px 0 1px !important;
+  border: solid white;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+  z-index: 800;
+  margin: auto auto 0 auto;
+  padding: 0.25rem 0.5rem 0.75rem 0.5rem;
+  button.btn-default.secondary-action {
+    margin-right: 0.25rem;
+  }
+
+  .footer-btn-bar{
+    display: flex;
+    button.secondary-action{
+      margin-right: 0.25rem;
+      .btn-descriptors{
+        .label{
+          white-space: nowrap;
+        }
+      }
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
 }
 

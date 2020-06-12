@@ -71,7 +71,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                     buttonLabel="catalog manager"
                     OnClick={()=>this.handleMenu()}
                     tooltipType="custom"
-                    tooltip={toolTipContent.mainNav}
+                    tooltip={toolTipContent.mainNav()}
                     toolTipTimeOutInMS={10000}
                     iconRight={
                         <CatmanIcon
