@@ -115,7 +115,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             checkedRows : this._checkedRows
         });
 
-
+        console.log("this.selectionSet: ", this.selectionSet);
+        console.log("this.state.selectionSet: ", this.state.selectionSet);
 
         if(this.props.selectionCallback !== undefined && this.props.selectionCallback !== null){
            type iSelectedItems = { row : number, cells : number[], productFields : iDataGridItem[] };
@@ -123,42 +124,43 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             let lastRow : number = 0;
 
             // work through the selection set to organize things
-           i: for(let i=0; i < this.state.selectionSet.length; i++){
+           i: for(let i=0; i < this.selectionSet.length; i++){
                 if(i===0){
                     //if it's the first one let's create a new entry
-                    lastRow = this.state.selectionSet[0].row;
+                    lastRow = this.selectionSet[0].row;
                     let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
                     selectedItems.push(newItem);
                 }
 
                 //loop over the existing list of rows to create new ones
-                    if(this.state.selectionSet[i].row === lastRow){
+                    if(this.selectionSet[i].row === lastRow){
                         //one more loop over the list to grab all the cells that belong to the row
                         if(selectedItems[selectedItems.length-1].cells.length === 0){
-                            for(let j=0; j < this.state.selectionSet.length; j++){
-                                if(this.state.selectionSet[j].row === lastRow){
+                            for(let j=0; j < this.selectionSet.length; j++){
+                                if(this.selectionSet[j].row === lastRow){
                                     //if the row matches the last row, then push in the selected cell
-                                    selectedItems[selectedItems.length-1].cells.push( this.state.selectionSet[j].cell );
+                                    selectedItems[selectedItems.length-1].cells.push( this.selectionSet[j].cell );
                                 }
                             }
                         }
 
                     }else{
-                        lastRow = this.state.selectionSet[i].row;
+                        lastRow = this.selectionSet[i].row;
                         let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
                         selectedItems.push(newItem);
                     }
             }
 
-            console.log("inner callback", selectedItems);
 
            for(let x=0; x < selectedItems.length; x++){
-
-                for(let y=0; y < this.props.data[selectedItems[x].row].length; y++){
-                    selectedItems[x].productFields.push(this.props.data[selectedItems[x].row][y] )
+                for(let y=0; y < this.props.data[selectedItems[x].row-2].length; y++){
+                    selectedItems[x].productFields.push(this.props.data[selectedItems[x].row-2][y] )
                 }
+
            }
 
+            console.log("selection set: ", this.state.selectionSet);
+            console.log("inner callback", selectedItems[0]);
             this.props.selectionCallback(selectedItems, this._checkedRows, "standard-launch");
         }
     }
@@ -216,7 +218,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
         for(let i=0; i < this._checkedRows.length; i++){
 
-            console.log( "from inside checbox loop", `${i}:`, this._checkedRows[i]);
+
             if(this._checkedRows[i] === row){
                 //if it is in the list remove it which unchecks
                 this._checkedRows.splice(i, 1);
@@ -228,12 +230,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         if(found === false){
             this._checkedRows.push(row);
             this.setState({checkedRows : this._checkedRows});
-            console.log( "Added", this._checkedRows[this._checkedRows.length-1]);
+
         }
 
 
-        console.log( "this._checkedRows.length", this._checkedRows);
-        console.log( "this.state.checkedRows", this.state.checkedRows);
+
 
 
 

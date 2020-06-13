@@ -117,16 +117,17 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
         let selectedItems : iDataGridItem[] = [];
 
          for(let i=0; i < this.selectionSet.length; i++){
-             console.log(this.selectionSet[i]);
+
              //TODO replace specific reference to catmanData with prop
              let row = this.selectionSet[i].row;
              let cell = this.selectionSet[i].cell;
-             let productDataItem = catmanData.productData[row][cell-2];
-            selectedItems.push(productDataItem);
+             //console.log("catman data", catmanData.productData);
+             let productDataItem = catmanData.productData[row-2][cell-2];
+             selectedItems.push(productDataItem);
              //inputs.push( <div>{productDataItem.value}</div>)
          }
 
-         console.log("selected grid items", selectedItems);
+
 
          for( let i=0; i < selectedItems.length; i++){
 
@@ -177,7 +178,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
      openEditDrawer( ){
          this.setState({editDrawerOpen : true});
-         console.log("drawer opens here")
+
 
 
      }
@@ -185,7 +186,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      footerActions(action : "cancel" | "add-group" | "edit"){
          switch (action) {
              case "cancel":
-                 console.log("cancel");
+
                  this.setState({footerOpen : false});
                  this.initialized = false;
                  if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
@@ -196,7 +197,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
                  break;
              case "edit":
-                 console.log("cancel");
+
                  this.setState({footerOpen : false});
                  this.initialized = false;
 
@@ -410,7 +411,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
         }else{
             this.setState({footerOpen : false});
         }
-        console.log("!!!!!!!!!! MESSAGE",message);
+
      };
 
      conditionClasses(){
@@ -420,8 +421,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      }
 
      render(){
-            console.log("this.props.query");
-            console.log(this.props.query);
+
 
          return (
              <>

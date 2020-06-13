@@ -56,8 +56,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
 
     getProductPage(){
         let myProduct = this.singleProductData(this.props.uniqueID);
-        console.clear();
-        console.log("product", myProduct);
+
 
         let introArea = (
             <div className="single-product-view">

@@ -162,18 +162,18 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
                     //handle colliding to the right
                     if( this.state.mousePosition.x < (win.windowSize().width - this.tooltipWidth) && this.state.mousePosition.x > this.tooltipWidth){
                         xPos = (xPos - (this.tooltipWidth / 2) );
-                        console.log("win minus tooltip: ", win.windowSize().width - this.tooltipWidth);
-                        console.log("2: ", xPos);
+                      //  console.log("win minus tooltip: ", win.windowSize().width - this.tooltipWidth);
+
                     }
                     else if( this.state.mousePosition.x > (win.windowSize().width - this.tooltipWidth) && this.state.mousePosition.x < win.windowSize().width - 40 ){
                         //if mouse is towards bottom of screen but not within the tooltip width to left
                         xPos = win.windowSize().width - ( (this.tooltipWidth/2) + (  Math.abs( win.windowSize().width -  this.state.mousePosition.x + 40   )  ));
-                        console.log("3: ", xPos);
+
                     }
                     else if( this.state.mousePosition.x < this.tooltipWidth && this.state.mousePosition.x > 40 ){
                         //if mouse is closer to the left than the width of tooltip
                         xPos = win.windowSize().width - ( (this.tooltipWidth/2) + (  Math.abs( win.windowSize().width -  this.state.mousePosition.x + 20   )  ));
-                        console.log("3: ", xPos)
+
                     }
                     else if( this.state.mousePosition.x < 40 ){
                         xPos = this.state.mousePosition.x + 5;
