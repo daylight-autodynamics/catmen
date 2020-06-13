@@ -42,6 +42,14 @@ export class Columns{
                 toolTip : ""
             },
             {
+                columnName : "ProductGroup",
+                columnLabel : "Product Group",
+                columnMenu : testMenu,
+                columnType : "standard",
+                control : "text-input",
+                toolTip : ""
+            },
+            {
                 columnName : "Class",
                 columnLabel : "Class",
                 columnMenu : testMenu,
@@ -52,14 +60,6 @@ export class Columns{
             {
                 columnName : "ProductType",
                 columnLabel : "Product Type",
-                columnMenu : testMenu,
-                columnType : "standard",
-                control : "text-input",
-                toolTip : ""
-            },
-            {
-                columnName : "ProductGroup",
-                columnLabel : "Product Group",
                 columnMenu : testMenu,
                 columnType : "standard",
                 control : "text-input",
@@ -139,6 +139,14 @@ export class Columns{
             },
             {
                 columnName : "TestData",
+                columnLabel : "Test Data",
+                columnMenu : testMenu,
+                columnType : "user-gen",
+                control : "text-input",
+                toolTip : ""
+            },
+            {
+                columnName : "TestData2",
                 columnLabel : "Test Data",
                 columnMenu : testMenu,
                 columnType : "user-gen",

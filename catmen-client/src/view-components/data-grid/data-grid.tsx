@@ -15,6 +15,7 @@ interface iPROPS {
     manageParentViews : Function;
     selectionCallback? : Function;
     columns : iColumn[];
+    classes? : string;
 }
 
 interface iSTATE {
@@ -436,7 +437,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         // style={{gridTemplateColumns : `1.5rem repeat(${this.getNumColumns().toString()}, max-content) 1rem`}}
         let constructedGrid : ReactElement = (
             <>
-                <div className="data-grid">
+                <div className={`data-grid ${this.props.classes}`}>
                     <div className="viewport">
                         {columnHeaders}
                         {this.getGridItems()}

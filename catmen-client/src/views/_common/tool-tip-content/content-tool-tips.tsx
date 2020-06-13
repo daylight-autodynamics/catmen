@@ -119,7 +119,7 @@ export class toolTipsLibrary {
             header="Add Product as a Variant"
             copy={(
                 <div>
-                    <p>Create a new product variants group</p>
+                    <p>Create a new product variants group from the selected items. </p>
                     <img className="tooltip-illustration" src={createVariantGroupIllustration}/>
                 </div>
             )}

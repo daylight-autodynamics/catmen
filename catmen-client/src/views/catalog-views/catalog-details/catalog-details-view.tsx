@@ -15,8 +15,10 @@ import {ReactElement} from "react";
 import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
 import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
 import AppButton from "../../../view-components/button/app-button";
-import {appColumns} from "../../../_sample-data/columns";
+import {appColumns, iColumn} from "../../../_sample-data/columns";
 import {CatalogSingleProduct} from "./single-product-view";
+import {TextInput} from "../../../view-components/text-input/text-input";
+import app from "../../../../../catmen-server/src/Server";
 
 
 
@@ -36,6 +38,7 @@ interface iSTATE{
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
          super(props);
+         this.columns = appColumns.getColumns();
          this.state = {
              productViewOpen : false,
              editDrawerOpen : false,
@@ -49,7 +52,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      initialized:boolean = false;
      dataGridRef = React.createRef<DataGrid>();
      editDrawer : ReactElement = (<></>);
-
+     selectionSet : selectionObject[] = [];
+     columns : iColumn[];
 
 
     closeSingleProductEdit = ()=>{
@@ -78,12 +82,67 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                         productData={catmanData.productData}
                         closeSingleProduct={this.closeSingleProductEdit}
                     />
+
                  </StickyThing>
              )
          }
      }
 
+     getColumnLabel(colName : string) : string{
+
+         let columnLabel = "";
+         for(let i = 0; i < this.columns.length; i++){
+             if(this.columns[i].columnName === colName){
+                 columnLabel = this.columns[i].columnLabel;
+             }
+         }
+
+         return columnLabel;
+     }
+
+     updateValues(){
+         console.log("updated");
+     }
+
      getEditDrawer():ReactElement{
+
+         if(this.state.editDrawerOpen === false){
+             return(<></>);
+         }
+         if(this.dataGridRef.current != null && this.dataGridRef.current != undefined ){
+             this.selectionSet = this.dataGridRef.current.selectionSet;
+         }
+
+         let inputs : ReactElement[] = [];
+        let selectedItems : iDataGridItem[] = [];
+
+         for(let i=0; i < this.selectionSet.length; i++){
+             console.log(this.selectionSet[i]);
+             //TODO replace specific reference to catmanData with prop
+             let row = this.selectionSet[i].row;
+             let cell = this.selectionSet[i].cell;
+             let productDataItem = catmanData.productData[row][cell-2];
+            selectedItems.push(productDataItem);
+             //inputs.push( <div>{productDataItem.value}</div>)
+         }
+
+         console.log("selected grid items", selectedItems);
+
+         for( let i=0; i < selectedItems.length; i++){
+
+             let input = (
+                 <TextInput
+                 label={this.getColumnLabel( selectedItems[i].column )}
+                 currentValue={ selectedItems[i].value}
+                 onChangeAction={()=>this.updateValues}
+                 />
+             );
+
+             inputs.push(input)
+         }
+
+
+
          let drawer = (<></>);
              if(this.state.editDrawerOpen === true){
                  drawer = (
@@ -98,7 +157,10 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                              bgColor={"#CECECE"}
                              doAnimation={true}
                          >
-                             <p>Drawer!</p>
+                             <button onClick={()=>this.closeEditDrawer()}>
+                                 close
+                             </button>
+                             {inputs}
                          </StickyThing>
                      </>
                  );
@@ -106,9 +168,18 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          return drawer;
      }
 
-     manageEditDrawer( ){
+     closeEditDrawer(){
+         this.setState({editDrawerOpen : false});
+         if(this.dataGridRef.current != null && this.dataGridRef.current != undefined){
+             this.dataGridRef.current.clearSelection();
+         }
+     }
+
+     openEditDrawer( ){
          this.setState({editDrawerOpen : true});
          console.log("drawer opens here")
+
+
      }
 
      footerActions(action : "cancel" | "add-group" | "edit"){
@@ -136,6 +207,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      getFooterMenu(){
          let footer = (<></>);
          let buttons = (<></>);
+
          switch(this.state.footerMode){
              case "default":
                  buttons = (
@@ -268,7 +340,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                              buttonLabel="Make Into a Variant Group"
                              OnClick={()=>this.footerActions("cancel")}
                              tooltipType="custom"
-                             tooltip={toolTipContent.mainNav()}
+                             tooltip={toolTipContent.footerCreateVariant()}
                              toolTipTimeOutInMS={10000}
                              iconLeft={
                                  <CatmanIcon
@@ -341,6 +413,12 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
         console.log("!!!!!!!!!! MESSAGE",message);
      };
 
+     conditionClasses(){
+         if(this.state.editDrawerOpen === true){
+             return "drawer-open";
+         }
+     }
+
      render(){
             console.log("this.props.query");
             console.log(this.props.query);
@@ -351,9 +429,10 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                  <DataGrid
                      ref={this.dataGridRef}
                      data={catmanData.productData}
-                     manageParentViews={()=>this.manageEditDrawer()}
+                     manageParentViews={()=>this.openEditDrawer()}
                      selectionCallback={this.manageSelectionSet}
                      columns={appColumns.getColumns()}
+                     classes={this.conditionClasses()}
                  />
                  {this.getEditDrawer() }
                  {this.getFooterMenu() }

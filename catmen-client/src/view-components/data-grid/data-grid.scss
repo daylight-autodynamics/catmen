@@ -4,6 +4,9 @@
   margin: 0 0.5rem 0 0.5rem;
   box-sizing: border-box;
   overflow: auto;
+  &.drawer-open{
+    margin-bottom: 40vh;
+  }
   .viewport{
     display: inline-grid;
     grid-auto-columns: minmax(max-content, 100%) max-content;

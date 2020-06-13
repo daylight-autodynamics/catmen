@@ -16,6 +16,7 @@ export class ProductsData{
                 class: "default"
             },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
+            {value: "Rosina", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "required", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
@@ -41,6 +42,7 @@ export class ProductsData{
                 class: "default"
             },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
+            {value: "Rosina", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
@@ -66,6 +68,7 @@ export class ProductsData{
                 class: "default"
             },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
+            {value: "Rosina", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
@@ -91,6 +94,7 @@ export class ProductsData{
                 class: "default"
             },
             {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
+            {value: "Rosina", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
@@ -116,6 +120,7 @@ export class ProductsData{
                 class: "default"
             },
             {value: "sof-121-112", column: "PartNumber", attrType: "standard", class: "default"},
+            {value: "Rosina", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: "Rosina classic loveseat", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Love Seat", column: "ProductType", attrType: "standard", class: "default"},
