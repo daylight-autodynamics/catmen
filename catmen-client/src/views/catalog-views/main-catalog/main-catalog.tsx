@@ -17,6 +17,7 @@ import {CatalogDashboardView} from "../catalog-dashboard/catalog-dashboard-view"
 import {LandingPageView} from "../../landing-page/landing-page-view";
 import {ToggleMenu} from "../../../view-components/toggle-menu/toggle-component";
 import {CatalogSingleProduct} from "../catalog-details/single-product-view";
+import {catmanData} from "../../../_sample-data/products-data";
 
 interface iPROPS {
     message: string;
@@ -85,7 +86,7 @@ export function ProductViews() {
             return (<CatalogDashboardView message="this is the dashboards view" />);
 
         case "spreadsheet":
-            return (<CatalogDetailsView query={productID()}  message={bla}/>)
+            return (<CatalogDetailsView gridData={catmanData.productData} query={productID()}  message={bla}/>)
     }
 
     return (<h3>Requested topic ID: {bla}</h3>);

@@ -25,6 +25,7 @@ import app from "../../../../../catmen-server/src/Server";
 interface iPROPS   {
     message: string;
     query:string | null;
+    gridData : iDataGridItem[][];
 }
 
 interface iSTATE{
@@ -33,7 +34,9 @@ interface iSTATE{
     editDrawerMaximized : boolean;
     footerOpen : boolean;
     footerMode : "default" | "has-group" | "no-group" | "multiple-selected" ;
-    selectionSet : selectionObject[]
+    selectionSet : selectionObject[];
+    workingData : iDataGridItem[][];
+
 }
 
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
@@ -41,15 +44,17 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          super(props);
          this.columns = appColumns.getColumns();
          this.state = {
+             workingData : this.props.gridData,
              productViewOpen : false,
              editDrawerOpen : false,
              editDrawerMaximized : false,
              footerOpen : false,
              footerMode : "default",
              selectionSet : [],
-         }
+         };
+         this.workingDataSet = this.props.gridData;
      }
-
+     workingDataSet : iDataGridItem[][];
      //just for the fist launch of checkbox editing
      initialized:boolean = false;
      dataGridRef = React.createRef<DataGrid>();
@@ -58,15 +63,12 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      columns : iColumn[];
 
 
-    closeSingleProductEdit = ()=>{
+     closeSingleProductEdit = ()=>{
         window.history.back();
     };
 
      getProductViewDrawer( ){
          if(this.props.query != "none" && this.props.query != null && this.props.query != undefined ){
-
-
-
 
              return(
                  <StickyThing
@@ -81,7 +83,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                  >
                     <CatalogSingleProduct
                         uniqueID={this.props.query}
-                        productData={catmanData.productData}
+                        productData={this.state.workingData}
                         closeSingleProduct={this.closeSingleProductEdit}
                     />
 
@@ -102,39 +104,34 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          return columnLabel;
      }
 
-     updateValues(){
-         console.log("updated");
-     }
+     updateValues=(row : number, cell:number, value:string, colName : string)=>{
+         console.log("inside drawer", value, " col name:", colName);
+         //the minus 2 is the offset for the extra columns checkbox and edit
+         this.workingDataSet[row-2][cell-2].value = value;
+
+         this.setState({workingData : this.workingDataSet});
+         console.log( "selection set:", this.state.selectionSet );
+     };
 
      getEditDrawer():ReactElement{
 
          if(this.state.editDrawerOpen === false){
              return(<></>);
          }
+
          if(this.dataGridRef.current != null && this.dataGridRef.current != undefined ){
              this.selectionSet = this.dataGridRef.current.selectionSet;
+             console.log("cat details view selection set: ", this.selectionSet)
+
          }
 
          let inputs : ReactElement[] = [];
-        let selectedItems : iDataGridItem[] = [];
-
-
-        // for(let i=0; i < this.selectionSet.length; i++){
-        //
-        //      //TODO replace specific reference to catmanData with prop
-        //      let row = this.selectionSet[i].row;
-        //      let cell = this.selectionSet[i].cell;
-        //      //console.log("catman data", catmanData.productData);
-        //      let productDataItem = catmanData.productData[row-2][cell-2];
-        //      selectedItems.push(productDataItem);
-        //      //inputs.push( <div>{productDataItem.value}</div>)
-        //  }
-
+         let selectedItems : iDataGridItem[] = [];
 
          //Create list of selection items that need inputs (i.e. one input per column)
         i: for(let i=0; i < this.selectionSet.length; i++){
            j: for(let j=0; j < selectedItems.length; j++){
-                if(this.selectionSet[i].columnName === selectedItems[j].column){
+                if(this.selectionSet[i].columnName === selectedItems[j].columnName){
                     continue i;
                 }
             }
@@ -142,15 +139,17 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                  let cell = this.selectionSet[i].cell;
                  let productDataItem = catmanData.productData[row-2][cell-2];
                  selectedItems.push(productDataItem);
-
         }
 
          for( let i=0; i < selectedItems.length; i++){
              let input = (
                  <TextInput
-                 label={this.getColumnLabel( selectedItems[i].column )}
-                 currentValue={ selectedItems[i].value}
-                 onChangeAction={()=>this.updateValues}
+                     row={this.selectionSet[i].row}
+                     cell={this.selectionSet[i].cell}
+                     columnName={this.selectionSet[i].columnName}
+                     label={this.getColumnLabel( selectedItems[i].columnName )}
+                     currentValue={ selectedItems[i].value}
+                     onChangeAction={this.updateValues}
                  />
              );
              inputs.push(input)
@@ -170,7 +169,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
             }else{
                 return toolTipContent.restoreDrawer();
             }
-
          };
 
          let drawer = (<></>);
@@ -504,13 +502,12 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
      render(){
 
-
          return (
              <>
                  <TitleArea mainTitle="Spreadsheet View" subTitle="My Catalog" />
                  <DataGrid
                      ref={this.dataGridRef}
-                     data={catmanData.productData}
+                     data={this.state.workingData}
                      manageParentViews={()=>this.openEditDrawer()}
                      selectionCallback={this.manageSelectionSet}
                      columns={appColumns.getColumns()}
@@ -522,6 +519,4 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
              </>
          )
      }
-
-
 }

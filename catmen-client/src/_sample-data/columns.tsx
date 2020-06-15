@@ -10,8 +10,6 @@ export interface iColumn {
     toolTip : string;
 }
 
-
-
 export class Columns{
     getColumns() : iColumn[]{
         let testMenu = (<div style={{backgroundColor : "#cecece"}}>Menu</div>);
@@ -148,37 +146,15 @@ export class Columns{
                 toolTip : ""
             },
             {
-                columnName : "Clearance from Floor to Bottom of Sofa",
-                columnLabel : "ClearanceFromFloorToBottomOfSofa",
-                columnMenu : testMenu,
-                columnType : "user-gen",
-                control : "text-input",
-                toolTip : ""
-            },
-            {
-                columnName : "TestData",
-                columnLabel : "Test Data",
-                columnMenu : testMenu,
-                columnType : "user-gen",
-                control : "text-input",
-                toolTip : ""
-            },
-            {
-                columnName : "TestData2",
-                columnLabel : "Test Data",
-                columnMenu : testMenu,
-                columnType : "user-gen",
-                control : "text-input",
-                toolTip : ""
-            },
-            {
-                columnName : "TestData2",
-                columnLabel : "Test Data",
+                columnName : "ClearanceFromFloorToBottomOfSofa",
+                columnLabel : "Clearance from Floor to Bottom of Sofa",
                 columnMenu : testMenu,
                 columnType : "user-gen",
                 control : "text-input",
                 toolTip : ""
             }
+
+
         ]
     }
 }

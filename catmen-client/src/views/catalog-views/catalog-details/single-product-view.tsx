@@ -30,13 +30,13 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
     singleProductData = (uniqueID : string):iDataGridItem[]=>{
         let product : iDataGridItem[] = [{
             value : "string",
-            column : "string",
+            columnName : "string",
             attrType : "user-gen",
             class : "default"
         }];
         for(let i=0; i < this.props.productData.length; i++){
             for(let j=0; j < this.props.productData[i].length; j++){
-                if( this.props.productData[i][j].column === "uniqueID" && this.props.productData[i][j].value === uniqueID){
+                if( this.props.productData[i][j].columnName === "uniqueID" && this.props.productData[i][j].value === uniqueID){
                     product = this.props.productData[i];
                 }
             }
@@ -47,7 +47,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
 
     getAttribute(name : string){
         for(let i = 0; i < this.productData.length; i++){
-            if(this.productData[i].column === name){
+            if(this.productData[i].columnName === name){
                 return this.productData[i].value;
 
             }

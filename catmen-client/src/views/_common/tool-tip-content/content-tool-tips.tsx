@@ -120,7 +120,7 @@ export class toolTipsLibrary {
 
     footerCreateVariant(){
         return(<ToolTipContent
-            header="Add Product as a Variant"
+            header="Create New Product Group from Selection"
             subHeader="Create a new product variants group from the selected items."
             copy={(
                 <div>
