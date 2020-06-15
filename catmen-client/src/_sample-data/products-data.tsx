@@ -7,7 +7,7 @@ export class ProductsData{
 
     productData: iDataGridItem[][] = [
         [
-            {value: "000001", column: "uniqueID", attrType: "hidden", class: "default"},
+            {column: "uniqueID", value: "000001", attrType: "hidden", class: "default"},
 
             {
                 value: "https://secure.img1-fg.wfcdn.com/im/46577228/resize-h800-w800%5Ecompr-r85/8736/87366205/Fallinerlea+Indoor/Outdoor+Throw+Pilow.jpg",
@@ -15,13 +15,12 @@ export class ProductsData{
                 attrType: "standard",
                 class: "default"
             },
-            {value: "sof-121-111", column: "PartNumber", attrType: "standard", class: "default"},
-            {value: "Rosina", column: "ProductGroup", attrType: "standard", class: "default"},
-            {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
-            {value: "Sofas", column: "Class", attrType: "required", class: "default"},
-            {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
-            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
-            {value: `33'' H x 74'' W x 29'' D`, column: "OverallDimensions", attrType: "user-gen", class: "sofa"},
+            {column: "PartNumber", value: "sof-121-111", attrType: "standard", class: "default"},
+            {column: "ProductGroup", value: "Rosina",  attrType: "standard", class: "default"},
+            {column: "ProductName", value: "Rosina classic convertible sofa", attrType: "standard", class: "default"},
+            {column: "Class", value: "Sofas",  attrType: "required", class: "default"},
+            {column: "ProductType", value: "Sofa",  attrType: "standard", class: "default"},
+            {column: "OverallDimensions",  value: `33'' H x 74'' W x 29'' D`, attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
             {value: `42"`, column: "OverallHeight", attrType: "user-gen", class: "sofa"},
@@ -46,9 +45,7 @@ export class ProductsData{
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
-            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
-
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
             {value: `42"`, column: "OverallHeight", attrType: "user-gen", class: "sofa"},
             {value: `42"`, column: "OverallLength", attrType: "user-gen", class: "sofa"},
@@ -72,7 +69,6 @@ export class ProductsData{
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
-            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},
@@ -98,7 +94,7 @@ export class ProductsData{
             {value: "Rosina classic convertible sofa", column: "ProductName", attrType: "standard", class: "default"},
             {value: "Sofas", column: "Class", attrType: "standard", class: "default"},
             {value: "Sofa", column: "ProductType", attrType: "standard", class: "default"},
-            {value: " ", column: "ProductGroup", attrType: "standard", class: "default"},
+
             {value: `33'' H x 74'' W x 29'' D`, column: "Overall", attrType: "user-gen", class: "sofa"},
 
             {value: `42"`, column: "OverallDepth", attrType: "user-gen", class: "sofa"},

@@ -1,273 +1,362 @@
-@import "../../app-colors";
+  @import "../../app-colors";
 
-.st0{fill:#070707;}
-.st1{fill:none;stroke:#FFFFFF;stroke-width:1.047;stroke-miterlimit:10;}
-.st2{fill:#05778C;}
-.st3{fill:none;stroke:#FFFFFF;stroke-width:0.6742;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+  .st0{fill:#070707;}
+  .st1{fill:none;stroke:#FFFFFF;stroke-width:1.047;stroke-miterlimit:10;}
+  .st2{fill:#05778C;}
+  .st3{fill:none;stroke:#FFFFFF;stroke-width:0.6742;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 
-.st0{fill:#FFFFFF;}
-.st1{fill:#4D4D4D;}
-.st2{fill:none;stroke:#4D4D4D;stroke-miterlimit:10;}
+  .st0{fill:#FFFFFF;}
+  .st1{fill:#4D4D4D;}
+  .st2{fill:none;stroke:#4D4D4D;stroke-miterlimit:10;}
 
-///
-.st0{fill:#F2F2F2;}
-.st1{fill:#515151;}
-.st2{fill:none;
-  stroke:#808080;
-  stroke-miterlimit:10;}
-.st3{
-  fill:none;
-  stroke:#515151;
-  stroke-width:0.9734;stroke-miterlimit:10;}
-.st4{
-  fill:#05778C;
-  stroke:#FFFFFF;
-  stroke-width:1.1771;stroke-miterlimit:10;}
-.st5{fill:#FFFFFF;}
-
-.icon-select-row{
-  .filled-highlight{
-    fill:#515151;
-  }
-  .filled{
-    fill:#F2F2F2;
-  }
-  .stroked{
-    stroke:#515151;
-    stroke-width:1;
-    stroke-miterlimit:10;
-  }
-  .stroked-highlight{
+  ///
+  .st0{fill:#F2F2F2;}
+  .st1{fill:#515151;}
+  .st2{fill:none;
     stroke:#808080;
-  }
-  .action-highlight{
+    stroke-miterlimit:10;}
+  .st3{
+    fill:none;
+    stroke:#515151;
+    stroke-width:0.9734;stroke-miterlimit:10;}
+  .st4{
     fill:#05778C;
     stroke:#FFFFFF;
-    stroke-width:1.1771;
-    stroke-miterlimit:10;
+    stroke-width:1.1771;stroke-miterlimit:10;}
+  .st5{fill:#FFFFFF;}
+
+  .icon-select-row{
+    .filled-highlight{
+      fill:#515151;
+    }
+    .filled{
+      fill:#F2F2F2;
+    }
+    .stroked{
+      stroke:#515151;
+      stroke-width:1;
+      stroke-miterlimit:10;
+    }
+    .stroked-highlight{
+      stroke:#808080;
+    }
+    .action-highlight{
+      fill:#05778C;
+      stroke:#FFFFFF;
+      stroke-width:1.1771;
+      stroke-miterlimit:10;
+    }
+
+    .no-fill{
+      fill: none;
+    }
   }
 
-  .no-fill{
-    fill: none;
-  }
-}
-
-.st1a{
-  fill:none;
-  stroke:#05778C;
-  stroke-width:2.698;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-miterlimit:10;
-}
-
-.icon-go-arrow{
-  .stroked{
-    pointer-events: none;
+  .st1a{
     fill:none;
-    stroke:$Primary;
-    stroke-width:2;
+    stroke:#05778C;
+    stroke-width:2.698;
     stroke-linecap:round;
     stroke-linejoin:round;
     stroke-miterlimit:10;
   }
-}
 
-
-.stroked, .stroked-highlight{
-  stroke-miterlimit:10;
-  stroke-width: 1px;
-}
-
-.ui-icon{
-  height:1rem;
-  width:1rem;
-}
-
-.icon-cancel{
-  .filled{
-    fill:$Core_80;
-  }
-  .stroked{
-    stroke: white;
-    stroke-width: 2;
-  }
-  .no-fill{
-    fill: none;
-  }
-}
-
-//FOOTER BUTTONS
-.st0z{
-  fill:#FFFFFF;
-  stroke:#622262;
-  stroke-width:0.915;
-  stroke-miterlimit:10;
-}
-
-.st1z{fill:#622262;}
-
-.icon-add{
-  .filled{
-    fill:#FFFFFF;
-  }
-  .stroked{
-    stroke:#622262;
-    stroke-width:0.915;
-    stroke-miterlimit:10;
-  }
-  .filled-highlight{
-    fill:#622262;
-  }
-}
-
-.icon-single-product{
-  .filled{
-    fill:#C1D7DE;
-  }
-  .filled-dark{
-    fill:#515151;
-  }
-  .filled-darker{
-    fill:#2D2D2D;
-  }
-  .stroked{
-    fill:none;
-    stroke:#A1B3B7;
-    stroke-miterlimit:10;
-    stroke-width: 1;
-  }
-  .stroked-highlight{
-    stroke-width: 0.5;
-  }
-}
-
-.catman-footer{
-  .secondary-action{
-    .btn-descriptors{
-      grid-template-columns: auto auto 0.25rem;
-      .label{
-        font-family: "Sofia Pro";
-      }
-      .cm-icon{
-        &:first-child{
-          margin-right: 0.25rem;
-        }
-      }
-    }
-  }
-  .icon-edit{
-    .filled-highlight{
-      fill:#FFFFFF;
-      stroke:#622262;
-      stroke-width:1;
+  .icon-go-arrow{
+    .stroked{
+      pointer-events: none;
+      fill:none;
+      stroke:$Primary;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
       stroke-miterlimit:10;
     }
-    .no-fill{
-      fill:none;
-    }
+  }
+
+
+  .stroked, .stroked-highlight{
+    stroke-miterlimit:10;
+    stroke-width: 1px;
+  }
+
+  .ui-icon{
+    height:1rem;
+    width:1rem;
+  }
+
+  .icon-cancel{
     .filled{
       fill:$Core_80;
     }
     .stroked{
-      fill:none;
-      stroke:#622262;
-      stroke-width:0.6796;
-      stroke-miterlimit:10;
+      stroke: white;
+      stroke-width: 2;
+    }
+    .no-fill{
+      fill: none;
     }
   }
 
-  .icon-cancel{
-    &.ui-icon{
-      height:100%;
-      width:100%;
-    }
-  }
+   //restore drawewr icon
+  .zast0{fill:#070707;}
+  .zwst1{fill:#BBDCB0;}
+  .zst2{fill:none;stroke:#F2F2F2;stroke-miterlimit:10;}
 
-  .icon-delete{
+
+  .icon-restore-tooltip{
     .filled{
-      fill:$Core_80;
+      fill:#070707;
+    }
+    .filled-secondary{
+      fill:#BBDCB0;
+    }
+    .stroked{
+      fill:none;stroke:#F2F2F2;stroke-miterlimit:10;
+    }
+  }
+
+  .icon-maximize-tooltip{
+    .filled{
+      fill:#070707;
     }
     .filled-highlight{
-      fill:white;
+      fill:#FFFFFF;
+    }
+    .filled-secondary{
+      fill:#BBDCB0;
+    }
+    .stroked-secondary{
+      fill: none; stroke: #BBDCB0; stroke-miterlimit: 10;
     }
   }
-}
-
-.icon-compass{
-  .filled-highlight{
-    fill: $sky-blue;
-  }
-  .filled{
-    fill:black;
-  }
-  .stroked{
-    stroke: white;
-  }
-  .stroked-highlight{
-    stroke: white;
-  }
-}
-
-.icon-home, .icon-classes, .icon-attribute-mappings, .icon-catalog, .icon-attributes, .icon-attribute-groups {
-  .filled{
-    fill: $black_60;
-  }
-  .stroked{
-    stroke: $black_60;
-  }
-  .stroked-highlight{
-    stroke: white;
-  }
-  .filled-highlight{
-    fill: white;
-  }
-  .no-fill{
-    fill:none;
-  }
-}
-
-.down-arrow-icon{
-  .filled{
-    fill:$black_50;
-  }
-  &.ui-icon{
-    height: 0.5rem;
-  }
-}
 
 
-//CHECKBOXES
 
-.cell{
-  &.checkbox-main{
-    background-color: white;
-  }
-}
+  .icon-restore {
+      .filled-highlight {
+        fill: #FFFFFF;
+      }
 
-svg.unchecked{
-  .stroked{
-    fill:#FFFFFF;
-    stroke:#D8D8D8;
-    stroke-width:2;
-    stroke-miterlimit:10;
-  }
-  .filled{
-    fill:none;
-  }
-}
+      .filled {
+        fill: #070707;
+      }
 
-svg.checked{
-  .filled{
-    fill:#05778C;
-    stroke:white;
-    stroke-width:2;
-    stroke-miterlimit:10;
-  }
-  .filled-highlight{
-    fill:white;
-  }
-}
+      .filled-secondary {
+        fill: #BBDCB0;
+      }
+    }
+
+    .icon-close {
+      .filled {
+        fill: #070707;
+      }
+
+      .filled-highlight {
+        fill: white;
+      }
+    }
+
+    .icon-maximize {
+      .stroked {
+        fill: none;
+        stroke: #3D3D3D;
+        stroke-miterlimit: 10;
+      }
+
+      .filled {
+        fill: #3D3D3D;
+      }
+    }
+
+
+    //FOOTER BUTTONS
+
+    .icon-add {
+      .filled {
+        fill: #FFFFFF;
+      }
+
+      .stroked {
+        stroke: #622262;
+        stroke-width: 0.915;
+        stroke-miterlimit: 10;
+      }
+
+      .filled-highlight {
+        fill: #622262;
+      }
+    }
+
+    .icon-single-product {
+      .filled {
+        fill: #C1D7DE;
+      }
+
+      .filled-dark {
+        fill: #515151;
+      }
+
+      .filled-darker {
+        fill: #2D2D2D;
+      }
+
+      .stroked {
+        fill: none;
+        stroke: #A1B3B7;
+        stroke-miterlimit: 10;
+        stroke-width: 1;
+      }
+
+      .stroked-highlight {
+        stroke-width: 0.5;
+      }
+    }
+
+    .catman-footer {
+      .secondary-action {
+        .btn-descriptors {
+          grid-template-columns: auto auto 0.25rem;
+
+          .label {
+            font-family: "Sofia Pro", sans-serif;
+          }
+
+          .cm-icon {
+            &:first-child {
+              margin-right: 0.25rem;
+            }
+          }
+        }
+      }
+    }
+
+    .icon-edit {
+      .filled-highlight {
+        fill: #FFFFFF;
+        stroke: #622262;
+        stroke-width: 1;
+        stroke-miterlimit: 10;
+      }
+
+      .no-fill {
+        fill: none;
+      }
+
+      .filled {
+        fill: $Core_80;
+      }
+
+      .stroked {
+        fill: none;
+        stroke: #622262;
+        stroke-width: 0.6796;
+        stroke-miterlimit: 10;
+      }
+    }
+
+    .icon-cancel {
+      &.ui-icon {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .icon-delete {
+      .filled {
+        fill: $Core_80;
+      }
+
+      .filled-highlight {
+        fill: white;
+      }
+    }
+
+    .icon-compass {
+      .filled-highlight {
+        fill: $sky-blue;
+      }
+
+      .filled {
+        fill: black;
+      }
+
+      .stroked {
+        stroke: white;
+      }
+
+      .stroked-highlight {
+        stroke: white;
+      }
+    }
+
+    .icon-home, .icon-classes, .icon-attribute-mappings, .icon-catalog, .icon-attributes, .icon-attribute-groups {
+      .filled {
+        fill: $black_60;
+      }
+
+      .stroked {
+        stroke: $black_60;
+      }
+
+      .stroked-highlight {
+        stroke: white;
+      }
+
+      .filled-highlight {
+        fill: white;
+      }
+
+      .no-fill {
+        fill: none;
+      }
+    }
+
+    .down-arrow-icon {
+      .filled {
+        fill: $black_50;
+      }
+
+      &.ui-icon {
+        height: 0.5rem;
+      }
+    }
+
+
+    //CHECKBOXES
+
+    .cell {
+      &.checkbox-main {
+        background-color: white;
+      }
+    }
+
+    svg.unchecked {
+      .stroked {
+        fill: #FFFFFF;
+        stroke: #D8D8D8;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+      }
+
+      .filled {
+        fill: none;
+      }
+    }
+
+    svg.checked {
+      .filled {
+        fill: #05778C;
+        stroke: white;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+      }
+
+      .filled-highlight {
+        fill: white;
+      }
+    }
+
+
 
 
 

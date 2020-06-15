@@ -4,6 +4,9 @@ import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-co
 
 import addVariantIllustration from "../../../images/SVG/add-variant.svg"
 import createVariantGroupIllustration from "../../../images/SVG/create-variant-group.svg"
+import maximizeDrawer from "../../../images/SVG/maximize-drawer.svg"
+import closeDrawer from "../../../images/SVG/close-drawer.svg"
+import restoreDrawer from "../../../images/SVG/restore-drawer.svg"
 
 interface iSTATE{
 
@@ -28,6 +31,8 @@ export class ContentToolTips extends React.Component<iPROPS, iSTATE>{
 export class toolTipsLibrary {
     showSelectRow : boolean = true;
     showSingleProduct : boolean = true;
+    showCloseDrawer : number = 0;
+    showMaximizeDrawer : number = 0;
     mainNav(){
     return(<ToolTipContent
               header="Navigation"
@@ -92,13 +97,12 @@ export class toolTipsLibrary {
         />)
     }
 
-
     footerAddVariant(){
         return(<ToolTipContent
             header="Add Product as a Variant"
+            subHeader="Create a new product and add it to the selected product's group"
             copy={(
                 <div>
-                    <p>Create a new product and add it to the selected product's group</p>
                     <img className="tooltip-illustration" src={addVariantIllustration}/>
                 </div>
             )}
@@ -117,9 +121,9 @@ export class toolTipsLibrary {
     footerCreateVariant(){
         return(<ToolTipContent
             header="Add Product as a Variant"
+            subHeader="Create a new product variants group from the selected items."
             copy={(
                 <div>
-                    <p>Create a new product variants group from the selected items. </p>
                     <img className="tooltip-illustration" src={createVariantGroupIllustration}/>
                 </div>
             )}
@@ -135,15 +139,14 @@ export class toolTipsLibrary {
         />)
     }
 
-
     singleProduct(){
         if(this.showSingleProduct === true){
             return (
                 <ToolTipContent
                     header="Edit This Product"
+                    subHeader="Edit this row in a single page."
                     copy={(
                         <div>
-                            <p>Edit this row in a single page</p>
                             <ul>
                                 <li>Web form style page</li>
                                 <li>View and Associate Media</li>
@@ -167,15 +170,18 @@ export class toolTipsLibrary {
         }else{
             return (
                 <ToolTipContent
-                    header=""
-                    copy={(
-                        <div>
-                            <p>Select rows to delete, create groups, add variants to groups</p>
-                        </div>
-                    )}
-
+                    header="Edit This Product"
+                    subHeader="Select rows to delete, create groups, add variants to groups"
+                    copy=""
                     tooltipType="empty"
-
+                    icon={
+                        <CatmanIcon
+                            iconName="single-product"
+                            classes=""
+                            height="1.5rem"
+                            width="1.5rem"
+                        />
+                    }
                 />
             );
         }
@@ -186,9 +192,9 @@ export class toolTipsLibrary {
             return (
                 <ToolTipContent
                     header="Select Rows"
+                    subHeader="Select rows to perform actions on them."
                     copy={(
                         <div>
-                            <p>Select rows to perform actions on them:</p>
                             <ul>
                                 <li>Delete items from catalog</li>
                                 <li>Create product groupings</li>
@@ -222,6 +228,113 @@ export class toolTipsLibrary {
 
                 />
             );
+        }
+    }
+
+    closeDrawer(){
+        if(this.showCloseDrawer < 4){
+            return(
+                <ToolTipContent
+                    header="Close Drawer"
+                    subHeader="Close edit drawer and clear cell selection set"
+                    copy={(
+                        <div>
+                            <img className="tooltip-illustration" src={closeDrawer}/>
+                        </div>
+                    )}
+                    tooltipType="deluxe"
+                    icon={
+                        <CatmanIcon
+                            iconName="close-icon"
+                            classes=""
+                            height="1.5rem"
+                            width="1.5rem"
+                        />
+                    }
+                />
+                )
+        }else{
+            return(<ToolTipContent
+                header="Close Drawer"
+                copy={(
+                    <div>
+                        <p>Close drawer and clear selection.</p>
+                    </div>
+                )}
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="icon-close"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />)
+        }
+    }
+
+    restoreDrawer(){
+        return(
+            <ToolTipContent
+                header="Restore Drawer"
+                subHeader="Restore drawer so the grid is in view again."
+                copy={(
+                    <div>
+                        <img className="tooltip-illustration" src={restoreDrawer}/>
+                    </div>
+                )}
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="icon-restore-tooltip"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />
+        )
+    }
+
+    maximizeDrawer(){
+        if(this.showMaximizeDrawer < 4){
+            return(<ToolTipContent
+                header="Maximize Drawer"
+                subHeader="Expand the edit area"
+                copy={(
+                    <div>
+                        <img className="tooltip-illustration" src={maximizeDrawer}/>
+                    </div>
+                )}
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="icon-maximize-tooltip"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />)
+        }else{
+            return(<ToolTipContent
+                header="Maximize Drawer"
+                copy={(
+                    <div>
+                        <p>Expand the edit area.</p>
+                    </div>
+                )}
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="icon-maximize-tooltip"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />)
         }
     }
 

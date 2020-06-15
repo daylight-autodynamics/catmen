@@ -50,6 +50,14 @@ export class Columns{
                 toolTip : ""
             },
             {
+                columnName : "ProductName",
+                columnLabel : "Product Name",
+                columnMenu : testMenu,
+                columnType : "standard",
+                control : "text-input",
+                toolTip : ""
+            },
+            {
                 columnName : "Class",
                 columnLabel : "Class",
                 columnMenu : testMenu,
@@ -65,6 +73,16 @@ export class Columns{
                 control : "text-input",
                 toolTip : ""
             },
+            {
+                columnName : "OverallDimensions",
+                columnLabel : "Overall Dimensions",
+                columnMenu : testMenu,
+                columnType : "user-gen",
+                control : "text-input",
+                toolTip : ""
+            },
+
+
             {
                 columnName : "OverallDepth",
                 columnLabel : "Overall Depth",

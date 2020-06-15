@@ -26,6 +26,8 @@ interface iPROPS{
     tooltipType : "basic" | "custom" | "none";
     tooltip? : ReactElement;
     toolTipTimeOutInMS? : number;
+    tooltipYOffset? : number;
+    tooltipXOffset? : number;
     classes? : string;
     state? : string;
 }
@@ -108,6 +110,8 @@ constructor(props:iPROPS) {
                           tooltipType="custom"
                           toolTipCustomElement={this.props.tooltip}
                           timeoutInMS={this.toolTipTimeOut}
+                          xOffset={this.props.tooltipXOffset}
+                          yOffset={this.props.tooltipYOffset}
                       />
             )
         }

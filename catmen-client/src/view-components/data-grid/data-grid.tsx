@@ -27,6 +27,7 @@ export type selectionObject = {
     row : number;
     cell : number;
     selected : boolean;
+    columnName : string;
 }
 
 export class DataGrid extends React.Component<iPROPS, iSTATE>{
@@ -57,7 +58,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     cellRange : any;
     _checkedRows : number[] = [];
 
-    manageSelection(row:number, cell:number, clearSelection : boolean){
+    manageSelection(row:number, cell:number, columnName : string,  clearSelection : boolean){
 
         if(clearSelection){
             this.selectionSet = [];
@@ -85,7 +86,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 {
                     row: row,
                     cell: cell,
-                    selected : true
+                    selected : true,
+                    columnName : columnName
                 }
             );
         }
@@ -96,7 +98,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     {
                         row: i,
                         cell: j,
-                        selected : true
+                        selected : true,
+                        columnName : columnName
                     }
                 );
             }
@@ -205,8 +208,9 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         this.startSelectionRow = row;
     }
 
-    mouseUpAction(row:number, cell:number){
-        this.manageSelection(row, cell, true);
+    mouseUpAction(row:number, cell:number, columnName : string){
+        console.log("@@@check", row, " ", cell, " ", columnName);
+        this.manageSelection(row, cell, columnName, true);
     }
 
     manageCheckbox(row : number){
@@ -247,7 +251,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 let selectedCell : selectionObject = {
                     row : this._checkedRows[i]+1,
                     cell : j,
-                    selected : true
+                    selected : true,
+                    columnName : appColumns.getColumns()[i+1].columnName
                 };
                 this.selectionSet.push(selectedCell);
             }
@@ -313,7 +318,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                             mouseUpActions={
                                 [
                                     () => this.props.manageParentViews(),
-                                    () => this.mouseUpAction(i+2,j+2)
+                                    () => this.mouseUpAction(i+2,j+2, appColumns.getColumns()[j].columnName)
                                 ]
                             }
                             selectedClass={this.checkSelected(i+2, j+2)}

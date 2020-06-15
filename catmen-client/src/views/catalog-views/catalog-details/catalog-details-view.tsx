@@ -30,6 +30,7 @@ interface iPROPS   {
 interface iSTATE{
     productViewOpen : boolean;
     editDrawerOpen : boolean;
+    editDrawerMaximized : boolean;
     footerOpen : boolean;
     footerMode : "default" | "has-group" | "no-group" | "multiple-selected" ;
     selectionSet : selectionObject[]
@@ -42,6 +43,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          this.state = {
              productViewOpen : false,
              editDrawerOpen : false,
+             editDrawerMaximized : false,
              footerOpen : false,
              footerMode : "default",
              selectionSet : [],
@@ -116,21 +118,34 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          let inputs : ReactElement[] = [];
         let selectedItems : iDataGridItem[] = [];
 
-         for(let i=0; i < this.selectionSet.length; i++){
 
-             //TODO replace specific reference to catmanData with prop
-             let row = this.selectionSet[i].row;
-             let cell = this.selectionSet[i].cell;
-             //console.log("catman data", catmanData.productData);
-             let productDataItem = catmanData.productData[row-2][cell-2];
-             selectedItems.push(productDataItem);
-             //inputs.push( <div>{productDataItem.value}</div>)
-         }
+        // for(let i=0; i < this.selectionSet.length; i++){
+        //
+        //      //TODO replace specific reference to catmanData with prop
+        //      let row = this.selectionSet[i].row;
+        //      let cell = this.selectionSet[i].cell;
+        //      //console.log("catman data", catmanData.productData);
+        //      let productDataItem = catmanData.productData[row-2][cell-2];
+        //      selectedItems.push(productDataItem);
+        //      //inputs.push( <div>{productDataItem.value}</div>)
+        //  }
 
 
+         //Create list of selection items that need inputs (i.e. one input per column)
+        i: for(let i=0; i < this.selectionSet.length; i++){
+           j: for(let j=0; j < selectedItems.length; j++){
+                if(this.selectionSet[i].columnName === selectedItems[j].column){
+                    continue i;
+                }
+            }
+                 let row = this.selectionSet[i].row;
+                 let cell = this.selectionSet[i].cell;
+                 let productDataItem = catmanData.productData[row-2][cell-2];
+                 selectedItems.push(productDataItem);
+
+        }
 
          for( let i=0; i < selectedItems.length; i++){
-
              let input = (
                  <TextInput
                  label={this.getColumnLabel( selectedItems[i].column )}
@@ -138,11 +153,25 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                  onChangeAction={()=>this.updateValues}
                  />
              );
-
              inputs.push(input)
          }
 
+        let maximize = (valueCheck : boolean)=>{
+             if(valueCheck === true){
+                 return "maximized"
+             }else{
+                 return "catman-edit-default restored"
+             }
+        };
 
+         let restoreAndMaximizeTooltip = (valueCheck : boolean)=>{
+            if(valueCheck === false){
+                return toolTipContent.maximizeDrawer();
+            }else{
+                return toolTipContent.restoreDrawer();
+            }
+
+         };
 
          let drawer = (<></>);
              if(this.state.editDrawerOpen === true){
@@ -150,23 +179,68 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      <>
                          <StickyThing
                              enterFromThisSide="bottom"
-                             lastResortClasses={"catman-edit-drawer"}
+                             lastResortClasses={`catman-edit-drawer ${maximize(this.state.editDrawerMaximized)}`}
                              animateIn={true}
-                             heightIncludeUnits="40vh"
-                             widthIncludeUnits={"97vw"}
+                             heightIncludeUnits=""
+                             widthIncludeUnits={""}
                              stickyOpen={true}
                              bgColor={"#CECECE"}
                              doAnimation={true}
+                             toolBar="none"
                          >
-                             <button onClick={()=>this.closeEditDrawer()}>
-                                 close
-                             </button>
-                             {inputs}
+                             <div className={"tool-bar"}>
+                                 <div></div>
+                                 <div className="drawer-controls">
+                                      <AppButton
+                                         buttonType={"secondary-action"}
+                                         buttonLabel=""
+                                         OnClick={()=>this.maximizeEditDrawer()}
+                                         tooltipType="custom"
+                                         tooltip={restoreAndMaximizeTooltip(this.state.editDrawerMaximized)}
+                                         toolTipTimeOutInMS={10000}
+                                         classes="tool-bar-btn icon-only-btn"
+                                         iconLeft={
+                                             <CatmanIcon
+                                                 iconName="icon-maximize"
+                                                 classes=" "
+                                                 height="100%"
+                                                 width="100%"
+                                             />
+                                         }
+                                     />
+                                     <AppButton
+                                         buttonType={"secondary-action"}
+                                         buttonLabel=""
+                                         OnClick={()=>this.closeEditDrawer()}
+                                         tooltipType="custom"
+                                         tooltip={toolTipContent.closeDrawer()}
+                                         toolTipTimeOutInMS={10000}
+                                         classes="icon-only-btn"
+                                         iconLeft={
+                                             <CatmanIcon
+                                                 iconName="icon-close"
+                                                 classes=" "
+                                                 height="100%"
+                                                 width="100%"
+                                             />
+                                         }
+                                     />
+
+                                 </div>
+                             </div>
+
+                             <div className="drawer-edit-area">
+                                 {inputs}
+                             </div>
                          </StickyThing>
                      </>
                  );
              }
          return drawer;
+     }
+
+     maximizeEditDrawer(){
+         this.setState({editDrawerMaximized : !this.state.editDrawerMaximized})
      }
 
      closeEditDrawer(){
@@ -293,6 +367,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                              tooltipType="custom"
                              tooltip={toolTipContent.footerCancel()}
                              toolTipTimeOutInMS={10000}
+                             tooltipXOffset={0}
+                             tooltipYOffset={20}
                              iconLeft={
                                  <CatmanIcon
                                      iconName="cancel"
@@ -309,6 +385,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                              tooltipType="custom"
                              tooltip={toolTipContent.footerDelete()}
                              toolTipTimeOutInMS={10000}
+                             tooltipXOffset={0}
+                             tooltipYOffset={20}
                              iconLeft={
                                  <CatmanIcon
                                      iconName="icon-delete"
@@ -326,6 +404,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                              tooltipType="custom"
                              tooltip={toolTipContent.footerEditSelection()}
                              toolTipTimeOutInMS={10000}
+                             tooltipXOffset={0}
+                             tooltipYOffset={20}
                              iconLeft={
                                  <CatmanIcon
                                      iconName="icon-edit"
@@ -343,6 +423,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                              tooltipType="custom"
                              tooltip={toolTipContent.footerCreateVariant()}
                              toolTipTimeOutInMS={10000}
+                             tooltipXOffset={0}
+                             tooltipYOffset={20}
                              iconLeft={
                                  <CatmanIcon
                                      iconName="icon-add"
@@ -386,7 +468,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                          enterFromThisSide="bottom"
                          lastResortClasses={"catman-footer-container"}
                          animateIn={true}
-                         heightIncludeUnits="3rem"
+                         heightIncludeUnits="3.75rem"
                          widthIncludeUnits={"100%"}
                          stickyOpen={true}
                          bgColor={"rgba(0,0,0,0)"}

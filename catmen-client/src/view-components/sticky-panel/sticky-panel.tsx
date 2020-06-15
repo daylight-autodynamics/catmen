@@ -6,7 +6,7 @@ interface iStickyPROPS{
     enterFromThisSide : stickyPosition;
     lastResortClasses : string;
     animateIn : boolean;
-    toolBar? : ReactElement;
+    toolBar? : ReactElement | "none";
     heightIncludeUnits : string;
     widthIncludeUnits : string;
     stickyOpen : boolean
@@ -50,8 +50,8 @@ export class StickyThing extends React.Component<iStickyPROPS, iStickySTATE>{
 
     toolBar(){
         let toolBar : ReactElement = (<></>);
-        if(this.props.toolBar != null){
-            toolBar = (this.props.toolBar);
+        if(this.props.toolBar != null && this.props.toolBar != "none" ){
+            toolBar = (<div className={'tool-bar'}>{this.props.toolBar}</div>  );
         }
         return toolBar;
     }
@@ -98,7 +98,7 @@ export class StickyThing extends React.Component<iStickyPROPS, iStickySTATE>{
 
             baseSticky = (
                 <div style={style}  className={`wf-sticky-drawer ${this.classes()}`}>
-                    <div className={'tool-bar'}>{this.toolBar()}</div>
+                    {this.toolBar()}
                     {this.props.children}
                 </div>
             );

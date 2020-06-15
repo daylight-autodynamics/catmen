@@ -77,12 +77,74 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
 
                 );
 
+            case "icon-restore-tooltip":
+                return(
+                   <svg x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}} >
+                        <path className="filled-secondary st0" d="M30.8,5.4v-3H27C24.3,0.9,21.3,0,18,0s-6.3,0.9-9,2.4H5.4v2.7C2.1,8.4,0,13,0,18c0,9.9,8,18,18,18 c9.9,0,18-8,18-18C35.9,13.1,34,8.6,30.8,5.4z"/>
+                        <path className="filled st1" d="M30,2.3H6.2C5.3,2.3,4.6,3,4.6,3.8l0,21.9c0.3-1,0.9-1.3,2.1-1.3l10.4,0L12,19.3l1.2-1.2l4,4V5.2h1.7v16.9l4-4	l1.2,1.2l-5.2,5.2l10.6,0c1.2-0.1,1.9,0.3,2,1.3l0-21.9C31.6,3,30.9,2.3,30,2.3z"/>
+                        <path className="stroked st2" d="M31,30.9v-3.4c0-0.8-0.7-1.5-1.5-1.5H6.7c-0.8,0-1.5,0.7-1.5,1.5v3.7"/>
+                    </svg>
+                );
+
+            case "icon-maximize-tooltip":
+                return (
+                    <svg className={`${this.props.classes} icon-maximize-tooltip`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}} >
+                        <path className="filled " d="M30.8,5.4v-3H27C24.3,0.9,21.3,0,18,0s-6.3,0.9-9,2.4H5.4v2.7C2.1,8.4,0,13,0,18c0,9.9,8,18,18,18	c9.9,0,18-8,18-18C35.9,13.1,34,8.6,30.8,5.4z"/>
+                        <polygon className="filled-highlight " points="13.2,14.5 17.2,10.5 17.2,27.4 18.9,27.4 18.9,10.5 22.9,14.5 24,13.3 18,7.2 12,13.3 "/>
+                        <path className="filled-secondary " d="M18,35.9c5.2,0,9.8-2.2,13.1-5.7v-3.6c0-0.8-0.7-1.5-1.5-1.5H6.7c-0.8,0-1.5,0.7-1.5,1.5v3.9 C8.4,33.9,13,35.9,18,35.9z"/>
+                    	<g className="stroked-secondary">
+                            <path d="M31,9.5V3.9c0-0.8-0.7-1.5-1.5-1.5H6.7C5.9,2.4,5.2,3,5.2,3.9v6"/>
+                            <line x1="5.2" y1="11.3" x2="5.2" y2="14.3"/>
+                            <line x1="31" y1="14.3" x2="31" y2="11.3"/>
+                            <line x1="5.2" y1="15.4" x2="5.2" y2="17.6"/>
+                            <line x1="31" y1="17.7" x2="31" y2="15.4"/>
+                            <line x1="5.2" y1="19.2" x2="5.2" y2="21"/>
+                            <line x1="31" y1="21.1" x2="31" y2="19.2"/>
+                            <line x1="5.2" y1="23.1" x2="5.2" y2="24.2"/>
+                            <line x1="31" y1="24.1" x2="31" y2="23.1"/>
+                        </g>
+                    </svg>
+                );
+
+            case "icon-maximize":
+                return (
+                    <svg className={`icon-maximize ${this.props.classes}`} x="0px" y="0px" width={`${this.props.width}`} height={`${this.props.height}`} viewBox="0 0 22.2 22.2" style={{overflow:"visible"}} >
+                        <path className="stroked" d="M0.8,14.6V2.1c0-0.9,0.7-1.6,1.6-1.6h17.8c0.9,0,1.6,0.7,1.6,1.6v17.8c0,0.9-0.7,1.6-1.6,1.6H7.7"/>
+                        <path className="filled" d="M11.2,2.8v1.7H17L5.7,15.8c-0.2-0.1-0.5-0.2-0.8-0.2H1.8c-1,0-1.8,0.8-1.8,1.8v3.1c0,1,0.8,1.8,1.8,1.8h3.1 c1,0,1.8-0.8,1.8-1.8v-3.1c0-0.2,0-0.4-0.1-0.6L18,5.3v5.9h1.7V2.8H11.2z"/>
+                    </svg>
+                );
+
+            case "icon-close":
+                return(
+                    <svg className={`icon-close ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 20.6 20.6" style={{overflow:"visible"}}>
+                        <polygon className="filled" points="20.6,2 18.6,0 10.3,8.3 2,0 0,2 8.3,10.3 0,18.6 2,20.6 10.3,12.3 18.6,20.6 20.6,18.6 12.3,10.3 "/>
+                    </svg>
+                );
+
             case "icon-delete":
                 return(
                     <svg className={`icon-delete ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34 34" style={{overflow:"visible"}}>
  	                    <circle className="filled" cx="17" cy="17" r="17"/>
                         <rect className="filled-highlight" x="6.8" y="15.7" transform="matrix(0.707 -0.7072 0.7072 0.707 -7.0562 17.2692)" width="20.9" height="2.8"/>
                     </svg>
+                );
+
+            case "icon-close":
+                return (
+                    <svg className={`icon-close ${this.props.classes}`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}} >
+                        <path className="filled" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                        <polygon className="filled-highlight" points="28.3,9.7 26.2,7.7 18,15.9 9.7,7.7 7.7,9.7 15.9,18 7.7,26.2 9.7,28.3 18,20 26.2,28.3 28.3,26.2	20,18 "/>
+                    </svg>
+                );
+
+            case "icon-restore":
+                return(
+                    <svg className={`icon-restore ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}}>
+                        <path className="filled" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                        <polygon className="filled-highlight" points="22.9,17.9 18.9,21.9 18.9,5 17.2,5 17.2,21.9 13.2,17.9 12,19.1 18,25.1 24,19.1 "/>
+                        <path className="filled-secondary" d="M18,35.9c5.2,0,9.8-2.2,13.1-5.7v-3.6c0-0.8-0.7-1.5-1.5-1.5H6.7c-0.8,0-1.5,0.7-1.5,1.5v3.9 C8.4,33.9,13,35.9,18,35.9z"/>
+                    </svg>
+
                 );
 
             case "icon-edit":

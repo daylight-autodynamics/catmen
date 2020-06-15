@@ -103,16 +103,21 @@ $btn-padding : 1rem;
   }
 }
 
+.icon-only-btn{
+  background-color: transparent;
+  border: none;
+}
+
 //CATMAN SPECIFIC
 .st0{fill:#622262;}
 .st1{fill:none;stroke:#FFFFFF;stroke-width:2.0996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 .st2{fill:none;stroke:#FFFFFF;stroke-width:2.698;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 
-  .secondary-action{
-    &.btn-default{
-      border-radius: 2rem;
-    }
+.secondary-action{
+  &.btn-default{
+    border-radius: 2rem;
   }
+}
 
 
 .app-btn{

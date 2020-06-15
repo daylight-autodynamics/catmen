@@ -1,4 +1,18 @@
 .wf-sticky-drawer{
+  &.maximized{
+    height: 95vh;
+    transition: height;
+    transition-duration: 1s;
+  }
+  &.restored{
+    height: 40vh;
+    transition: height;
+    transition-duration: 1s;
+  }
+  div{
+    pointer-events: auto;
+  }
+  pointer-events: none;
   position: fixed;
   font-size: 1rem;
   color: #4d4d4f;
@@ -13,14 +27,18 @@
   flex-direction: column;
   overflow: hidden;
   backdrop-filter: blur(5px) brightness(48%);
-  height: auto;
   width: 100%;
-  height: 100%;
   padding: 1.25rem;
   box-sizing: border-box;
+
   .tool-bar{
     margin: -1.25rem -1.25rem .5rem -1.25rem;
   }
+}
+
+@keyframes maximize-drawer {
+  0% {height: 40% !important;}
+  100% {height: 90% !important;}
 }
 
 @keyframes sticky-from-left {
@@ -82,8 +100,30 @@
 
 //CATMAN specific
 
-.catman-edit-drawer{
+.catman-edit-default{
   height: 40vh;
+}
+
+.drawer-edit-area {
+  padding: 0.25rem;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  grid-column-gap: 0.25rem;
+  grid-row-gap: 0.25rem;
+}
+
+.tool-bar{
+  grid-template-columns: 1fr auto;
+  display: grid;
+  .drawer-controls{
+    flex-grow: 0;
+    width: auto;
+    position: relative;
+  }
+}
+
+.catman-edit-drawer{
   background-color: rgb(206, 206, 206);
   left: 50%;
   transform: translateX(-50%);
