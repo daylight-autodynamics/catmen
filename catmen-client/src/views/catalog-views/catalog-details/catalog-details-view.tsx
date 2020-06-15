@@ -105,12 +105,26 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      }
 
      updateValues=(row : number, cell:number, value:string, colName : string)=>{
+         if(this.dataGridRef.current != null && this.dataGridRef.current != undefined ){
+             this.selectionSet = this.dataGridRef.current.selectionSet;
+             console.log("cat details view selection set: ", this.selectionSet)
+         }
          console.log("inside drawer", value, " col name:", colName);
          //the minus 2 is the offset for the extra columns checkbox and edit
-         this.workingDataSet[row-2][cell-2].value = value;
+         for(let i =0; i < this.selectionSet.length; i++){
+             if(this.selectionSet[i].columnName === colName){
+                 let myRow = this.selectionSet[i].row;
+                 let myCell = this.selectionSet[i].cell;
+                 console.log( "working data set:", this.workingDataSet[ myRow-2][myCell-2] );
+                 this.workingDataSet[ myRow-2][myCell-2].value = value;
+             }
+
+         }
+         //this.workingDataSet[ row-2][cell-2].value = value;
+
 
          this.setState({workingData : this.workingDataSet});
-         console.log( "selection set:", this.state.selectionSet );
+         console.log( "working data set:", this.state.workingData );
      };
 
      getEditDrawer():ReactElement{
@@ -122,7 +136,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          if(this.dataGridRef.current != null && this.dataGridRef.current != undefined ){
              this.selectionSet = this.dataGridRef.current.selectionSet;
              console.log("cat details view selection set: ", this.selectionSet)
-
          }
 
          let inputs : ReactElement[] = [];
@@ -242,7 +255,10 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      }
 
      closeEditDrawer(){
-         this.setState({editDrawerOpen : false});
+         this.setState({
+             editDrawerOpen : false,
+             editDrawerMaximized : false
+         });
          if(this.dataGridRef.current != null && this.dataGridRef.current != undefined){
              this.dataGridRef.current.clearSelection();
          }

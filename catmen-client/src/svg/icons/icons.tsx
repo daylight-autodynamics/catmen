@@ -164,8 +164,8 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
             case "icon-add":
                 return(
                     <svg className={`${this.props.classes} icon-add`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35 35" style={{overflow:"visible"}} >
-                        <circle className="filled stroked st0" cx="17.5" cy="17.5" r="17"/>
-                        <polygon className="filled-highlight st1" points="28.1,19.2 28.1,16.4 19,16.4 19,7.3 16.2,7.3 16.2,16.4 7.1,16.4 7.1,19.2 16.2,19.2 16.2,28.2 19,28.2 19,19.2 "/>
+                        <circle className="filled stroked " cx="17.5" cy="17.5" r="17"/>
+                        <polygon className="filled-highlight " points="28.1,19.2 28.1,16.4 19,16.4 19,7.3 16.2,7.3 16.2,16.4 7.1,16.4 7.1,19.2 16.2,19.2 16.2,28.2 19,28.2 19,19.2 "/>
                     </svg>
                 );
 

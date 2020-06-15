@@ -16,6 +16,10 @@
       display: inline;
       min-width: 3rem;
       box-sizing: border-box;
+      &.details{
+        border: solid $black_60;
+        border-width: 0 0 1px 1px;
+      }
     }
   }
 }

@@ -155,9 +155,13 @@ constructor(props:iPROPS) {
                             onClick={()=>this.props.OnClick()}
                             onMouseOver={()=>this.doHoverActions()}
                             onMouseOut={()=>this.doHoverOutActions()}
-                            className="btn-main-action"
+                            className={`${this.props.classes} btn-main-action`}
                         >
-                            {this.props.buttonLabel}
+                            <div className="button-decorator">
+                                <div className="icon-left">{this.props.iconLeft}</div>
+                                <div className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</div>
+                                <div className="icon-right">{this.props.iconRight}</div>
+                            </div>
                         </button>
                     </>
                 );
@@ -200,7 +204,7 @@ constructor(props:iPROPS) {
                                 <div className="hover-panel"></div>
                                 <div className="button-decorator">
                                     <div className="icon-left">{this.props.iconLeft}</div>
-                                    <p className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</p>
+                                    <div className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</div>
                                     <div className="icon-right">{this.props.iconRight}</div>
                                 </div>
                             </NavLink>

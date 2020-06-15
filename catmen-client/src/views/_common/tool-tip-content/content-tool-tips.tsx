@@ -338,6 +338,36 @@ export class toolTipsLibrary {
         }
     }
 
+    addProducts(){
+        return(
+            <ToolTipContent
+                header="Add or Update Products"
+                subHeader="Add or update product data in YOUR catalog and then publish to Wayfair when you're ready."
+                copy={(
+                    <div>
+                        <ul>
+                            <li>Add new blank products as stubs</li>
+                            <li>Extract product data from files like Excel sheets and images</li>
+                            <li>Upload media like photos and associate to products</li>
+                            <li>Add product variants for groups (like a red, yellow and green versions of a product).</li>
+                            <li>So much more...</li>
+                        </ul>
+                    </div>
+                )}
+
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="single-product"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />
+        )
+    }
+
 };
 
 export let toolTipContent = new toolTipsLibrary();

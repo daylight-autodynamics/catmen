@@ -66,6 +66,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
         if(this.state.menuIsOpen === false){
 
             return (
+                <div className="main-header-actions">
                 <AppButton
                     buttonType={"from-left"}
                     buttonLabel="catalog manager"
@@ -76,12 +77,30 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                     iconRight={
                         <CatmanIcon
                             iconName="down-arrow"
-                            classes="ui-icon"
+                            classes="ui-icon "
                             height="100%"
                             width="100%"
                         />
                     }
                 />
+                    <AppButton
+                        buttonType={"main-action"}
+                        classes={"main-add-btn"}
+                        buttonLabel=""
+                        OnClick={()=>this.handleMenu()}
+                        tooltipType="custom"
+                        tooltip={toolTipContent.addProducts()}
+                        toolTipTimeOutInMS={10000}
+                        iconCenter={
+                            <CatmanIcon
+                                iconName="icon-add"
+                                classes=" main-add"
+                                height="100%"
+                                width="100%"
+                            />
+                        }
+                    />
+                </div>
             )
             }else{
             return(<div className="empty"></div>);

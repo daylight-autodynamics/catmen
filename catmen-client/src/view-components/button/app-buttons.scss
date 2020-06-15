@@ -109,9 +109,37 @@ $btn-padding : 1rem;
 }
 
 //CATMAN SPECIFIC
-.st0{fill:#622262;}
-.st1{fill:none;stroke:#FFFFFF;stroke-width:2.0996;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-.st2{fill:none;stroke:#FFFFFF;stroke-width:2.698;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+.main-header-actions{
+  display: inline-flex;
+  flex-flow: row;
+}
+
+.main-add-btn{
+  border-radius: 3rem;
+  height: 3rem;
+  width: 3rem;
+  margin-left: 0.5rem;
+  border: 0.3rem solid #1f596f;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.main-add{
+    &.icon-add{
+      &.main-add{
+        .filled-highlight{
+          fill: $Primary_shade !important;
+        }
+        .filled{
+          &.stroked{
+            stroke-width: 0 !important;
+            stroke: none !important;
+            fill: none;
+          }
+        }
+      }
+    }
+}
 
 .secondary-action{
   &.btn-default{
