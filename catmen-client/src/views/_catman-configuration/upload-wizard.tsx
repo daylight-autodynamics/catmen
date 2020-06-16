@@ -42,7 +42,7 @@ export class UploadWizard extends React.Component<iPROPS, iSTATE>{
                                             create new products based.</p>
                                     </>
                                 )}
-                                tooltip={toolTipContent.footerCancel()}
+                                tooltip={toolTipContent.dragUploadFiles()}
                                 toolTipTimeOutInMS={10000}
                                 OnClick={()=>this.props.addAction}
                                 iconLeft={
@@ -81,7 +81,7 @@ export class UploadWizard extends React.Component<iPROPS, iSTATE>{
                                     buttonLabel="Go"
                                     OnClick={()=>{}}
                                     tooltipType="custom"
-                                    tooltip={toolTipContent.footerCancel()}
+                                    tooltip={toolTipContent.addBlankStubs()}
                                     toolTipTimeOutInMS={10000}
                                     tooltipXOffset={0}
                                     tooltipYOffset={20}

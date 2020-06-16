@@ -59,9 +59,14 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      //just for the fist launch of checkbox editing
      initialized:boolean = false;
      dataGridRef = React.createRef<DataGrid>();
+     editDrawerRef = React.createRef<StickyThing>();
      editDrawer : ReactElement = (<></>);
      selectionSet : selectionObject[] = [];
      columns : iColumn[];
+
+     //manage selection in the drawer
+        drawerFirstOpen = false;
+
 
 
      closeSingleProductEdit = ()=>{
@@ -185,11 +190,13 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
             }
          };
 
+
          let drawer = (<></>);
              if(this.state.editDrawerOpen === true){
                  drawer = (
                      <>
                          <StickyThing
+                             ref = {this.editDrawerRef}
                              enterFromThisSide="bottom"
                              lastResortClasses={`catman-edit-drawer ${maximize(this.state.editDrawerMaximized)}`}
                              animateIn={true}
@@ -263,11 +270,12 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          if(this.dataGridRef.current != null && this.dataGridRef.current != undefined){
              this.dataGridRef.current.clearSelection();
          }
+         this.drawerFirstOpen = false;
      }
 
      openEditDrawer( ){
+         this.drawerFirstOpen = true;
          this.setState({editDrawerOpen : true});
-
 
 
      }
@@ -530,7 +538,18 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          }
      }
 
-     render(){
+    componentDidUpdate(): void {
+         let inputs : any = document.getElementsByClassName("InputBox");
+
+        console.log(this.drawerFirstOpen)
+        if(this.drawerFirstOpen === true){
+           inputs[0].focus();
+           this.drawerFirstOpen = false;
+        }
+
+     }
+
+    render(){
 
          return (
              <>

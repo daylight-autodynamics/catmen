@@ -8,6 +8,9 @@ import {TitleArea} from "../../../view-components/title-area/title-area";
 import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
 import {appColumns} from "../../../_sample-data/columns";
 import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
+import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
+import {CatmanIcon} from "../../../svg/icons/icons";
+import AppButton from "../../../view-components/button/app-button";
 
 
 interface iPROPS  {
@@ -61,7 +64,25 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
         let introArea = (
             <div className="single-product-view">
                 <div className="single-prod-menu">
-                    <button onClick={()=>this.props.closeSingleProduct()}>Back</button>
+                    <div>
+                        <AppButton
+                            buttonType="nav-link"
+                            classes="single-product-back"
+                            buttonLabel={"Back to Spreadsheet View"}
+                            navPath={`/catalog/spreadsheet`}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.goBackToSpreadsheet()}
+                            OnClick={()=>this.props.closeSingleProduct()}
+                            iconLeft={(
+                                <CatmanIcon
+                                    iconName="go-back-arrow"
+                                    width="1rem"
+                                    height="100%"
+                                />
+                            )}
+                        />
+                    </div>
+
                     <ul>
                         <li>General Info</li>
                         <li>Weight & Dimensions</li>

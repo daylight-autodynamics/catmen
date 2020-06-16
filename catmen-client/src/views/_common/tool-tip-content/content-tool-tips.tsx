@@ -8,6 +8,8 @@ import maximizeDrawer from "../../../images/SVG/maximize-drawer.svg"
 import closeDrawer from "../../../images/SVG/close-drawer.svg"
 import restoreDrawer from "../../../images/SVG/restore-drawer.svg"
 import closeModal from "../../../images/SVG/close-modal-and-cancel.svg"
+import dragFiles from "../../../images/SVG/drag-files.svg"
+import backToSpreadsheet from "../../../images/SVG/back-to-spreadsheet.svg"
 
 interface iSTATE{
 
@@ -412,6 +414,63 @@ export class toolTipsLibrary {
         )
     }
 
+    addBlankStubs(){
+        return(<ToolTipContent
+            header="Add Blank Product Stubs"
+            copy="This functionality available yet"
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-add-invert"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    dragUploadFiles(){
+        return(<ToolTipContent
+            header="Go Back to Spreadsheet View"
+            subHeader="Your work will be saved for this product (not available in this version)"
+            copy={
+                    <div>
+                        <img className="tooltip-illustration" src={dragFiles}/>
+                    </div>
+                }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-add-invert"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    goBackToSpreadsheet(){
+        return(<ToolTipContent
+            header="Drag Files Here or Click to Browse"
+            subHeader="Give us your files and we'll extract product data from them, with a few clicks use it to add new products or update existing ones (not available in this version)"
+            copy={
+                <div>
+                    <img className="tooltip-illustration" src={backToSpreadsheet}/>
+                </div>
+            }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-add-invert"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
 };
 
 export let toolTipContent = new toolTipsLibrary();

@@ -1,3 +1,5 @@
+@import "../../../app-colors";
+
 .image-hero{
   align-self: center;
   max-width: 414px;
@@ -20,7 +22,8 @@
 }
 
 .data-container{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 25%);
   flex-flow: row;
   flex-wrap: wrap !important;
 }
@@ -30,7 +33,6 @@
   margin-bottom: 0.5rem;
   .tiny-label{
     font-size: 0.75rem;
-
   }
   .data-value{
     font-size: 1rem;
@@ -42,6 +44,25 @@
 .product-view{
   padding: 0;
 }
+.nav-link{
+  user-select: none;
+  &.single-product-back{
+    text-decoration: none;
+    display: inline-grid;
+    &.active{
+      .btn-label{
+        color: $black_60;
+      }
+    }
+    &.active .hover-panel{
+      background-color: white;
+    }
+    .hover-panel{
+      background-color: white;
+    }
+  }
+}
+
 
 .single-prod-menu{
   margin: 0;

@@ -213,6 +213,14 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                     </svg>
                 );
 
+            case "go-back-arrow":
+                return (
+                    <svg className={`icon-go-arrow ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 21.7 10.8" style={{overflow:"visible"}} >
+                        <line className="stroked" x1="2.6" y1="7.1" x2="27.1" y2="7.1"/>
+                        <polyline className="stroked" points="8.9,12.4 1.8,7.1 8.9,1.8 "/>
+                    </svg>
+            );
+
             case "down-arrow":
                 return(
                     <>
