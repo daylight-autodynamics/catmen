@@ -185,10 +185,6 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
                         yPos = yPos - this.props.yOffset;
                     }
                 }
-
-
-
-
                 this.setState({mousePosition:{x:xPos, y:yPos}});
             }
 

@@ -1,5 +1,6 @@
 import * as React from "react";
-
+import fadeRightToLeft from "../../images/SVG/fader-right-to-left.svg"
+import fadeLeftToRight from "../../images/SVG/fader-left-right.svg"
 
 interface iPROPS {
     iconName : string;
@@ -167,6 +168,25 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                         <circle className="filled stroked " cx="17.5" cy="17.5" r="17"/>
                         <polygon className="filled-highlight " points="28.1,19.2 28.1,16.4 19,16.4 19,7.3 16.2,7.3 16.2,16.4 7.1,16.4 7.1,19.2 16.2,19.2 16.2,28.2 19,28.2 19,19.2 "/>
                     </svg>
+                );
+
+            case "icon-add-invert":
+                return (
+                    <svg className={`icon-add-invert ${this.props.classes}`}   x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 97.3 97.3" style={{overflow:"visible"}}>
+                        <circle className="st0" cx="48.6" cy="48.6" r="48.6"/>
+                        <path className="st1" d="M48.6,7.3C25.8,7.3,7.3,25.8,7.3,48.6c0,22.8,18.5,41.3,41.3,41.3s41.3-18.5,41.3-41.3 C89.9,25.8,71.4,7.3,48.6,7.3z M77.7,52H52v25.7h-6.7V52H19.6v-6.7h25.7V19.6H52v25.7h25.7V52z"/>
+                    </svg>
+                );
+            case "fader-right-to-left":
+                return(
+                    <div style={{backgroundImage : `url(${fadeRightToLeft})`}} className={`${this.props.classes} image-box fader-right-to-left`}></div>
+
+                );
+
+            case "fader-left-to-right":
+                return(
+                    <div style={{backgroundImage : `url(${fadeLeftToRight})`}} className={`${this.props.classes} image-box fader-right-to-left`}></div>
+
                 );
 
             case "checkbox-unchecked":

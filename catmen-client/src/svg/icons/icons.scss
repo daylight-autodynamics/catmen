@@ -1,5 +1,10 @@
   @import "../../app-colors";
 
+  .reversed{
+    transform: translateX(-100%);
+  }
+
+  //TODO come back and clean up these color references
   .st0{fill:#070707;}
   .st1{fill:none;stroke:#FFFFFF;stroke-width:1.047;stroke-miterlimit:10;}
   .st2{fill:#05778C;}
@@ -9,7 +14,7 @@
   .st1{fill:#4D4D4D;}
   .st2{fill:none;stroke:#4D4D4D;stroke-miterlimit:10;}
 
-  ///
+
   .st0{fill:#F2F2F2;}
   .st1{fill:#515151;}
   .st2{fill:none;
@@ -97,10 +102,9 @@
     }
   }
 
-   //restore drawewr icon
-  .zast0{fill:#070707;}
-  .zwst1{fill:#BBDCB0;}
-  .zst2{fill:none;stroke:#F2F2F2;stroke-miterlimit:10;}
+   //icon inverted add
+  .st0{fill:#FFFFFF;}
+  .st1{fill:#05778C;}
 
 
   .icon-restore-tooltip{

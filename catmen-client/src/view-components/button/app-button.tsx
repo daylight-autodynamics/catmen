@@ -9,11 +9,14 @@ type AppButtonType = "from-left"
     | "secondary-action"
     | "menu-link"
     |"nav-link"
+    | "drag-area"
+    | "drag-area-large"
     |"transparent-bg";
 
 interface iPROPS{
     buttonType: AppButtonType;
     buttonLabel? : string;
+    buttonHelp? : string | ReactElement;
     iconCenter? : ReactElement;
     iconRight? : ReactElement;
     iconLeft? : ReactElement;
@@ -263,6 +266,40 @@ constructor(props:iPROPS) {
                 return(
                     <>
                         {this.baseButton("secondary-action")}
+                    </>
+                );
+
+            case "drag-area-large":
+                return(
+                    <>
+                        {this.handleToolTip()}
+                        <button
+                            ref={this.btnRef}
+                            onClick={()=>this.props.OnClick()}
+                            onMouseOver={()=>this.doHoverActions()}
+                            onMouseOut={()=>this.doHoverOutActions()}
+                            className={`drag-area-large ${this.props.classes}`}
+                        >
+                            <div className={"large-drag-area"}>
+                                <div draggable={false} className={"dashed-line"}></div>
+                                <div className={"illustration"}>
+                                    {this.props.iconLeft}
+                                </div>
+                                <div className={"copy"}>
+                                    <p className={"title"}>
+                                        {this.props.buttonLabel}
+                                    </p>
+                                    <div className={"help-area"}>
+                                        {this.props.buttonHelp}
+                                    </div>
+                                </div>
+                                <div className={"icon"}>
+                                    {this.props.iconRight}
+                                </div>
+                            </div>
+
+                            {this.props.iconCenter}
+                        </button>
                     </>
                 );
 

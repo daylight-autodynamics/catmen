@@ -3,10 +3,11 @@ import AttributeMappingIllustration from "../../images/SVG/illustration-attribut
 import AttributesIllustration from "../../images/SVG/illustration-create-attributes.svg";
 import CatalogIllustration from "../../images/SVG/illustration-catalog.svg";
 import AttributeGroupsIllustration from "../../images/SVG/illustration-attribute-groups.svg"
+import uploadIllustration from "../../images/SVG/upload-illustration.svg"
 
 interface iPROPS{
     illustrationName : string;
-    specialClasses : string;
+    specialClasses? : string;
     heightWithUnits : string;
     widthWithUnits : string;
 }
@@ -181,6 +182,11 @@ export class Illustration extends React.Component<iPROPS, iSTATE>{
             case "illustration-catalog":
                 return(
                     <div style={{backgroundImage : `url(${CatalogIllustration})`}} className="image-box"></div>
+                )
+
+            case "illustration-upload":
+                return(
+                    <div style={{backgroundImage : `url(${uploadIllustration})`}} className="image-box"></div>
                 )
 
         }

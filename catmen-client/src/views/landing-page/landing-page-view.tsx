@@ -21,6 +21,7 @@ export class LandingPageView extends React.Component<iPROPS, iSTATE>{
         return(
             <>
                 <MainHeaderArea
+                    addItemAction={()=>{}}
                     sectionTitle="Landing Page"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
                 />

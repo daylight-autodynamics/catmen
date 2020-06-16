@@ -13,7 +13,12 @@
 @import "view-components/info-panel/info-panel";
 @import "view-components/title-area/title-area";
 @import "view-components/text-input/text-input";
+@import "view-components/wizard/wizard";
+@import "view-components/divider-line/divider";
+@import "view-components/modal/modal";
 @import "views/catalog-views/catalog-details/single-product-page";
+@import "views/_catman-configuration/catman-specific-wizards";
+
 .catman-app{
   height: 100%;
   width: 100%;

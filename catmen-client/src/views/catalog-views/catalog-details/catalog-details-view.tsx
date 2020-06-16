@@ -26,6 +26,7 @@ interface iPROPS   {
     message: string;
     query:string | null;
     gridData : iDataGridItem[][];
+    addAction : Function
 }
 
 interface iSTATE{
@@ -293,6 +294,10 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          }
      }
 
+     addAction(){
+         console.log("added item or items");
+     }
+
      getFooterMenu(){
          let footer = (<></>);
          let buttons = (<></>);
@@ -513,6 +518,15 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      conditionClasses(){
          if(this.state.editDrawerOpen === true){
              return "drawer-open";
+         }
+     }
+
+     manageModals(modalName : string){
+         switch(modalName){
+             case "add-products":
+                 return(<><p>Add Products</p></>);
+             case "add-product-variant":
+                 return(<><p>Product Variant</p></>)
          }
      }
 

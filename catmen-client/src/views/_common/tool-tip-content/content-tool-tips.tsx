@@ -7,6 +7,7 @@ import createVariantGroupIllustration from "../../../images/SVG/create-variant-g
 import maximizeDrawer from "../../../images/SVG/maximize-drawer.svg"
 import closeDrawer from "../../../images/SVG/close-drawer.svg"
 import restoreDrawer from "../../../images/SVG/restore-drawer.svg"
+import closeModal from "../../../images/SVG/close-modal-and-cancel.svg"
 
 interface iSTATE{
 
@@ -253,6 +254,49 @@ export class toolTipsLibrary {
                     }
                 />
                 )
+        }else{
+            return(<ToolTipContent
+                header="Close Drawer"
+                copy={(
+                    <div>
+                        <p>Close drawer and clear selection.</p>
+                    </div>
+                )}
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="icon-close"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />)
+        }
+    }
+
+    closeModal(){
+        if(this.showCloseDrawer < 4){
+            return(
+                <ToolTipContent
+                    header="Close & Cancel"
+                    subHeader="Close this window, you'll lose any work you've done in the window."
+                    copy={(
+                        <div>
+                            <img className="tooltip-illustration" src={closeModal}/>
+                        </div>
+                    )}
+                    tooltipType="deluxe"
+                    icon={
+                        <CatmanIcon
+                            iconName="close-icon"
+                            classes=""
+                            height="1.5rem"
+                            width="1.5rem"
+                        />
+                    }
+                />
+            )
         }else{
             return(<ToolTipContent
                 header="Close Drawer"

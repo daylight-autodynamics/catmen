@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState} from "react";
 import {
     Switch,
     Route,
@@ -38,9 +38,15 @@ export function CatalogLanding() {
         <ToggleMenu message={"toggle menu"} />
     );
 
+    //TODO this will manage the grid
+    let manageGridData = ()=>{
+        console.log("manage grid data")
+    };
+
     return(
        <>
            <MainHeaderArea
+               addItemAction={manageGridData}
                sectionTitle="Landing Page"
                navigationElement={
                    <Navigation
@@ -54,7 +60,7 @@ export function CatalogLanding() {
 
            <Switch>
                <Route path={`${match.path}/:bla`}>
-                   <ProductViews  />
+                   <ProductViews manageGridData={manageGridData}  />
                </Route>
            </Switch>
        </>
@@ -62,10 +68,12 @@ export function CatalogLanding() {
 }
 
 interface iProdView{
-    ribbon : ReactElement;
+    manageGridData : Function;
 }
 
-export function ProductViews() {
+export function ProductViews(props : iProdView) {
+    const [gridData, setGridData] = useState(0);
+
     let { bla } = useParams();
     let query = useQuery();
     //console.log("query: ", query.get("product"));
@@ -86,7 +94,7 @@ export function ProductViews() {
             return (<CatalogDashboardView message="this is the dashboards view" />);
 
         case "spreadsheet":
-            return (<CatalogDetailsView gridData={catmanData.productData} query={productID()}  message={bla}/>)
+            return (<CatalogDetailsView addAction={props.manageGridData} gridData={catmanData.productData} query={productID()}  message={bla}/>)
     }
 
     return (<h3>Requested topic ID: {bla}</h3>);

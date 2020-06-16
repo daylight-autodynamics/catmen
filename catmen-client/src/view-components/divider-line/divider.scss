@@ -1,0 +1,13 @@
+@import "../../app-colors";
+
+.divider-line{
+  grid-template-columns: auto 3rem auto;
+  display: grid;
+  p.label{
+    text-align: center;
+  }
+  .divider-left, .divider-right{
+    border-bottom: 1px solid $black_60;
+    height: 50%;
+  }
+}

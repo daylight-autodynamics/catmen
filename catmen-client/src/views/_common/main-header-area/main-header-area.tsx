@@ -6,22 +6,29 @@ import {ToolTip} from "../../../view-components/heru-tool-tip/tool-tip";
 import {CatmanIcon} from "../../../svg/icons/icons";
 import {ContentToolTips, toolTipContent} from "../tool-tip-content/content-tool-tips";
 import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
+import {ModalView} from "../../../view-components/modal/modal";
+import {UploadWizard} from "../../_catman-configuration/upload-wizard";
 
 interface iPROPS{
     sectionTitle? : string;
     navigationElement? : ReactElement;
     ribbonElement? : ReactElement;
+    addItemAction : Function;
 }
 
 interface iSTATE{
-    menuIsOpen : boolean
+    menuIsOpen : boolean;
+    currentModal : "none" | "add-products" | "add-product-variant";
+    modalOpen : false;
 }
 
 export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
     constructor(props:iPROPS) {
         super(props);
         this.state = {
-            menuIsOpen : false
+            menuIsOpen : false,
+            modalOpen : false,
+            currentModal : "none"
         }
     }
 
@@ -62,32 +69,30 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
 
     }
 
-    navButton(){
-        if(this.state.menuIsOpen === false){
-
+    navArea(){
             return (
                 <div className="main-header-actions">
-                <AppButton
-                    buttonType={"from-left"}
-                    buttonLabel="catalog manager"
-                    OnClick={()=>this.handleMenu()}
-                    tooltipType="custom"
-                    tooltip={toolTipContent.mainNav()}
-                    toolTipTimeOutInMS={10000}
-                    iconRight={
-                        <CatmanIcon
-                            iconName="down-arrow"
-                            classes="ui-icon "
-                            height="100%"
-                            width="100%"
-                        />
-                    }
-                />
+                    <AppButton
+                        buttonType={"from-left"}
+                        buttonLabel="catalog manager"
+                        OnClick={()=>this.handleMenu()}
+                        tooltipType="custom"
+                        tooltip={toolTipContent.mainNav()}
+                        toolTipTimeOutInMS={10000}
+                        iconRight={
+                            <CatmanIcon
+                                iconName="down-arrow"
+                                classes="ui-icon "
+                                height="100%"
+                                width="100%"
+                            />
+                        }
+                    />
                     <AppButton
                         buttonType={"main-action"}
                         classes={"main-add-btn"}
                         buttonLabel=""
-                        OnClick={()=>this.handleMenu()}
+                        OnClick={()=>this.manageModals("add-products")}
                         tooltipType="custom"
                         tooltip={toolTipContent.addProducts()}
                         toolTipTimeOutInMS={10000}
@@ -102,9 +107,49 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                     />
                 </div>
             )
-            }else{
-            return(<div className="empty"></div>);
+    }
+
+    closeModal(){
+        this.setState({currentModal : "none"})
+        console.log("close modal try", this.state.currentModal)
+    }
+
+    getModals(){
+            switch(this.state.currentModal){
+                case "add-products":
+                    console.log("MODAL");
+                    return(
+                        <ModalView
+                            modalTitle={"Automatically Add/Update Products"}
+                            classes="upload-modal-wizard"
+                            closeModalFunc={()=>this.closeModal()}
+                        >
+                            <UploadWizard addAction={()=>this.props.addItemAction}/>
+                        </ModalView> );
+                case "add-product-variant":
+                    return(<><p>Product Variant</p></>);
+                case "none":
+                    return(<></>);
+                default:
+                    return(<h1>MODAL zzz</h1>)
+            }
+
+        return (<></>)
+
+    }
+
+    manageModals(modalName : string){
+        console.log(modalName);
+        switch(modalName){
+            case "add-products":
+                console.log("clicked", modalName);
+                this.setState({currentModal : "add-products"});
+                break;
+            case "none":
+                this.setState({currentModal : "none"});
+                break;
         }
+        console.log(this.state)
     }
 
 
@@ -113,7 +158,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
           <>
               <header className="header-area">
                   <div className="header-item">
-                      {this.navButton()}
+                      {this.navArea()}
                   </div>
                   <div className="main-ribbon header-item">
                       {this.props.ribbonElement}
@@ -121,6 +166,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                   <div className="header-item">
                       {this.navMenu()}
                   </div>
+                  {this.getModals()}
               </header>
           </>
         );

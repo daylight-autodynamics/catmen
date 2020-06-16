@@ -16,9 +16,11 @@ interface iSTATE{
 export class ManageAttributeGroupsView extends React.Component<iPROPS, iSTATE>{
 
     render(){
+        //TODO need to add real add action
         return(
             <>
                 <MainHeaderArea
+                    addItemAction={()=>{}}
                     sectionTitle="Landing Page"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
                 />

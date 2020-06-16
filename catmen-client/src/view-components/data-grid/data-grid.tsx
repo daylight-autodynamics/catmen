@@ -70,7 +70,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             this._checkedRows = [];
         }
 
-
         if(this.startSelectionRow > row){
             this.cellRange.startRow = row;
             this.cellRange.endRow = this.startSelectionRow
@@ -133,9 +132,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             let selectedItems : iSelectedItems[] = [  ];
             let lastRow : number = 0;
 
-
-
-
             // work through the selection set to organize things
 
            i: for(let i=0; i < this.selectionSet.length; i++){
@@ -157,7 +153,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                                 }
                             }
                         }
-
                     }else{
                         lastRow = this.selectionSet[i].row;
                         let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
@@ -235,6 +230,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         //find if this number is in the list
         let found : boolean = false;
 
+        console.log("@@ checked rows: ",row);
 
         for(let i=0; i < this._checkedRows.length; i++){
 
@@ -259,20 +255,16 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         this.selectionSet = [];
 
         for(let i=0; i < this._checkedRows.length; i++){
-            for(let j=0; j < this.state.workingDataSet[this._checkedRows[i]-1].length; j++ ){
+            for(let j=0; j < this.state.workingDataSet[this._checkedRows[i]].length; j++ ){
                 let selectedCell : selectionObject = {
-                    row : this._checkedRows[i]+1,
+                    row : this._checkedRows[i]+2,
                     cell : j,
                     selected : true,
-                    columnName : appColumns.getColumns()[j+1].columnName
+                    columnName : appColumns.getColumns()[j].columnName
                 };
                 this.selectionSet.push(selectedCell);
-
             }
         }
-
-
-
 
 
         this.setState({selectionSet : this.selectionSet});
@@ -305,18 +297,24 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     cells.push(
                         <div className="cell checkbox-main" style={{gridColumn : j+1, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
-                                OnClick={()=>this.manageCheckbox(i+1)}
+                                OnClick={()=>this.manageCheckbox(i)}
                                 buttonType="transparent-bg"
                                 tooltipType="custom"
                                 tooltip={toolTipContent.selectRow()}
-                                classes={`${this.iconCheck(i+1)}`}
+                                classes={`${this.iconCheck(i)}`}
                                 iconCenter={(
                                     <CatmanIcon
-                                        iconName={`${this.iconCheck(i+1)}`}
+                                        iconName={`${this.iconCheck(i)}`}
                                         width="0.5rem"
                                         height="100%"
                                     />
                                 )}
+                            />
+                            <CatmanIcon
+                                classes={"shading-l-r"}
+                                iconName="fader-left-to-right"
+                                width="0.5rem"
+                                height="100%"
                             />
                         </div>
                     )
@@ -338,6 +336,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                             }
                             selectedClass={this.checkSelected(i+2, j+2)}
                         />
+
                     </div>
                 );
 
@@ -362,6 +361,13 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                                     />
                                 )}
                             />
+                            <CatmanIcon
+                                classes={"shading"}
+                                iconName="fader-right-to-left"
+                                width="0.5rem"
+                                height="100%"
+                            />
+
                         </div>
                     )
                 }
