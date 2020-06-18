@@ -10,6 +10,8 @@ import restoreDrawer from "../../../images/SVG/restore-drawer.svg"
 import closeModal from "../../../images/SVG/close-modal-and-cancel.svg"
 import dragFiles from "../../../images/SVG/drag-files.svg"
 import backToSpreadsheet from "../../../images/SVG/back-to-spreadsheet.svg"
+import singleProductSwitchToEditMode from "../../../images/SVG/sitch-to-edit-mode.svg"
+import singleProductSwitchToReadMode from "../../../images/SVG/switch-to-read-only.svg"
 
 interface iSTATE{
 
@@ -432,8 +434,8 @@ export class toolTipsLibrary {
 
     dragUploadFiles(){
         return(<ToolTipContent
-            header="Go Back to Spreadsheet View"
-            subHeader="Your work will be saved for this product (not available in this version)"
+            header="Upload Files Here"
+            subHeader="Drag files from your computer's folder onto this to upload them, or click to browse your computer."
             copy={
                     <div>
                         <img className="tooltip-illustration" src={dragFiles}/>
@@ -453,8 +455,8 @@ export class toolTipsLibrary {
 
     goBackToSpreadsheet(){
         return(<ToolTipContent
-            header="Drag Files Here or Click to Browse"
-            subHeader="Give us your files and we'll extract product data from them, with a few clicks use it to add new products or update existing ones (not available in this version)"
+            header="Go back to the Spreadsheet View"
+            subHeader="Any edits you made in the Single Product view will be saved"
             copy={
                 <div>
                     <img className="tooltip-illustration" src={backToSpreadsheet}/>
@@ -464,6 +466,48 @@ export class toolTipsLibrary {
             icon={
                 <CatmanIcon
                     iconName="icon-add-invert"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    singleProductSwitchToEditMode(){
+        return(<ToolTipContent
+            header="Switch to edit Mode"
+            subHeader="this will turn this view into a web form style page with textboxes, dop-downs and such so you can edit this product's data"
+            copy={
+                <div>
+                    <img className="tooltip-illustration" src={singleProductSwitchToEditMode}/>
+                </div>
+            }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-edit"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    singleProductSwitchToReadMode(){
+        return(<ToolTipContent
+            header="Switch to Read Mode"
+            subHeader="this will turn off all the the web form text boxes, drop-downs and such so you can read this easier."
+            copy={
+                <div>
+                    <img className="tooltip-illustration" src={singleProductSwitchToReadMode}/>
+                </div>
+            }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-read-mode"
                     classes=""
                     height="1.5rem"
                     width="1.5rem"

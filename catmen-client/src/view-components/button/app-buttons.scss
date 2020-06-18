@@ -33,14 +33,46 @@ $btn-padding : 1rem;
 
 .btn-default{
   grid-template-columns: auto auto auto;
+  &.hi-contrast{
+    &.secondary-action{
+        &.primary{
+          background-color: $Primary_shade;
+          border-color: $Primary_shade;
+          color: white;
+          div.btn-descriptors{
+            .stroked, .filled-highlight{
+              stroke: $Primary_shade;
+            }
+          }
+        &.secondary{
+          background-color: $Core_80;
+          border-color: $Core_80;
+        }
+        .label{
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
   div.btn-descriptors{
     pointer-events: none;
+    user-select: none;
     display: grid;
     align-items: center;
+    &.secondary-action{
+      .label{
+        margin-right: 0.25rem;
+        margin-left: 0.25rem;
+      }
+    }
+
     .cm-icon{
       padding: 0.27rem 0 0.25rem 0;
       max-height: 1rem;
       max-width: 1rem;
+      margin: -0.2rem;
     }
     .ui-icon{
       height: 100%;

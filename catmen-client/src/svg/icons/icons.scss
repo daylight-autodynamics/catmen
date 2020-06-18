@@ -30,6 +30,40 @@
     stroke-width:1.1771;stroke-miterlimit:10;}
   .st5{fill:#FFFFFF;}
 
+
+  .icon-restore-btn{
+    .stroked{fill:none;stroke:#3D3D3D;stroke-miterlimit:10;}
+    .filled{fill:#3D3D3D;}
+  }
+
+  // icon read mode
+  .qq-st0{fill:#FFFFFF;stroke:#622262;stroke-width:0.915;stroke-miterlimit:10;}
+  .qq-st1{fill:#FFFFFF;}
+  .qq-st2{fill:none;stroke:#622262;stroke-width:0.599;stroke-miterlimit:10;}
+  .qq-st3{fill:#622262;}
+
+
+  .icon-read-mode, .icon-read{
+    .filled{
+      fill:#FFFFFF;
+    }
+    .filled-highlight{
+      fill:#FFFFFF;
+      stroke:$Core_60;
+      stroke-width:1;
+      stroke-miterlimit:10;
+    }
+    .stroked{
+      fill:none;
+      stroke:$Core_60;
+      stroke-miterlimit:10;
+    }
+    .filled-secondary{
+      fill:$Core_60;
+    }
+  }
+
+
   .icon-select-row{
     .filled-highlight{
       fill:#515151;

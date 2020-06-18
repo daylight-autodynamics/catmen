@@ -182,12 +182,12 @@ export class Illustration extends React.Component<iPROPS, iSTATE>{
             case "illustration-catalog":
                 return(
                     <div style={{backgroundImage : `url(${CatalogIllustration})`}} className="image-box"></div>
-                )
+                );
 
             case "illustration-upload":
                 return(
                     <div style={{backgroundImage : `url(${uploadIllustration})`}} className="image-box"></div>
-                )
+                );
 
         }
     }

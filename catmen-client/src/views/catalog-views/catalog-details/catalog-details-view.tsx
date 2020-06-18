@@ -86,6 +86,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      stickyOpen={true}
                      bgColor={"#CECECE"}
                      doAnimation={true}
+
                  >
                     <CatalogSingleProduct
                         uniqueID={this.props.query}
@@ -190,6 +191,14 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
             }
          };
 
+         let restoreAndMaximizeBtnIcon = (valueCheck : boolean)=>{
+             if(valueCheck === false){
+                 return "icon-maximize"
+             }else{
+                 return "icon-restore-btn"
+             }
+         }
+
 
          let drawer = (<></>);
              if(this.state.editDrawerOpen === true){
@@ -220,7 +229,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                                          classes="tool-bar-btn icon-only-btn"
                                          iconLeft={
                                              <CatmanIcon
-                                                 iconName="icon-maximize"
+                                                 iconName={`${restoreAndMaximizeBtnIcon(this.state.editDrawerMaximized)}`}
                                                  classes=" "
                                                  height="100%"
                                                  width="100%"
@@ -544,9 +553,9 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
         console.log(this.drawerFirstOpen)
         if(this.drawerFirstOpen === true){
            inputs[0].focus();
+           inputs[0].select();
            this.drawerFirstOpen = false;
         }
-
      }
 
     render(){

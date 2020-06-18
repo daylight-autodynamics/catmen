@@ -20,12 +20,15 @@ interface iPROPS  {
 }
 
 interface iSTATE{
-
+    editMode : boolean;
 }
 
 export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
     constructor(props:iPROPS) {
         super(props);
+        this.state = {
+            editMode : false
+        }
         this.productData = this.singleProductData(this.props.uniqueID);
     }
     productData : iDataGridItem[];
@@ -57,9 +60,36 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
         }
     }
 
+    manageEditMode(){
+        this.setState({editMode : !this.state.editMode})
+    }
+
     getProductPage(){
         let myProduct = this.singleProductData(this.props.uniqueID);
 
+        let editLabel = (valueCheck : boolean)=>{
+            if(valueCheck === false){
+                return "Edit Mode"
+            }else{
+                return "Read Mode"
+            }
+        };
+
+        let editIcon = (valueCheck : boolean)=>{
+            if(valueCheck == false){
+                return "icon-edit"
+            }else{
+                return "icon-read-mode"
+            }
+        };
+
+        let modeToolTip = (valueCheck : boolean) =>{
+            if(valueCheck == false){
+                return toolTipContent.singleProductSwitchToEditMode();
+            }else{
+                return toolTipContent.singleProductSwitchToReadMode();
+            }
+        };
 
         let introArea = (
             <div className="single-product-view">
@@ -68,7 +98,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
                         <AppButton
                             buttonType="nav-link"
                             classes="single-product-back"
-                            buttonLabel={"Back to Spreadsheet View"}
+                            buttonLabel={"Back"}
                             navPath={`/catalog/spreadsheet`}
                             tooltipType="custom"
                             tooltip={toolTipContent.goBackToSpreadsheet()}
@@ -82,26 +112,49 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
                             )}
                         />
                     </div>
+                    <AppButton
+                        classes={"hi-contrast primary"}
+                        buttonType={"secondary-action"}
+                        buttonLabel={editLabel(this.state.editMode)}
+                        OnClick={()=>this.manageEditMode()}
+                        tooltipType="custom"
+                        tooltip={modeToolTip(this.state.editMode)}
+                        toolTipTimeOutInMS={10000}
+                        tooltipXOffset={0}
+                        tooltipYOffset={20}
+                        iconLeft={
+                            <CatmanIcon
+                                iconName={`${editIcon(this.state.editMode)}`}
+                                classes=" "
+                                height="100%"
+                                width="100%"
+                            />
+                        }
+                    />
+                    <div className="menu-area">
 
-                    <ul>
-                        <li>General Info</li>
-                        <li>Weight & Dimensions</li>
-                        <li>Material</li>
-                        <li>Set Related</li>
-                        <li>Shipping</li>
-                        <li>Romance Copy</li>
-                        <li>Notes</li>
-                    </ul>
-                    <ul>
-                        <li>Variants Group</li>
-                        <li>Related Products</li>
-                    </ul>
-                    <ul>
-                        <li>Pricing</li>
-                        <li>other Integrations</li>
-                        <li>Another Integration</li>
-                    </ul>
+                        <ul>
+                            <li>General Info</li>
+                            <li>Weight & Dimensions</li>
+                            <li>Material</li>
+                            <li>Set Related</li>
+                            <li>Shipping</li>
+                            <li>Romance Copy</li>
+                            <li>Notes</li>
+                        </ul>
+                        <ul>
+                            <li>Variants Group</li>
+                            <li>Related Products</li>
+                        </ul>
+                        <ul>
+                            <li>Pricing</li>
+                            <li>other Integrations</li>
+                            <li>Another Integration</li>
+                        </ul>
+
+                    </div>
                 </div>
+                <div className="spacer"></div>
                 <div className="content-area">
                     <div className="product-card">
                         <h3>Weight & Dimensions</h3>

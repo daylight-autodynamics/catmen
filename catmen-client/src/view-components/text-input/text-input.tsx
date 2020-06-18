@@ -33,8 +33,9 @@ export class TextInput extends React.Component<iPROPS, iSTATE>{
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
         return (
             <div className="pl-TextInput-wrapper" >
+                <div className="pl-FloatLabel-text">{this.props.label}</div>
                 <input onChange={(evt:React.ChangeEvent)=>this.onChangeActions(evt as React.ChangeEvent)}  type="text" value={this.props.currentValue || ''} placeholder="" className="InputBox pl-TextInput-input has-text pl-FloatLabel-input" />
-                 <span className="pl-FloatLabel-text">{this.props.label}</span>
+
             </div>
         );
     }

@@ -138,6 +138,14 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                     </svg>
                 );
 
+            case "icon-restore-btn":
+                return (
+                    <svg className={`${this.props.classes} icon-restore-btn`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 21.9 24.2" style={{overflow:"visible"}} >
+                        <path className="stroked" d="M5.8,2.7H2.1c-0.9,0-1.6,0.7-1.6,1.6v17.8c0,0.9,0.7,1.6,1.6,1.6h17.8c0.9,0,1.6-0.7,1.6-1.6V4.3 c0-0.9-0.7-1.6-1.6-1.6h-3.4"/>
+                        <path className="filled" d="M15.7,14.7l-4.1,4.1V6.8h1.6c0.7,0,1.2-0.5,1.2-1.2V1.2c0-0.7-0.5-1.2-1.2-1.2H8.7C8.1,0,7.5,0.5,7.5,1.2v4.4 c0,0.7,0.5,1.2,1.2,1.2h1.7l0,12l-4.2-4.2L5,15.8l5.9,5.9l5.9-5.9L15.7,14.7z"/>
+                    </svg>
+                );
+
             case "icon-restore":
                 return(
                     <svg className={`icon-restore ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}}>
@@ -146,6 +154,35 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                         <path className="filled-secondary" d="M18,35.9c5.2,0,9.8-2.2,13.1-5.7v-3.6c0-0.8-0.7-1.5-1.5-1.5H6.7c-0.8,0-1.5,0.7-1.5,1.5v3.9 C8.4,33.9,13,35.9,18,35.9z"/>
                     </svg>
 
+                );
+
+            case "icon-read-mode":
+                return(
+                    <svg className={`icon-read-mode ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35 35" style={{overflow:"visible"}} >
+                        <circle className="filled-highlight" cx="17.5" cy="17.5" r="17"/>
+                        <path className="filled st1" d="M8.8,9.2c3.2-0.5,6.2,0.4,8.9,3c2.6-3.1,5.7-3.5,8.9-2.9l0,1l1.8,0.2l0.1,13.7c-3.6-0.4-7.2-0.2-10.8,1 c-3-1-6.7-1.4-10.7-1.3l0-13.4l1.8-0.2L8.8,9.2z"/>
+                        <g className="stroked st2">
+                            <path d="M8.8,9.2v13.2c0,0,2.9-0.1,5.2,0.5c1.9,0.5,3.3,1.9,3.7,2.4c0.1,0.1,0.1-0.1,0.1-0.1v-13c0,0-1.7-2.2-3.7-2.7 C11.4,8.8,8.8,9.2,8.8,9.2z"/>
+                            <path d="M8.8,10.3c-1,0.1-1.8,0.2-1.8,0.2v13.2c0,0,2.2-0.4,5.3-0.1c2.8,0.3,5.4,1.8,5.4,1.8"/>
+                            <path d="M26.7,9.2v13.2c0,0-2.9-0.1-5.2,0.5c-1.9,0.5-3.3,1.9-3.7,2.4c-0.1,0.1-0.1-0.1-0.1-0.1v-13 c0,0,1.7-2.2,3.7-2.7C24,8.8,26.7,9.2,26.7,9.2z"/>
+                            <path d="M26.7,10.3c1,0.1,1.8,0.2,1.8,0.2v13.2c0,0-2.2-0.4-5.3-0.1c-2.8,0.3-5.4,1.8-5.4,1.8"/>
+                        </g>
+                        <path className="filled-secondary st3" d="M29.5,12h-0.9l0.1,11.9c-3.3-0.6-6.3-0.3-9,0.8c-0.5,0.2-0.9,0.4-1.3,0.6h-1.3c-0.4-0.2-0.8-0.4-1.3-0.6 c-2.7-1.1-5.8-1.3-9-0.8L6.8,12H6c-0.1,0-0.2,0.1-0.2,0.2v12.5c0,0.3,0.2,0.5,0.5,0.5h9.7l0,0.4c0,0.2,0.1,0.2,0.2,0.2H17v0h1.7v0 h0.6c0.1,0,0.2-0.1,0.2-0.2v-0.4h9.7c0.3,0,0.5-0.2,0.5-0.5V12.2C29.7,12.1,29.6,12,29.5,12z"/>
+                    </svg>
+                );
+
+            case "icon-read":
+                return(
+                    <svg className={`${this.props.classes} icon-read-mode`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 40.1 28.4" style={{overflow:"visible"}} >
+                        <path className="filled" d="M5.1,0.7c5.3-0.8,10.3,0.6,14.9,5c4.4-5.2,9.5-5.8,14.9-4.8L35,2.5l3,0.3l0.1,22.8c-6-0.7-12-0.3-18,1.7 C15,25.6,9,25,2.2,25.1l0-22.3l3-0.3L5.1,0.7z"/>
+                        <g className="stroked">
+                            <path d="M5.1,0.7v22c0,0,4.9-0.1,8.6,0.9c3.1,0.8,5.5,3.2,6.1,3.9c0.1,0.1,0.2-0.2,0.2-0.2V5.7c0,0-2.9-3.7-6.3-4.6 C9.5,0,5.1,0.7,5.1,0.7z"/>
+                            <path d="M5.1,2.5c-1.6,0.1-3,0.3-3,0.3v22c0,0,3.6-0.7,8.8-0.2c4.6,0.5,9.1,3,9.1,3"/>
+                            <path d="M35,0.7v22c0,0-4.9-0.1-8.6,0.9c-3.1,0.8-5.5,3.2-6.1,3.9c-0.1,0.1-0.2-0.2-0.2-0.2V5.7c0,0,2.9-3.7,6.3-4.6 C30.6,0,35,0.7,35,0.7z"/>
+                            <path d="M35,2.5c1.6,0.1,3,0.3,3,0.3v22c0,0-3.6-0.7-8.8-0.2c-4.6,0.5-9.1,3-9.1,3"/>
+                        </g>
+                        <path className="filled-secondary" d="M39.7,5.3h-1.4l0.1,19.9c-5.5-1-10.5-0.5-15.1,1.3c-0.8,0.3-1.5,0.6-2.2,1h-2.2c-0.6-0.3-1.4-0.7-2.2-1 c-4.6-1.8-9.6-2.2-15.1-1.3L1.8,5.3H0.4C0.2,5.3,0,5.5,0,5.7v20.8c0,0.4,0.3,0.8,0.8,0.8H17l0,0.7c0,0.3,0.1,0.4,0.4,0.4h1.4v0h2.9 v0h1c0.2,0,0.4-0.1,0.4-0.4v-0.7h16.3c0.4,0,0.8-0.3,0.8-0.8V5.7C40.1,5.5,39.9,5.3,39.7,5.3z"/>
+                    </svg>
                 );
 
             case "icon-edit":

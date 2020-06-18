@@ -10,8 +10,14 @@
   height: 100%;
   overflow-x: auto;
   display: inline-grid;
-  grid-template-columns: 25% auto;
+  grid-template-columns: minmax(13rem, 20%) auto;
   width: 100%;
+  .menu-area{
+    margin-top: 1rem;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
 }
 
 .product-card {
@@ -23,7 +29,7 @@
 
 .data-container{
   display: grid;
-  grid-template-columns: repeat(auto-fit, 25%);
+  grid-template-columns: repeat(auto-fit, 20%);
   flex-flow: row;
   flex-wrap: wrap !important;
 }
@@ -31,6 +37,7 @@
 .data-section-readonly{
   margin-right: 1.5rem;
   margin-bottom: 0.5rem;
+  overflow: hidden;
   .tiny-label{
     font-size: 0.75rem;
   }
@@ -43,12 +50,17 @@
 
 .product-view{
   padding: 0;
+  position: absolute !important;
 }
 .nav-link{
   user-select: none;
+  .btn-label{
+    font-size: 0.85rem;
+  }
   &.single-product-back{
     text-decoration: none;
     display: inline-grid;
+
     &.active{
       .btn-label{
         color: $black_60;
@@ -66,11 +78,12 @@
 
 .single-prod-menu{
   margin: 0;
-  padding: 0.5rem 0 0.5rem 1.25rem;
+  padding: 0.5rem 2rem 0.5rem 1.25rem;
   background-color: white;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
 
   ul{
     padding: 0;
