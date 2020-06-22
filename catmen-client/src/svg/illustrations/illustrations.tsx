@@ -3,7 +3,10 @@ import AttributeMappingIllustration from "../../images/SVG/illustration-attribut
 import AttributesIllustration from "../../images/SVG/illustration-create-attributes.svg";
 import CatalogIllustration from "../../images/SVG/illustration-catalog.svg";
 import AttributeGroupsIllustration from "../../images/SVG/illustration-attribute-groups.svg"
-import uploadIllustration from "../../images/SVG/upload-illustration.svg"
+import uploadIllustration from "../../images/SVG/upload-illustration.svg";
+import homeIllustration from "../../images/SVG/illustration-start.svg"
+import mediaIllustration from "../../images/SVG/illustration-media-library.svg"
+
 
 interface iPROPS{
     illustrationName : string;
@@ -162,6 +165,16 @@ export class Illustration extends React.Component<iPROPS, iSTATE>{
                             </linearGradient>
                             <path className="st21" d="M307.9,109.7l-26.9-3.5c-0.2,0.3-0.4,0.5-0.7,0.7l-37.8,20.6l-35.1,19.1c-0.8,0.5-1.6,0.9-2.3,1.2l-2.5,0.2 l1.1,0.3l25.8,3.1c2.5,0.5,4.6-0.2,6.8-1.5L307.9,109.7z"/>
                         </svg>
+                );
+
+            case "illustration-home":
+                return(
+                    <div style={{backgroundImage: `url(${homeIllustration})`}} className="image-box" />
+                );
+
+            case "illustration-media":
+                return(
+                    <div style={{backgroundImage: `url(${mediaIllustration})`}} className="image-box" />
                 );
 
             case "illustration-attribute-mapping":

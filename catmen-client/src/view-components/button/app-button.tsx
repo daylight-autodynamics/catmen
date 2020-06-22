@@ -11,7 +11,9 @@ type AppButtonType = "from-left"
     |"nav-link"
     | "drag-area"
     | "drag-area-large"
-    |"transparent-bg";
+    |"transparent-bg"
+    |"button-custom"
+    |"boolean-button";
 
 interface iPROPS{
     buttonType: AppButtonType;
@@ -27,7 +29,7 @@ interface iPROPS{
     hoverLeaveActions? : any[];
     OnClick? : any;
     tooltipType : "basic" | "custom" | "none";
-    tooltip? : ReactElement;
+    tooltip? : ReactElement | string;
     toolTipTimeOutInMS? : number;
     tooltipYOffset? : number;
     tooltipXOffset? : number;
@@ -36,14 +38,16 @@ interface iPROPS{
 }
 
 interface iSTATE{
-    isHovered : boolean
+    isHovered : boolean;
+    yesNoBoolean? : boolean
 }
 
 export class AppButton extends React.Component<iPROPS, iSTATE>{
 constructor(props:iPROPS) {
     super(props);
     this.state = {
-        isHovered : false
+        isHovered : false,
+        yesNoBoolean : false
     };
     this.hoverActions = this.props.hoverActions;
     if(this.props.toolTipTimeOutInMS != null){
@@ -120,7 +124,11 @@ constructor(props:iPROPS) {
         }
     }
 
-    baseButton(btnStyles : string){
+    baseButton(btnStyles : string | undefined){
+
+        if(btnStyles === undefined){
+            btnStyles = "";
+        }
         return(<>
             {this.handleToolTip()}
             <button
@@ -164,6 +172,24 @@ constructor(props:iPROPS) {
                                 <div className="icon-left">{this.props.iconLeft}</div>
                                 <div className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</div>
                                 <div className="icon-right">{this.props.iconRight}</div>
+                            </div>
+                        </button>
+                    </>
+                );
+
+            case "boolean-button":
+                return(
+                    <>
+                        {this.handleToolTip()}
+                        <button
+                            ref={this.btnRef}
+                            onClick={()=>this.props.OnClick()}
+                            onMouseOver={()=>this.doHoverActions()}
+                            onMouseOut={()=>this.doHoverOutActions()}
+                            className={`boolean-button ${this.props.classes}`}
+                        >
+                            {this.props.buttonLabel}
+                            <div className={`boolean-nub ${String(this.state.yesNoBoolean)}`}>
                             </div>
                         </button>
                     </>
@@ -261,6 +287,13 @@ constructor(props:iPROPS) {
                         </>
                     );
                 }
+
+            case "button-custom":
+                return(
+                    <>
+                        {this.baseButton(this.props.classes)}
+                    </>
+                );
 
             case "secondary-action":
                 return(

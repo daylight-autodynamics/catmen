@@ -6,12 +6,64 @@
   overflow: hidden;
 }
 
+.single-product-back{
+  margin-top: 1rem;
+}
+
+.single-prod-dash-area{
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row;
+  height: 50vh;
+  margin-bottom: 2rem;
+  max-height: 15rem;
+  min-height: 12rem;
+
+  .data-section-readonly{
+    &.part-number{
+      .data-value{
+        font-size: 1.5rem;
+      }
+
+      .tiny-label{
+        margin-top: 0.5rem;
+      }
+
+    }
+  }
+  .image-thumb{
+    height: 100%;
+    display: flex;
+    .data-header{
+      margin-left: 1rem;
+    }
+    .preview-image{
+      height: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid black;
+    }
+  }
+  .single-general-data{
+    height: 100%;
+    .temp-chart{
+      height: 100%;
+    }
+  }
+
+}
+
 .single-product-view{
   height: 100%;
   overflow-x: auto;
   display: inline-grid;
   grid-template-columns: minmax(13rem, 20%) auto;
   width: 100%;
+  .content-area{
+    margin-right: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
   .menu-area{
     margin-top: 1rem;
     height: 100%;

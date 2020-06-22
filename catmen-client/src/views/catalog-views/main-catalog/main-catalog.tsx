@@ -18,6 +18,7 @@ import {LandingPageView} from "../../landing-page/landing-page-view";
 import {ToggleMenu} from "../../../view-components/toggle-menu/toggle-component";
 import {CatalogSingleProduct} from "../catalog-details/single-product-view";
 import {catmanData} from "../../../_sample-data/products-data";
+import {dataManagerMain} from "../../../index";
 
 interface iPROPS {
     message: string;
@@ -55,12 +56,11 @@ export function CatalogLanding() {
                    />}
                ribbonElement={ribbonMenu}
            />
-
            <br/>
 
            <Switch>
                <Route path={`${match.path}/:bla`}>
-                   <ProductViews manageGridData={manageGridData}  />
+                   <ProductViews />
                </Route>
            </Switch>
        </>
@@ -68,15 +68,14 @@ export function CatalogLanding() {
 }
 
 interface iProdView{
-    manageGridData : Function;
+
 }
 
 export function ProductViews(props : iProdView) {
-    const [gridData, setGridData] = useState(0);
 
     let { bla } = useParams();
     let query = useQuery();
-    //console.log("query: ", query.get("product"));
+
     let productID = ()=>{
       if(query !== null){
           let q = query.get("product");
@@ -94,7 +93,7 @@ export function ProductViews(props : iProdView) {
             return (<CatalogDashboardView message="this is the dashboards view" />);
 
         case "spreadsheet":
-            return (<CatalogDetailsView addAction={props.manageGridData} gridData={catmanData.productData} query={productID()}  message={bla}/>)
+            return (<CatalogDetailsView columnsData={dataManagerMain} gridData={dataManagerMain} query={productID()}  message={bla}/>)
     }
 
     return (<h3>Requested topic ID: {bla}</h3>);

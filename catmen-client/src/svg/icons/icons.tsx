@@ -174,7 +174,7 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
             case "icon-read":
                 return(
                     <svg className={`${this.props.classes} icon-read-mode`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 40.1 28.4" style={{overflow:"visible"}} >
-                        <path className="filled" d="M5.1,0.7c5.3-0.8,10.3,0.6,14.9,5c4.4-5.2,9.5-5.8,14.9-4.8L35,2.5l3,0.3l0.1,22.8c-6-0.7-12-0.3-18,1.7 C15,25.6,9,25,2.2,25.1l0-22.3l3-0.3L5.1,0.7z"/>
+YT-=H                        <path className="filled" d="M5.1,0.7c5.3-0.8,10.3,0.6,14.9,5c4.4-5.2,9.5-5.8,14.9-4.8L35,2.5l3,0.3l0.1,22.8c-6-0.7-12-0.3-18,1.7 C15,25.6,9,25,2.2,25.1l0-22.3l3-0.3L5.1,0.7z"/>
                         <g className="stroked">
                             <path d="M5.1,0.7v22c0,0,4.9-0.1,8.6,0.9c3.1,0.8,5.5,3.2,6.1,3.9c0.1,0.1,0.2-0.2,0.2-0.2V5.7c0,0-2.9-3.7-6.3-4.6 C9.5,0,5.1,0.7,5.1,0.7z"/>
                             <path d="M5.1,2.5c-1.6,0.1-3,0.3-3,0.3v22c0,0,3.6-0.7,8.8-0.2c4.6,0.5,9.1,3,9.1,3"/>
@@ -199,6 +199,13 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
 
                 );
 
+            case "icon-plus":
+                return(
+                    <svg className={`${this.props.classes} icon-plus`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 20.9 20.9" style={{overflow:"visible"}}>
+                        <polygon className="filled" points="20.9,11.9 20.9,9.1 11.9,9.1 11.9,0 9.1,0 9.1,9.1 0,9.1 0,11.9 9.1,11.9 9.1,20.9 11.9,20.9 11.9,11.9"/>
+                    </svg>
+                );
+
             case "icon-add":
                 return(
                     <svg className={`${this.props.classes} icon-add`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35 35" style={{overflow:"visible"}} >
@@ -214,10 +221,19 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                         <path className="st1" d="M48.6,7.3C25.8,7.3,7.3,25.8,7.3,48.6c0,22.8,18.5,41.3,41.3,41.3s41.3-18.5,41.3-41.3 C89.9,25.8,71.4,7.3,48.6,7.3z M77.7,52H52v25.7h-6.7V52H19.6v-6.7h25.7V19.6H52v25.7h25.7V52z"/>
                     </svg>
                 );
+
+
+
+            case "carat-down":
+                return (
+                    <svg className={`carat-down ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 13.4 7.1" style={{overflow:"visible"}} >
+                        <path className="filled" d="M7.1,6.9l0.8-0.8l0,0l5.4-5.4c0.2-0.2,0.2-0.6,0-0.8H0.2c-0.2,0.2-0.2,0.6,0,0.8l5.4,5.4l0.8,0.8 C6.5,7.1,6.9,7.1,7.1,6.9z"/>
+                    </svg>
+                );
+
             case "fader-right-to-left":
                 return(
                     <div style={{backgroundImage : `url(${fadeRightToLeft})`}} className={`${this.props.classes} image-box fader-right-to-left`}></div>
-
                 );
 
             case "fader-left-to-right":
@@ -274,6 +290,18 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                             <path className="filled stroked" d="M23.4,9.2l-3.4-2.8V0.5c0-0.3-0.2-0.5-0.5-0.5h-2.8c-0.3,0-0.5,0.2-0.5,0.5v2.7l-3.5-2.9 c-0.6-0.5-1.6-0.5-2.2,0L0.1,9.1C0,9.2,0,9.4,0.1,9.6L1.2,11c0.1,0.1,0.3,0.2,0.5,0l9.9-8.3c0.1-0.1,0.3-0.1,0.5,0l9.8,8.3 c0.1,0.1,0.3,0.1,0.4,0l1.2-1.3C23.6,9.5,23.6,9.3,23.4,9.2z"/>
                         </svg>
                     </>
+                );
+
+            case "media-nav-icon":
+                return(
+                    <svg className={`media-nav-icon ${this.props.classes}`} version="1.1"  x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 15.8 13.9" style={{overflow:"visible"}} >
+                        <path className="stroked" d="M3.7,11.9H3.3c-0.6,0-1.2-0.5-1.2-1.2V3.1c0-0.6,0.5-1.2,1.2-1.2h9.3c0.6,0,1.2,0.5,1.2,1.2v0.6"/>
+                        <path className="filled-highlight" d="M14.2,13.7H4.9c-0.6,0-1.2-0.5-1.2-1.2V4.9c0-0.6,0.5-1.2,1.2-1.2h9.3c0.6,0,1.4,0.6,1.4,1.3l-0.2,7.5	C15.4,13.1,14.8,13.7,14.2,13.7z"/>
+                        <polygon className="filled" points="13.9,11.1 11.8,6.3 9.4,9.5 7.8,7.8 5.1,11.1 "/>
+                        <circle className="filled" cx="6.4" cy="6.2" r="1.1"/>
+                        <path className="stroked st0" d="M1.9,10.2H1.4c-0.6,0-1.2-0.5-1.2-1.2V1.4c0-0.6,0.5-1.2,1.2-1.2h9.3c0.6,0,1.2,0.5,1.2,1.2V2"/>
+</svg>
+
                 );
             case "catalog":
                 return(

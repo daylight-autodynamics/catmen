@@ -36,7 +36,7 @@ export let ribbonConfig : iToggleMenuItem[] = [
     }
 ];
 
-
+// Main Navigation
 export let mainNavConfig : iNavItem[] = [
     {
         label: "Home",
@@ -55,7 +55,33 @@ export let mainNavConfig : iNavItem[] = [
                 copy="Your landing page with info, help and quick-start actions to help you get the most out of the Catalog Manager"
                 image={
                     <Illustration
-                        illustrationName="illustration-attribute-groups"
+                        illustrationName="illustration-home"
+                        specialClasses=""
+                        heightWithUnits="100%"
+                        widthWithUnits="100%"
+                    />
+                }
+            />
+        )
+    },
+    {
+        label: "Media Library",
+        navPath: "/",
+        buttonType: "menu-link",
+        iconLeft:
+            (<CatmanIcon
+                iconName="media-nav-icon"
+                width={iconSize.width}
+                height={iconSize.height}
+            />),
+        presentationGroup : "common",
+        infoPanel : (
+            <InfoPanel
+                header="Home - Get Started"
+                copy="Your landing page with info, help and quick-start actions to help you get the most out of the Catalog Manager"
+                image={
+                    <Illustration
+                        illustrationName="illustration-media"
                         specialClasses=""
                         heightWithUnits="100%"
                         widthWithUnits="100%"

@@ -12,6 +12,11 @@ import dragFiles from "../../../images/SVG/drag-files.svg"
 import backToSpreadsheet from "../../../images/SVG/back-to-spreadsheet.svg"
 import singleProductSwitchToEditMode from "../../../images/SVG/sitch-to-edit-mode.svg"
 import singleProductSwitchToReadMode from "../../../images/SVG/switch-to-read-only.svg"
+import insertColumn from "../../../images/SVG/illustration-insert.svg"
+import partNumber from "../../../images/SVG/tooltip-part-number.svg"
+import productGroups from "../../../images/SVG/tooltip-product-groups.svg"
+import referenceImage from "../../../images/SVG/tooltip-reference-image.svg"
+import classesIllustration from "../../../images/SVG/illustration-classes.svg"
 
 interface iSTATE{
 
@@ -515,6 +520,162 @@ export class toolTipsLibrary {
             }
         />)
     }
+
+    insertColumn(){
+        return(<ToolTipContent
+            header="Insert new Attribute/Column"
+            subHeader="Insert a new attribute, this will make a new column."
+            copy={
+                <div>
+                    <img className="tooltip-illustration" src={insertColumn}/>
+                </div>
+            }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-add-invert"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    columnHeaderToolTips(tipName : string) {
+        switch (tipName) {
+            case "ReferenceImage":
+                return(
+                    <ToolTipContent
+                        header="Reference Image"
+                        subHeader="This is just to help you identify the product visually while you're working"
+                        copy={
+                            <div>
+                                <img className="tooltip-illustration" src={referenceImage}/>
+                            </div>
+                        }
+                        tooltipType="deluxe"
+                        icon={
+                            <CatmanIcon
+                                iconName="icon-add-invert"
+                                classes=""
+                                height="1.5rem"
+                                width="1.5rem"
+                            />
+                        }
+                    />
+                );
+
+            case "PartNumber":
+                return(
+                    <ToolTipContent
+                        header="Part Number"
+                        subHeader="Must be unique, ideally you would use your existing descriptive part number"
+                        copy={
+                            <div>
+                                <img className="tooltip-illustration" src={partNumber}/>
+                            </div>
+                        }
+                        tooltipType="deluxe"
+                        icon={
+                            <CatmanIcon
+                                iconName="icon-add-invert"
+                                classes=""
+                                height="1.5rem"
+                                width="1.5rem"
+                            />
+                        }
+                    />
+                );
+
+            case "ProductGroup":
+                return(
+                    <ToolTipContent
+                        header="Product Group"
+                        subHeader="To group products give items that have a relationship the same product name"
+                        copy={
+                            <div>
+                                <img className="tooltip-illustration" src={productGroups}/>
+                            </div>
+                        }
+                        tooltipType="deluxe"
+                        icon={
+                            <CatmanIcon
+                                iconName="icon-add-invert"
+                                classes=""
+                                height="1.5rem"
+                                width="1.5rem"
+                            />
+                        }
+                    />
+                );
+
+            case "ProductName":
+                return(
+                    <ToolTipContent
+                        header="Product Name"
+                        subHeader="Give each item a friendly human-readable name, this may or may not be used by Wayfair in the white-labeling process"
+                        copy={
+                            <div>
+                                <img className="tooltip-illustration" src={productGroups}/>
+                            </div>
+                        }
+                        tooltipType="deluxe"
+                        icon={
+                            <CatmanIcon
+                                iconName="icon-add-invert"
+                                classes=""
+                                height="1.5rem"
+                                width="1.5rem"
+                            />
+                        }
+                    />
+                );
+
+            case "Class":
+                return(
+                    <ToolTipContent
+                        header="Class"
+                        subHeader="The Product Class is the species of product, by selecting a class you will define a set of attributes/column heads to describe that product"
+                        copy={
+                            <div>
+                                <img className="tooltip-illustration" src={classesIllustration}/>
+                            </div>
+                        }
+                        tooltipType="deluxe"
+                        icon={
+                            <CatmanIcon
+                                iconName="icon-add-invert"
+                                classes=""
+                                height="1.5rem"
+                                width="1.5rem"
+                            />
+                        }
+                    />
+                );
+
+        }
+
+        return(
+            <ToolTipContent
+                subHeader=""
+                copy={tipName}
+                tooltipType="basic"
+                icon={
+                    <CatmanIcon
+                        iconName="icon-add-invert"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />
+        );
+    }
 };
+
+
+
+
 
 export let toolTipContent = new toolTipsLibrary();

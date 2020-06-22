@@ -7,7 +7,7 @@ import {CatmanIcon} from "../../../svg/icons/icons";
 import {ContentToolTips, toolTipContent} from "../tool-tip-content/content-tool-tips";
 import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 import {ModalView} from "../../../view-components/modal/modal";
-import {UploadWizard} from "../../_catman-configuration/upload-wizard";
+import {UploadWizard} from "../../_catman-configuration/wizards/upload-wizard/upload-wizard";
 
 interface iPROPS{
     sectionTitle? : string;
@@ -33,7 +33,6 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
     }
 
     navMenu(){
-
         if(this.state.menuIsOpen === true){
             return (
                 <>

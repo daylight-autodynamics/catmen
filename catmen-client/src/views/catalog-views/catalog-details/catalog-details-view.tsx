@@ -18,42 +18,53 @@ import AppButton from "../../../view-components/button/app-button";
 import {appColumns, iColumn} from "../../../_sample-data/columns";
 import {CatalogSingleProduct} from "./single-product-view";
 import {TextInput} from "../../../view-components/text-input/text-input";
-import app from "../../../../../catmen-server/src/Server";
 
+import {DataManager, iUpdateSet} from "../../../data-components/data-manager/data-manager";
+import {ModalView} from "../../../view-components/modal/modal";
+import {AddVariantsWizard} from "../../_catman-configuration/wizards/create-product-group/add-variants-wizard";
+import {dataManagerMain} from "../../../index";
+
+import {CreateProductGroupWizard} from "../../_catman-configuration/wizards/create-product-group/create-product-group-wizard";
 
 
 interface iPROPS   {
     message: string;
     query:string | null;
-    gridData : iDataGridItem[][];
-    addAction : Function
+    gridData : DataManager;
+    columnsData : DataManager;
 }
+
+export type modalStateType = "closed" | "add-to-product-group" | "create-product-group" | "delete-confirmation";
 
 interface iSTATE{
     productViewOpen : boolean;
     editDrawerOpen : boolean;
     editDrawerMaximized : boolean;
+    modalState : modalStateType;
     footerOpen : boolean;
     footerMode : "default" | "has-group" | "no-group" | "multiple-selected" ;
     selectionSet : selectionObject[];
     workingData : iDataGridItem[][];
-
+    columnsData : iColumn[];
 }
 
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
          super(props);
-         this.columns = appColumns.getColumns();
+         this.columns = this.props.columnsData.getColumns;
          this.state = {
-             workingData : this.props.gridData,
+             workingData : this.props.gridData.getData,
+             columnsData : this.props.columnsData.getColumns,
              productViewOpen : false,
              editDrawerOpen : false,
              editDrawerMaximized : false,
              footerOpen : false,
              footerMode : "default",
              selectionSet : [],
+             modalState : "closed"
          };
-         this.workingDataSet = this.props.gridData;
+
+         this.workingDataSet = this.props.gridData.getData;
      }
      workingDataSet : iDataGridItem[][];
      //just for the fist launch of checkbox editing
@@ -64,10 +75,18 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      selectionSet : selectionObject[] = [];
      columns : iColumn[];
 
+
+
+
+    getCheckBoxesSelection(){
+        if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
+            return this.dataGridRef.current._checkedRows;
+        }
+    }
+
+
      //manage selection in the drawer
         drawerFirstOpen = false;
-
-
 
      closeSingleProductEdit = ()=>{
         window.history.back();
@@ -86,7 +105,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      stickyOpen={true}
                      bgColor={"#CECECE"}
                      doAnimation={true}
-
                  >
                     <CatalogSingleProduct
                         uniqueID={this.props.query}
@@ -120,17 +138,17 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          //the minus 2 is the offset for the extra columns checkbox and edit
          for(let i =0; i < this.selectionSet.length; i++){
              if(this.selectionSet[i].columnName === colName){
-                 let myRow = this.selectionSet[i].row;
-                 let myCell = this.selectionSet[i].cell;
-                 console.log( "working data set:", this.workingDataSet[ myRow-2][myCell-2] );
-                 this.workingDataSet[ myRow-2][myCell-2].value = value;
+                 let myRow = this.selectionSet[i].row-2;
+                 let myCell = this.selectionSet[i].cell-2;
+
+                 //this.workingDataSet[ myRow-2][myCell-2].value = value;
+                 const updateSet : iUpdateSet = { row:myRow ,cell:myCell, newData:value }
+                 this.props.gridData.setProductData = updateSet
              }
 
          }
-         //this.workingDataSet[ row-2][cell-2].value = value;
 
-
-         this.setState({workingData : this.workingDataSet});
+         this.setState({workingData : this.props.gridData.getData});
          console.log( "working data set:", this.state.workingData );
      };
 
@@ -285,14 +303,216 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      openEditDrawer( ){
          this.drawerFirstOpen = true;
          this.setState({editDrawerOpen : true});
-
-
      }
+
+     //FOOTER RELATED
+     getFooterMenu(){
+        let footer = (<></>);
+        let buttons = (<></>);
+
+        switch(this.state.footerMode){
+            case "default":
+                buttons = (
+                    <div className="footer-btn-bar catman-footer">
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Cancel"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerCancel()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="cancel"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Delete Selected"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerDelete()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-delete"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            classes={"separate-left"}
+                            buttonType={"secondary-action"}
+                            buttonLabel="Edit Selected"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerEditSelection()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-edit"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            classes={" "}
+                            buttonType={"secondary-action"}
+                            buttonLabel="Add Variant"
+                            OnClick={()=>this.manageModals("add-to-product-group")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerAddVariant()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-add"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                    </div>
+                );
+                break;
+
+            case "multiple-selected":
+                buttons = (
+                    <div className="footer-btn-bar catman-footer">
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Cancel"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerCancel()}
+                            toolTipTimeOutInMS={10000}
+                            tooltipXOffset={0}
+                            tooltipYOffset={20}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="cancel"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Delete Selected"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerDelete()}
+                            toolTipTimeOutInMS={10000}
+                            tooltipXOffset={0}
+                            tooltipYOffset={20}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-delete"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            classes={"separate-left"}
+                            buttonType={"secondary-action"}
+                            buttonLabel="Edit Selected"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerEditSelection()}
+                            toolTipTimeOutInMS={10000}
+                            tooltipXOffset={0}
+                            tooltipYOffset={20}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-edit"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            classes={" "}
+                            buttonType={"secondary-action"}
+                            buttonLabel="Make Into a Variant Group"
+                            OnClick={()=>this.manageModals("create-product-group")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerCreateVariant()}
+                            toolTipTimeOutInMS={10000}
+                            tooltipXOffset={0}
+                            tooltipYOffset={20}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-add"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                    </div>
+                );
+                break;
+
+            case "has-group":
+                buttons = (<AppButton
+                    buttonType={"secondary-action"}
+                    buttonLabel="catalog manager"
+                    OnClick={()=>this.footerActions("cancel")}
+                    tooltipType="custom"
+                    tooltip={toolTipContent.mainNav()}
+                    toolTipTimeOutInMS={10000}
+                    iconRight={
+                        <CatmanIcon
+                            iconName="down-arrow"
+                            classes="ui-icon"
+                            height="100%"
+                            width="100%"
+                        />
+                    }
+                />)
+        }
+
+        if(this.state.footerOpen === true){
+
+            let buttonBar : ReactElement = (<>
+            </>);
+
+            footer = (
+                <>
+                    <StickyThing
+                        enterFromThisSide="bottom"
+                        lastResortClasses={"catman-footer-container"}
+                        animateIn={true}
+                        heightIncludeUnits="3.75rem"
+                        widthIncludeUnits={"100%"}
+                        stickyOpen={true}
+                        bgColor={"rgba(0,0,0,0)"}
+                        doAnimation={true}
+                    >
+                        {buttons}
+                    </StickyThing>
+                </>
+            );
+        }
+        return footer;
+    }
 
      footerActions(action : "cancel" | "add-group" | "edit"){
          switch (action) {
-             case "cancel":
 
+             case "cancel":
                  this.setState({footerOpen : false});
                  this.initialized = false;
                  if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
@@ -311,213 +531,22 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          }
      }
 
-     addAction(){
-         console.log("added item or items");
+     addAction(addType:string){
+         console.log("added item or items: ", addType );
+         switch (addType) {
+             case "add-attribute":
+
+                 return(<></>);
+             case "add-products":
+
+                 return(<></>);
+
+
+
+         }
      }
 
-     getFooterMenu(){
-         let footer = (<></>);
-         let buttons = (<></>);
-
-         switch(this.state.footerMode){
-             case "default":
-                 buttons = (
-                     <div className="footer-btn-bar catman-footer">
-                         <AppButton
-                             buttonType={"secondary-action"}
-                             buttonLabel="Cancel"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerCancel()}
-                             toolTipTimeOutInMS={10000}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="cancel"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                         <AppButton
-                             buttonType={"secondary-action"}
-                             buttonLabel="Delete Selected"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerDelete()}
-                             toolTipTimeOutInMS={10000}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="icon-delete"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                         <AppButton
-                             classes={"separate-left"}
-                             buttonType={"secondary-action"}
-                             buttonLabel="Edit Selected"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerEditSelection()}
-                             toolTipTimeOutInMS={10000}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="icon-edit"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                         <AppButton
-                             classes={" "}
-                             buttonType={"secondary-action"}
-                             buttonLabel="Add Variant"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerAddVariant()}
-                             toolTipTimeOutInMS={10000}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="icon-add"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                     </div>
-                 );
-                 break;
-
-             case "multiple-selected":
-                 buttons = (
-                     <div className="footer-btn-bar catman-footer">
-                         <AppButton
-                             buttonType={"secondary-action"}
-                             buttonLabel="Cancel"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerCancel()}
-                             toolTipTimeOutInMS={10000}
-                             tooltipXOffset={0}
-                             tooltipYOffset={20}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="cancel"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                         <AppButton
-                             buttonType={"secondary-action"}
-                             buttonLabel="Delete Selected"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerDelete()}
-                             toolTipTimeOutInMS={10000}
-                             tooltipXOffset={0}
-                             tooltipYOffset={20}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="icon-delete"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                         <AppButton
-                             classes={"separate-left"}
-                             buttonType={"secondary-action"}
-                             buttonLabel="Edit Selected"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerEditSelection()}
-                             toolTipTimeOutInMS={10000}
-                             tooltipXOffset={0}
-                             tooltipYOffset={20}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="icon-edit"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                         <AppButton
-                             classes={" "}
-                             buttonType={"secondary-action"}
-                             buttonLabel="Make Into a Variant Group"
-                             OnClick={()=>this.footerActions("cancel")}
-                             tooltipType="custom"
-                             tooltip={toolTipContent.footerCreateVariant()}
-                             toolTipTimeOutInMS={10000}
-                             tooltipXOffset={0}
-                             tooltipYOffset={20}
-                             iconLeft={
-                                 <CatmanIcon
-                                     iconName="icon-add"
-                                     classes=" "
-                                     height="100%"
-                                     width="100%"
-                                 />
-                             }
-                         />
-                     </div>
-                 );
-                 break;
-
-             case "has-group":
-                 buttons = (<AppButton
-                     buttonType={"secondary-action"}
-                     buttonLabel="catalog manager"
-                     OnClick={()=>this.footerActions("cancel")}
-                     tooltipType="custom"
-                     tooltip={toolTipContent.mainNav()}
-                     toolTipTimeOutInMS={10000}
-                     iconRight={
-                         <CatmanIcon
-                             iconName="down-arrow"
-                             classes="ui-icon"
-                             height="100%"
-                             width="100%"
-                         />
-                     }
-                 />)
-         }
-
-         if(this.state.footerOpen === true){
-
-             let buttonBar : ReactElement = (<>
-             </>);
-
-             footer = (
-                 <>
-                     <StickyThing
-                         enterFromThisSide="bottom"
-                         lastResortClasses={"catman-footer-container"}
-                         animateIn={true}
-                         heightIncludeUnits="3.75rem"
-                         widthIncludeUnits={"100%"}
-                         stickyOpen={true}
-                         bgColor={"rgba(0,0,0,0)"}
-                         doAnimation={true}
-                     >
-                         {buttons}
-                     </StickyThing>
-                 </>
-             );
-         }
-         return footer;
-     }
-
+    //GRID MANAGEMENT
      manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string )=>{
         if(checkBoxSelections.length > 0 || (this.initialized === false && checkBoxSelections.length === 0 && message === "checkbox-launched") ){
             if(checkBoxSelections.length <= 1){
@@ -538,15 +567,55 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          }
      }
 
-     manageModals(modalName : string){
-         switch(modalName){
-             case "add-products":
-                 return(<><p>Add Products</p></>);
-             case "add-product-variant":
-                 return(<><p>Product Variant</p></>)
+     //MODALS modalStateType = "closed" | "add-to-product-group" | "create-product-group" | "delete-confirmation";
+    manageModals(modalState : modalStateType){
+         console.log("close the dang modal!!!!", modalState);
+          this.setState({modalState : modalState});
+    }
+
+     getModals(){
+
+         switch(this.state.modalState){
+             case "add-to-product-group":
+                 return(
+                 <>
+                     <ModalView
+                         closeModalFunc={()=>this.manageModals("closed")}
+                         modalTitle=""
+                     >
+                        <AddVariantsWizard
+                            addAction={dataManagerMain.addToProductGroup}
+                            groups={dataManagerMain.getGroups()}
+                            selectedCheckBoxes={this.getCheckBoxesSelection()}
+                            manageModal = {()=>this.manageModals("closed")}
+                        />
+
+                     </ModalView>
+                 </>
+
+                     );
+             case "create-product-group":
+                 return(
+                     <>
+                         <ModalView
+                             closeModalFunc={()=>this.manageModals("closed")}
+                             modalTitle=""
+                         >
+                             <CreateProductGroupWizard
+                                 addAction={dataManagerMain.addToProductGroup}
+                                 groups={dataManagerMain.getGroups()}
+                                 selectedCheckBoxes={this.getCheckBoxesSelection()}
+                                 manageModal = {()=>this.manageModals("closed")}
+                             />
+
+                         </ModalView>
+                     </>
+
+                  )
          }
      }
 
+     //RENDERING AND PORTALS
     componentDidUpdate(): void {
          let inputs : any = document.getElementsByClassName("InputBox");
 
@@ -568,12 +637,14 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      data={this.state.workingData}
                      manageParentViews={()=>this.openEditDrawer()}
                      selectionCallback={this.manageSelectionSet}
-                     columns={appColumns.getColumns()}
+                     columnsData={this.state.columnsData}
                      classes={this.conditionClasses()}
+                     addAction={this.addAction}
                  />
                  {this.getEditDrawer() }
                  {this.getFooterMenu() }
                  {this.getProductViewDrawer()}
+                 {this.getModals()}
              </>
          )
      }

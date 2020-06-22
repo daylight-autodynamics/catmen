@@ -2,16 +2,14 @@ import * as React from "react";
 
 //Configuration data:
 
-import {DataGrid} from "../../../view-components/data-grid/data-grid";
-import {catmanData} from "../../../_sample-data/products-data";
-import {TitleArea} from "../../../view-components/title-area/title-area";
-import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
-import {appColumns} from "../../../_sample-data/columns";
 import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
 import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../../svg/icons/icons";
 import AppButton from "../../../view-components/button/app-button";
 
+//icons and illustrations
+import tempChart from "../../../images/SVG/done-pie-chart.svg"
+import {StandardTextInput} from "../../../view-components/text-input/standard-text-input";
 
 interface iPROPS  {
     uniqueID: string;
@@ -64,98 +62,47 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
         this.setState({editMode : !this.state.editMode})
     }
 
-    getProductPage(){
-        let myProduct = this.singleProductData(this.props.uniqueID);
+    getDataArea(){
 
-        let editLabel = (valueCheck : boolean)=>{
-            if(valueCheck === false){
-                return "Edit Mode"
-            }else{
-                return "Read Mode"
-            }
-        };
-
-        let editIcon = (valueCheck : boolean)=>{
-            if(valueCheck == false){
-                return "icon-edit"
-            }else{
-                return "icon-read-mode"
-            }
-        };
-
-        let modeToolTip = (valueCheck : boolean) =>{
-            if(valueCheck == false){
-                return toolTipContent.singleProductSwitchToEditMode();
-            }else{
-                return toolTipContent.singleProductSwitchToReadMode();
-            }
-        };
-
-        let introArea = (
-            <div className="single-product-view">
-                <div className="single-prod-menu">
-                    <div>
-                        <AppButton
-                            buttonType="nav-link"
-                            classes="single-product-back"
-                            buttonLabel={"Back"}
-                            navPath={`/catalog/spreadsheet`}
-                            tooltipType="custom"
-                            tooltip={toolTipContent.goBackToSpreadsheet()}
-                            OnClick={()=>this.props.closeSingleProduct()}
-                            iconLeft={(
-                                <CatmanIcon
-                                    iconName="go-back-arrow"
-                                    width="1rem"
-                                    height="100%"
-                                />
-                            )}
-                        />
-                    </div>
-                    <AppButton
-                        classes={"hi-contrast primary"}
-                        buttonType={"secondary-action"}
-                        buttonLabel={editLabel(this.state.editMode)}
-                        OnClick={()=>this.manageEditMode()}
-                        tooltipType="custom"
-                        tooltip={modeToolTip(this.state.editMode)}
-                        toolTipTimeOutInMS={10000}
-                        tooltipXOffset={0}
-                        tooltipYOffset={20}
-                        iconLeft={
-                            <CatmanIcon
-                                iconName={`${editIcon(this.state.editMode)}`}
-                                classes=" "
-                                height="100%"
-                                width="100%"
-                            />
-                        }
-                    />
-                    <div className="menu-area">
-
-                        <ul>
-                            <li>General Info</li>
-                            <li>Weight & Dimensions</li>
-                            <li>Material</li>
-                            <li>Set Related</li>
-                            <li>Shipping</li>
-                            <li>Romance Copy</li>
-                            <li>Notes</li>
-                        </ul>
-                        <ul>
-                            <li>Variants Group</li>
-                            <li>Related Products</li>
-                        </ul>
-                        <ul>
-                            <li>Pricing</li>
-                            <li>other Integrations</li>
-                            <li>Another Integration</li>
-                        </ul>
-
-                    </div>
-                </div>
-                <div className="spacer"></div>
+        if(this.state.editMode === false){
+            return(
                 <div className="content-area">
+                    <div className="single-prod-dash-area">
+                        <div className="image-thumb">
+                            <img className="preview-image" src={'https://secure.img1-fg.wfcdn.com/im/46577228/resize-h800-w800%5Ecompr-r85/8736/87366205/Fallinerlea+Indoor/Outdoor+Throw+Pilow.jpg'}/>
+                            <div className="data-header">
+                                <div className="data-chunk data-section-readonly part-number  ">
+                                    <h1 className="data-value ">
+                                        109-thr-pil-1098a
+                                    </h1>
+                                    <p className="tiny-label">Besmira Square Pillow Cover (Set of 2)</p>
+                                </div>
+                                <div className="data-chunk data-section-readonly">
+                                    <p className="tiny-label">Product Type: </p>
+                                    <div className="data-value">
+                                        Pillow
+                                    </div>
+                                </div>
+                                <div className="data-chunk data-section-readonly">
+                                    <p className="tiny-label">Source: </p>
+                                    <div className="data-value">
+                                        M1-123-111
+                                    </div>
+                                </div>
+                                <div className="data-chunk data-section-readonly">
+                                    <p className="tiny-label">Manufacturer Contact: </p>
+                                    <div className="data-value">
+                                        1-(212)-331-3000 ext 45
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="single-general-data">
+                            <img className="temp-chart" src={tempChart} />
+                        </div>
+                    </div>
+
                     <div className="product-card">
                         <h3>Weight & Dimensions</h3>
                         <div className="data-container">
@@ -273,6 +220,350 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
                     </div>
 
                 </div>
+            );
+        }else{
+            return(
+                <div className="content-area">
+                    <div className="single-prod-dash-area">
+                        <div className="image-thumb">
+                            <img className="preview-image" src={'https://secure.img1-fg.wfcdn.com/im/46577228/resize-h800-w800%5Ecompr-r85/8736/87366205/Fallinerlea+Indoor/Outdoor+Throw+Pilow.jpg'}/>
+                            <div className="data-header">
+                                <div className="data-chunk data-section-readonly part-number  ">
+
+                                    <StandardTextInput
+                                        label={"Part Number"}
+                                        currentValue={"109-thr-pil-1098a"}
+                                        onChangeAction={()=>{}}
+                                    />
+                                    <StandardTextInput
+                                        label={"Product Name"}
+                                        currentValue={"Besmira Square Pillow Cover (Set of 2)"}
+                                        onChangeAction={()=>{}}
+                                    />
+                                </div>
+
+                                <div className="data-chunk data-section-readonly">
+                                    <StandardTextInput
+                                        label={"Product Type:"}
+                                        currentValue={"Pillow"}
+                                        onChangeAction={()=>{}}
+                                    />
+                                </div>
+                                <div className="data-chunk data-section-readonly">
+                                    <StandardTextInput
+                                        label={"Source"}
+                                        currentValue={"M1-123-111"}
+                                        onChangeAction={()=>{}}
+                                    />
+
+                                </div>
+                                <div className="data-chunk data-section-readonly">
+                                    <StandardTextInput
+                                        label={"Manufacturer Contact"}
+                                        currentValue={"1-(212)-331-3000 ext 45"}
+                                        onChangeAction={()=>{}}
+                                    />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="single-general-data">
+                            <img className="temp-chart" src={tempChart} />
+                        </div>
+                    </div>
+
+                    <div className="product-card">
+                        <h3>Weight & Dimensions</h3>
+                        <div className="data-container">
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Overall"}
+                                    currentValue={"20'' H x 20'' W x 5'' D"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Height"}
+                                    currentValue={"3.5 lb."}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Width"}
+                                    currentValue={"20''"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Depth"}
+                                    currentValue={"5''"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="product-card">
+                        <h3>Material</h3>
+                        <div className="data-container">
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Outer Material"}
+                                    currentValue={"Polyester/Polyester blend"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Outer Material Details"}
+                                    currentValue={"Polyester/Polyester blend"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Insert Included"}
+                                    currentValue={"Yes"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+
+
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Fill Material"}
+                                    currentValue={"Polyester/Polyfill"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Insert Included?"}
+                                    currentValue={"No"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Inner Material Details"}
+                                    currentValue={"Felt"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Reverse Material"}
+                                    currentValue={"Imitation Velvet"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="product-card">
+                        <h3>Shipping</h3>
+                        <div className="data-container">
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Number of Pieces Included"}
+                                    currentValue={"2"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Pieces Included"}
+                                    currentValue={"2 Pillow cases"}
+                                    onChangeAction={()=>{}}
+                                />
+
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Double Cap?"}
+                                    currentValue={"Yes"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Reverse Cap?"}
+                                    currentValue={"No"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Add-Ons"}
+                                    currentValue={"Add-Ons"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Storage"}
+                                    currentValue={"Drawstring Bag"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="product-card">
+                        <h3>Set Related</h3>
+                        <div className="data-container">
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Number of Cartons"}
+                                    currentValue={"1"}
+                                    onChangeAction={()=>{}}
+                                />
+
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Warehouses"}
+                                    currentValue={"Dockerville, Decatur"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Warehouse Contact Person"}
+                                    currentValue={"John Trivaliago"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Warehouse Contact Number"}
+                                    currentValue={"1-(231)-972-1300"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Packing Material"}
+                                    currentValue={"Dust protector"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                            <div className="data-section-readonly">
+                                <StandardTextInput
+                                    label={"Include in package"}
+                                    currentValue={"Care instructions id 32a"}
+                                    onChangeAction={()=>{}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            );
+        }
+
+    }
+
+    getProductPage(){
+        let myProduct = this.singleProductData(this.props.uniqueID);
+
+        let editLabel = (valueCheck : boolean)=>{
+            if(valueCheck === false){
+                return "Edit Mode"
+            }else{
+                return "Read Mode"
+            }
+        };
+
+        let editIcon = (valueCheck : boolean)=>{
+            if(valueCheck == false){
+                return "icon-edit"
+            }else{
+                return "icon-read-mode"
+            }
+        };
+
+        let modeToolTip = (valueCheck : boolean) =>{
+            if(valueCheck == false){
+                return toolTipContent.singleProductSwitchToEditMode();
+            }else{
+                return toolTipContent.singleProductSwitchToReadMode();
+            }
+        };
+
+        let introArea = (
+            <div className="single-product-view">
+                <div className="single-prod-menu">
+                    <div>
+                        <AppButton
+                            buttonType="nav-link"
+                            classes="single-product-back"
+                            buttonLabel={"Back"}
+                            navPath={`/catalog/spreadsheet`}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.goBackToSpreadsheet()}
+                            OnClick={()=>this.props.closeSingleProduct()}
+                            iconLeft={(
+                                <CatmanIcon
+                                    iconName="go-back-arrow"
+                                    width="1rem"
+                                    height="100%"
+                                />
+                            )}
+                        />
+                    </div>
+                    <AppButton
+                        classes={"hi-contrast primary"}
+                        buttonType={"secondary-action"}
+                        buttonLabel={editLabel(this.state.editMode)}
+                        OnClick={()=>this.manageEditMode()}
+                        tooltipType="custom"
+                        tooltip={modeToolTip(this.state.editMode)}
+                        toolTipTimeOutInMS={10000}
+                        tooltipXOffset={0}
+                        tooltipYOffset={20}
+                        iconLeft={
+                            <CatmanIcon
+                                iconName={`${editIcon(this.state.editMode)}`}
+                                classes=" "
+                                height="100%"
+                                width="100%"
+                            />
+                        }
+                    />
+                    <div className="menu-area">
+
+                        <ul>
+                            <li>General Info</li>
+                            <li>Weight & Dimensions</li>
+                            <li>Material</li>
+                            <li>Set Related</li>
+                            <li>Shipping</li>
+                            <li>Romance Copy</li>
+                            <li>Notes</li>
+                        </ul>
+                        <ul>
+                            <li>Variants Group</li>
+                            <li>Related Products</li>
+                        </ul>
+                        <ul>
+                            <li>Pricing</li>
+                            <li>other Integrations</li>
+                            <li>Another Integration</li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div className="spacer"></div>
+
+                {this.getDataArea()}
             </div>
         );
 

@@ -23,6 +23,8 @@ export class TextInput extends React.Component<iPROPS, iSTATE>{
         }
     }
 
+
+
     onChangeActions(e: React.ChangeEvent){
         let keyVal = e.target as HTMLInputElement;
         console.log("insie input box", keyVal.value);

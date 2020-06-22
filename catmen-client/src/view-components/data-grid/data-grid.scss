@@ -43,7 +43,14 @@
       background-position: center;
       background-size: cover;
     }
-    .affordance{
+    .hover-row{
+      position: absolute;
+      top:0;
+      bottom: 0;
+      left: 0;
+      right:0;
+    }
+    .affordance {
       &.selected{
         background-color: $black_60;
         position: absolute;
@@ -84,6 +91,12 @@
     left: 0;
     background-color: white;
     min-width: 1rem !important;
+    button.btn-transparent-bg{
+      &.checkbox-checked{
+        padding: 0.25rem;
+      }
+    }
+
     .shading-l-r{
       position: absolute;
       top: 0px;
@@ -102,6 +115,22 @@
       height: 100%;
     }
   }
+  button.add-column{
+    &.btn-default{
+      box-shadow: none;
+      border-width: 1px 1px 1px 0 !important;
+      border: solid $Core_60;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border-radius: 0 1rem 1rem 0;
+      .btn-descriptors{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }
 
 .cell-editable{
@@ -114,6 +143,20 @@
       color: white;
     }
     user-select: none;
+  }
+  .hover-row{
+
+  }
+
+  &:hover .hover-row{
+    background-color: $black_10;
+    opacity: .5;
+    right: -10000%;
+    left: -10000%;
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: -2;
   }
 
   &:hover .affordance{
@@ -146,21 +189,18 @@
 
 .cell{
   &.checkbox-main{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 1.5rem;
     btn.btn-transparent-bg{
-
-    }
-    btn.checkbox-checked{
-      margin: -0.125rem;
+        &.checkbox-checked{
+          padding: 0.25rem;
+        }
     }
   }
 }
 
-.checkbox-checked{
-  margin: -0.125rem;
-}
 
 //HEADER
 

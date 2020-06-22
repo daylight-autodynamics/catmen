@@ -7,6 +7,9 @@ import {selectedStateType, Tile} from "../tiles/tile-component";
 import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
 import camelcase from "camelcase";
 import {appColumns, iColumn} from "../../_sample-data/columns";
+import {DataManager} from "../../data-components/data-manager/data-manager";
+import classesIllustration from "../../images/SVG/illustration-classes.svg";
+import {ToolTipContent} from "../heru-tool-tip/tool-tip-content";
 
 //data grid data should be an array of arrays
 //each product is an array of attributes
@@ -14,8 +17,9 @@ interface iPROPS {
     data : iDataGridItem[][];
     manageParentViews : Function;
     selectionCallback? : Function;
-    columns : iColumn[];
+    columnsData : iColumn[];
     classes? : string;
+    addAction : any;
 }
 
 interface iSTATE {
@@ -92,7 +96,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     row: row,
                     cell: cell,
                     selected : true,
-                    columnName : appColumns.getColumns()[cell-2].columnName
+                    columnName : this.props.columnsData[cell-2].columnName
+                    //columnName : appColumns.getColumns[cell-2].columnName
                 }
             );
         }
@@ -104,7 +109,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                         row: i,
                         cell: j,
                         selected : true,
-                        columnName : appColumns.getColumns()[j-2].columnName
+                        columnName : this.props.columnsData[j-2].columnName
                     }
                 );
             }
@@ -193,7 +198,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     getNumColumns(){
         //TODO swap this out to calculating total normalized columns
 
-        return appColumns.getColumns().length;
+        return this.props.columnsData.length;
     }
 
     getNumRows(){
@@ -260,7 +265,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     row : this._checkedRows[i]+2,
                     cell : j,
                     selected : true,
-                    columnName : appColumns.getColumns()[j].columnName
+                    columnName : this.props.columnsData[j].columnName
                 };
                 this.selectionSet.push(selectedCell);
             }
@@ -305,7 +310,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                                 iconCenter={(
                                     <CatmanIcon
                                         iconName={`${this.iconCheck(i)}`}
-                                        width="0.5rem"
+                                        width="100%"
                                         height="100%"
                                     />
                                 )}
@@ -323,7 +328,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 let cell = (
                     <div className="cell" style={{gridColumn : j+2, gridRow : i+2 }}>
                         <Tile
-                            tileType={this.props.columns[j].control}
+                            tileType={this.props.columnsData[j].control}
                             tileLabel={this.state.workingDataSet[i][j].value}
                             mouseDownActions={
                                 [() => this.mouseDownAction(i+2,j+2)]
@@ -331,7 +336,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                             mouseUpActions={
                                 [
                                     () => this.props.manageParentViews(),
-                                    () => this.mouseUpAction(i+2,j+2, appColumns.getColumns()[j].columnName)
+                                    () => this.mouseUpAction(i+2,j+2, this.props.columnsData[j].columnName)
                                 ]
                             }
                             selectedClass={this.checkSelected(i+2, j+2)}
@@ -341,7 +346,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 );
 
 
-                if(this.props.columns[j].control != "hidden"){
+                if( this.props.columnsData[j].control != "hidden"){
                     cells.push(cell);
                 }
 
@@ -379,7 +384,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     getColumnHeaders(){
         let columnsHeads : ReactElement[] = [];
-        for(let i=0; i < this.props.columns.length; i++ ){
+        for(let i=0; i < this.props.columnsData.length; i++ ){
             if(i === 0){
                 columnsHeads.push(
                     <div className="cell checkbox-main grid-header" style={{gridColumn : i+1, gridRow : 1, zIndex : 100 + (this.numRows - i) }}>
@@ -400,11 +405,41 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     </div>
                 )
             }
+
+          const columnHeadTooltip = (tooltiptype : "custom" | "basic", tooltip:ReactElement | string, header:string)=>{
+
+              switch (tooltiptype) {
+                  case "basic":
+                      return(<ToolTipContent
+                          header={header}
+                          copy={ tooltip }
+                          tooltipType="deluxe"
+                          icon={
+                              <CatmanIcon
+                                  iconName="icon-add-invert"
+                                  classes=""
+                                  height="1.5rem"
+                                  width="1.5rem"
+                              />
+                          }
+                      />);
+                  case "custom":
+                      return this.props.columnsData[i].toolTip;
+              }
+
+              return (<></>)
+          };
+
             let columnHead = (
                 <div className="cell grid-header" style={{gridColumn : i+2, gridRow : 1, zIndex: this.numRows+10 }}>
                     <Tile
-                        tileType="text-input"
-                        tileLabel={this.props.columns[i].columnLabel}
+                        tileType="column-header"
+                        tileLabel={this.props.columnsData[i].columnLabel}
+                        toolTip={ columnHeadTooltip(
+                            this.props.columnsData[i].tooltipType,
+                            this.props.columnsData[i].toolTip,
+                            this.props.columnsData[i].columnLabel
+                        )}
                         mouseDownActions={
                             [ ]
                         }
@@ -418,39 +453,42 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 </div>
             );
 
-            if(this.props.columns[i].control != "hidden"){
+            if(this.props.columnsData[i].control != "hidden"){
                 columnsHeads.push(columnHead);
             }
 
 
             //final column head action
-            if(i === this.props.columns.length-1){
+            if(i === this.props.columnsData.length-1){
                 columnsHeads.push(
                     <div className="cell details grid-header"
-                         style={{gridColumn : this.props.columns.length+2, gridRow : 1, zIndex : 100 + (this.numRows - i) }}
+                         style={{gridColumn : this.props.columnsData.length+2, gridRow : 1, zIndex : 100 + this.props.columnsData.length+2 }}
                         >
                         <AppButton
-                            buttonType="nav-link"
+                            buttonType="button-custom"
+                            classes="add-column"
                             navPath={`/catalog/spreadsheet`}
+                            OnClick={()=>this.props.addAction("add-attribute")}
                             tooltipType="custom"
-                            tooltip={toolTipContent.singleProduct()}
+                            tooltip={toolTipContent.insertColumn()}
                             iconCenter={(
                                 <CatmanIcon
-                                    iconName="go-arrow"
-                                    width="1rem"
+                                    iconName="icon-plus"
+                                    width="0.5rem"
                                     height="100%"
                                 />
                             )}
                         />
+                        <CatmanIcon
+                            classes={"shading-l-r"}
+                            iconName="fader-right-to-left"
+                            width="0.5rem"
+                            height="100%"
+                        />
                     </div>
                 )
             }
-
-
-
         }
-
-
 
         return( columnsHeads );
     }

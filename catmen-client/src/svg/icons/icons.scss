@@ -37,12 +37,31 @@
   }
 
   // icon read mode
-  .qq-st0{fill:#FFFFFF;stroke:#622262;stroke-width:0.915;stroke-miterlimit:10;}
-  .qq-st1{fill:#FFFFFF;}
-  .qq-st2{fill:none;stroke:#622262;stroke-width:0.599;stroke-miterlimit:10;}
-  .qq-st3{fill:#622262;}
+.icon-plus{
+  .filled{
+    fill: $Core_60;
+  }
+}
 
+.media-nav-icon{
+  .stroked{
+    fill:none;
+    stroke:$black_60;
+    stroke-width:0.5;
+    stroke-miterlimit:10;
+  }
 
+  .filled-highlight{
+    fill:#FFFFFF;
+    stroke:$black_60;
+    stroke-width:0.5;stroke-miterlimit:10;
+  }
+
+  .filled{
+
+  }
+
+}
   .icon-read-mode, .icon-read{
     .filled{
       fill:#FFFFFF;
@@ -112,7 +131,6 @@
     }
   }
 
-
   .stroked, .stroked-highlight{
     stroke-miterlimit:10;
     stroke-width: 1px;
@@ -137,9 +155,6 @@
   }
 
    //icon inverted add
-  .st0{fill:#FFFFFF;}
-  .st1{fill:#05778C;}
-
 
   .icon-restore-tooltip{
     .filled{
@@ -167,8 +182,6 @@
       fill: none; stroke: #BBDCB0; stroke-miterlimit: 10;
     }
   }
-
-
 
   .icon-restore {
       .filled-highlight {

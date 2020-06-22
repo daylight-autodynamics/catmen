@@ -44,7 +44,6 @@ export class WindowLevelCapture implements iWindow{
     clearPortals(){
         let portals : HTMLCollectionOf<Element> = document.getElementsByClassName("tool-tip");
 
-       console.log("clear portals", portals);
 
         if(portals != null){
             for(let i=0; i < portals.length; i++ ){
@@ -56,7 +55,7 @@ export class WindowLevelCapture implements iWindow{
         }
 
         portals = document.getElementsByClassName("tool-tip");
-        console.log("clear portals after clear:", portals);
+
     }
 }
 
@@ -68,7 +67,7 @@ interface iPROPS{
         headerText : string,
         copy : string
     }
-    toolTipCustomElement? : ReactElement;
+    toolTipCustomElement? : ReactElement | string;
     btnReference? : RefObject<HTMLButtonElement>;
     linkReference? : RefObject<HTMLAnchorElement>;
     timeoutInMS : number;
@@ -171,7 +170,7 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             //null check
             if(this.toolTipContainerRef.current != null && this.toolTipContainerRef.current !== undefined){
                 //if it's too far to the right
-                console.log("tooltip left:", win.mousePos.x);
+                //console.log("tooltip left:", win.mousePos.x);
                 if( win.mousePos.x + this.tooltipWidth > win.windowSize().width - this.tooltipWidth){
                     xPos = xPos - (this.tooltipWidth + 30);
                     if(this.props.xOffset != null){

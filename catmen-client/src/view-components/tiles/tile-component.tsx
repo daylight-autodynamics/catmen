@@ -1,5 +1,9 @@
 import * as React from "react";
 import {ReactElement} from "react";
+import {ToolTip} from "../heru-tool-tip/tool-tip";
+import {CatmanIcon} from "../../svg/icons/icons";
+import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import AppButton from "../button/app-button";
 
 export type selectedStateType = "selected" | "active" | "inactive" | "";
 interface iPROPS{
@@ -9,6 +13,8 @@ interface iPROPS{
     mouseDownActions? : Function[];
     mouseUpActions? : Function[];
     selectedClass : selectedStateType;
+    action? : Function;
+    toolTip? :  ReactElement | string;
 }
 
 interface iSTATE{
@@ -38,6 +44,36 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
 
     getTile(){
         switch (this.props.tileType) {
+            case "column-header":
+                return (
+                    <div
+                        draggable={"true"}
+                        onMouseUp={()=>this.mouseUpAction()}
+                        onMouseDown={()=>this.mouseDownAction()}
+                        className={`${this.props.selectedClass} column-header`}
+                    >
+                        <AppButton
+                            buttonType="button-custom"
+                            classes={`column-header-btn`}
+                            buttonLabel={`${this.props.tileLabel} `}
+                            OnClick={()=>this.props.action}
+                            tooltipType="custom"
+                            tooltip={this.props.toolTip}
+                            iconRight={(
+                                <CatmanIcon
+                                    iconName="carat-down"
+                                    width="0.5rem"
+                                    height="100%"
+                                    classes={"column-carat"}
+                                />
+                            )}
+                        />
+                        <div className={`affordance ${this.props.selectedClass}`}></div>
+
+                    </div>
+                );
+
+
             case "text-input":
                 return (
                     <div
@@ -48,6 +84,7 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                     >
                         <p className={`${this.props.selectedClass}`}>{`${this.props.tileLabel}`}&nbsp;</p>
                         <div className={`affordance ${this.props.selectedClass}`}></div>
+                        <div className={`hover-row `}></div>
                     </div>
                 );
             case "media":
