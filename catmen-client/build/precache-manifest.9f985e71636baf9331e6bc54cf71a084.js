@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fa6c5bd9ea213264f450cdcbec622e82",
+    "revision": "57952d8d5498e7d938524ebc3e00b7e1",
     "url": "/index.html"
   },
   {
-    "revision": "ce2cee80915960f9ff39",
-    "url": "/static/css/main.d66e32de.chunk.css"
+    "revision": "3eed1bfd50db45593f80",
+    "url": "/static/css/main.5707b39d.chunk.css"
   },
   {
-    "revision": "371f4ade981cbc801b7a",
-    "url": "/static/js/2.287a511b.chunk.js"
+    "revision": "a5772e066954d6c11a2e",
+    "url": "/static/js/2.53ea1e7e.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/static/js/2.287a511b.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.53ea1e7e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ce2cee80915960f9ff39",
-    "url": "/static/js/main.a0ec1dc8.chunk.js"
+    "revision": "3eed1bfd50db45593f80",
+    "url": "/static/js/main.67e19e57.chunk.js"
   },
   {
     "revision": "b7941916ff57a98ff93a",
@@ -44,6 +44,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/create-variant-group.30f6ed16.svg"
   },
   {
+    "revision": "11e3fdf242aef3b092653a76ac438305",
+    "url": "/static/media/done-pie-chart.11e3fdf2.svg"
+  },
+  {
     "revision": "ce9672aa318f5685673649e08099950e",
     "url": "/static/media/drag-files.ce9672aa.svg"
   },
@@ -68,8 +72,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/illustration-catalog.30eff23c.svg"
   },
   {
+    "revision": "c2379601da9ea9927a7c2e70b5eb19d1",
+    "url": "/static/media/illustration-classes.c2379601.svg"
+  },
+  {
     "revision": "7c22e985dc4607b63f591cc599be3761",
     "url": "/static/media/illustration-create-attributes.7c22e985.svg"
+  },
+  {
+    "revision": "4c8794ac951c559aa53bd043b2da9706",
+    "url": "/static/media/illustration-insert.4c8794ac.svg"
+  },
+  {
+    "revision": "453eef2f8966c9aa35e2964d4b2d56c7",
+    "url": "/static/media/illustration-media-library.453eef2f.svg"
+  },
+  {
+    "revision": "9b6cb93b8cd5aed0ad5b7ab8e537b9b7",
+    "url": "/static/media/illustration-start.9b6cb93b.svg"
   },
   {
     "revision": "a847921838daa1b8fc6ee680535c8b82",
@@ -98,6 +118,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "6840e4e8e1985a0276eed063e1768160",
     "url": "/static/media/switch-to-read-only.6840e4e8.svg"
+  },
+  {
+    "revision": "083324476b7aae8d48cd5a982b0e5650",
+    "url": "/static/media/tooltip-part-number.08332447.svg"
+  },
+  {
+    "revision": "76f0e74da380989c6e9289cff2fb0801",
+    "url": "/static/media/tooltip-product-groups.76f0e74d.svg"
+  },
+  {
+    "revision": "71c2fd1651dc259869973d1ea3c103e2",
+    "url": "/static/media/tooltip-reference-image.71c2fd16.svg"
   },
   {
     "revision": "3b475aa72ff0014817117bb92c78a80c",
