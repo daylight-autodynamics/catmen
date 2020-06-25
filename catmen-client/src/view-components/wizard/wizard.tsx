@@ -2,14 +2,11 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {StandardTextInput} from "../text-input/standard-text-input";
 import AppButton from "../button/app-button";
-import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../svg/icons/icons";
+import {TitleArea} from "../title-area/title-area";
 
-interface iPROPS {
-    wizardButtons : ReactElement;
-    sentenceInputs : ReactElement;
-    classes? : string;
-}
+
 
 interface iSTATE{
     currentStep : number;
@@ -20,6 +17,14 @@ export interface iWizardStep{
     instructionText : string;
     panel : ReactElement;
     winCondition : boolean;
+}
+
+interface iPROPS {
+    stepTitle : string;
+    stepSubTitle : string;
+    wizardButtons : ReactElement;
+    sentenceInputs : ReactElement;
+    classes? : string;
 }
 
 
@@ -33,8 +38,13 @@ export class Wizard extends React.Component<iPROPS, iSTATE>{
 
     getWizard(){
         return (
-            <div className="wizard-content">
-                <h3>Add Products Variants</h3>
+            <div className={`wizard-content ${this.props.classes}`}>
+
+                <TitleArea
+                    mainTitle={this.props.stepTitle}
+                    subTitle={this.props.stepSubTitle}
+                    titleType="subtitle-below"
+                />
                 <div className={"interaction-area"}>
                     <div className="vert-center-area">
                         {this.props.sentenceInputs}

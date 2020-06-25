@@ -3,7 +3,7 @@ import * as React from "react";
 //Configuration data:
 
 import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
-import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../../svg/icons/icons";
 import AppButton from "../../../view-components/button/app-button";
 

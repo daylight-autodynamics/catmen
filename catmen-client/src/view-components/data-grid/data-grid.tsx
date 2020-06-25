@@ -4,7 +4,7 @@ import {iDataGridItem} from "./data-types-for-data-grid";
 import AppButton from "../button/app-button";
 import {CatmanIcon} from "../../svg/icons/icons";
 import {selectedStateType, Tile} from "../tiles/tile-component";
-import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import camelcase from "camelcase";
 import {appColumns, iColumn} from "../../_sample-data/columns";
 import {DataManager} from "../../data-components/data-manager/data-manager";
@@ -59,6 +59,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         this.numRows = this.getNumRows();
     }
     selectionSet : selectionObject[] = [];
+    selectedCells : iDataGridItem[] = [];
     numCols : number;
     numRows: number;
     startSelectionRow : number;
@@ -133,8 +134,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
 
         if(this.props.selectionCallback !== undefined && this.props.selectionCallback !== null){
-           type iSelectedItems = { row : number, cells : number[], productFields : iDataGridItem[] };
-            let selectedItems : iSelectedItems[] = [  ];
+           type iSelectedItem = { row : number, cells : number[], productFields : iDataGridItem[] };
+            let selectedItems : iSelectedItem[] = [  ];
             let lastRow : number = 0;
 
             // work through the selection set to organize things
@@ -143,7 +144,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 if(i===0){
                     //if it's the first one let's create a new entry
                     lastRow = this.selectionSet[0].row;
-                    let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
+                    let newItem : iSelectedItem = { row : lastRow, cells:[], productFields : []};
                     selectedItems.push(newItem);
                 }
 
@@ -160,11 +161,10 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                         }
                     }else{
                         lastRow = this.selectionSet[i].row;
-                        let newItem : iSelectedItems = { row : lastRow, cells:[], productFields : []};
+                        let newItem : iSelectedItem = { row : lastRow, cells:[], productFields : []};
                         selectedItems.push(newItem);
                     }
             }
-
 
            for(let x=0; x < selectedItems.length; x++){
                 for(let y=0; y < this.state.workingDataSet[selectedItems[x].row-2].length; y++){
@@ -172,6 +172,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 }
 
            }
+
+
             this.props.selectionCallback(selectedItems, this._checkedRows, "standard-launch");
          }
     }
@@ -228,8 +230,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     }
 
     hoverRowAction(row:number){
-        this.setState({hoveredRow : row.toString()})
+        this.setState({hoveredRow : row.toString()});
         console.log("hovered", row)
+    }
+    moueOutRowAction(){
+        this.setState({hoveredRow : ""});
     }
 
     manageCheckbox(row : number){
@@ -240,14 +245,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         console.log("@@ checked rows: ",row);
 
         for(let i=0; i < this._checkedRows.length; i++){
-
-
             if(this._checkedRows[i] === row){
                 //if it is in the list remove it which unchecks
                 this._checkedRows.splice(i, 1);
                 this.setState({checkedRows : this._checkedRows});
                 found = true;
-
             }
         }
         if(found === false){
@@ -255,7 +257,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             this.setState({checkedRows : this._checkedRows});
 
         }
-
 
         //handle selecting the checked
         //First reset the cell selection
@@ -265,7 +266,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             for(let j=0; j < this.state.workingDataSet[this._checkedRows[i]].length; j++ ){
                 let selectedCell : selectionObject = {
                     row : this._checkedRows[i]+2,
-                    cell : j,
+                    cell : j+2,
                     selected : true,
                     columnName : this.props.columnsData[j].columnName
                 };
@@ -280,6 +281,35 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
         //once people use the tool, we can hide the tool tip
         toolTipContent.showSelectRow = false;
+    }
+
+    switchToEditModeFromCheckBoxMode(){
+        //handle switching from checkbox mode to cell selection mode
+        //First reset the cell selection
+
+        console.log("switch to edit mode");
+
+        // for(let i=0; i < this._checkedRows.length; i++){
+        //     for(let j=0; j < this.state.workingDataSet[this._checkedRows[i]].length; j++ ){
+        //         let selectedCell : selectionObject = {
+        //             row : this._checkedRows[i]+2,
+        //             cell : j+2,
+        //             selected : true,
+        //             columnName : this.props.columnsData[j].columnName
+        //         };
+        //         this.selectionSet.push(selectedCell);
+        //     }
+        // }
+
+        this._checkedRows = [];
+        this.setState({
+            checkedRows : this._checkedRows
+        });
+        console.log("switch to edit mode", this.selectionSet);
+        console.log("switch to edit mode", this.state.selectionSet);
+        if(this.props.selectionCallback !== undefined){
+            this.props.selectionCallback(this.state.selectionSet, this.state.checkedRows, "checkbox-launched");
+        }
     }
 
     iconCheck = (row : number):string=>{
@@ -334,6 +364,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                             tileType={this.props.columnsData[j].control}
                             tileLabel={this.state.workingDataSet[i][j].value}
                             hoverActions={[()=>this.hoverRowAction(i+2)]}
+                            mouseOutActions={[()=>this.moueOutRowAction()]}
                             mouseDownActions={
                                 [() => this.mouseDownAction(i+2,j+2)]
                             }
@@ -503,7 +534,15 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
             let style = `
             .row-${this.state.hoveredRow} {
-                background-color: yellow;
+                background-color: #f4f4f5;                
+            }
+            
+            .row-${this.state.hoveredRow} .cell-editable{
+                z-index:100;
+            }
+            
+            .row-${this.state.hoveredRow} p{
+                    color: #473F4A  ;
             }
             `;
 

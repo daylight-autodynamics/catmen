@@ -13,7 +13,7 @@ import {Route, RouteComponentProps, Switch, useRouteMatch} from "react-router-do
 import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
 import {ReactElement} from "react";
 import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
-import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import AppButton from "../../../view-components/button/app-button";
 import {appColumns, iColumn} from "../../../_sample-data/columns";
 import {CatalogSingleProduct} from "./single-product-view";
@@ -74,7 +74,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      editDrawer : ReactElement = (<></>);
      selectionSet : selectionObject[] = [];
      columns : iColumn[];
-
+     //manage selection in the drawer
+     drawerFirstOpen = false;
 
 
 
@@ -83,10 +84,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
             return this.dataGridRef.current._checkedRows;
         }
     }
-
-
-     //manage selection in the drawer
-        drawerFirstOpen = false;
 
      closeSingleProductEdit = ()=>{
         window.history.back();
@@ -318,7 +315,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                             classes={"separate-left"}
                             buttonType={"secondary-action"}
                             buttonLabel="Edit Selected"
-                            OnClick={()=>this.footerActions("cancel")}
+                            OnClick={()=>this.switchToEditMode()}
                             tooltipType="custom"
                             tooltip={toolTipContent.footerEditSelection()}
                             toolTipTimeOutInMS={10000}
@@ -353,11 +350,11 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                             buttonLabel="Clear Selection"
                             OnClick={()=>this.footerActions("cancel")}
                             tooltipType="custom"
-                            tooltip={toolTipContent.footerCancel()}
+                            tooltip={toolTipContent.clearSelection()}
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
-                                    iconName="cancel"
+                                    iconName="clear"
                                     classes=" "
                                     height="100%"
                                     width="100%"
@@ -390,46 +387,10 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                 buttons = (
                     <div className="footer-btn-bar catman-footer">
                         <AppButton
-                            buttonType={"secondary-action"}
-                            buttonLabel="Cancel"
-                            OnClick={()=>this.footerActions("cancel")}
-                            tooltipType="custom"
-                            tooltip={toolTipContent.footerCancel()}
-                            toolTipTimeOutInMS={10000}
-                            tooltipXOffset={0}
-                            tooltipYOffset={20}
-                            iconLeft={
-                                <CatmanIcon
-                                    iconName="cancel"
-                                    classes=" "
-                                    height="100%"
-                                    width="100%"
-                                />
-                            }
-                        />
-                        <AppButton
-                            buttonType={"secondary-action"}
-                            buttonLabel="Delete Selected"
-                            OnClick={()=>this.footerActions("cancel")}
-                            tooltipType="custom"
-                            tooltip={toolTipContent.footerDelete()}
-                            toolTipTimeOutInMS={10000}
-                            tooltipXOffset={0}
-                            tooltipYOffset={20}
-                            iconLeft={
-                                <CatmanIcon
-                                    iconName="icon-delete"
-                                    classes=" "
-                                    height="100%"
-                                    width="100%"
-                                />
-                            }
-                        />
-                        <AppButton
                             classes={""}
                             buttonType={"secondary-action"}
                             buttonLabel="Edit Selected"
-                            OnClick={()=>this.footerActions("cancel")}
+                            OnClick={()=>this.switchToEditMode()}
                             tooltipType="custom"
                             tooltip={toolTipContent.footerEditSelection()}
                             toolTipTimeOutInMS={10000}
@@ -457,6 +418,38 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                             iconLeft={
                                 <CatmanIcon
                                     iconName="icon-add"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Clear Selection"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.clearSelection()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="clear"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Delete Selected"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerDelete()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-delete"
                                     classes=" "
                                     height="100%"
                                     width="100%"
@@ -525,7 +518,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
                  break;
              case "edit":
-
                  this.setState({footerOpen : false});
                  this.initialized = false;
 
@@ -546,6 +538,21 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
 
          }
+     }
+
+        //FOOTER ACTIONS
+     switchToEditMode(){
+         if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
+             this.dataGridRef.current.switchToEditModeFromCheckBoxMode();
+             this.openEditDrawer();
+             this.setState({footerOpen : false})
+         }
+
+
+         //manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string )
+
+         //this.footerActions("cancel");
+
      }
 
     //GRID MANAGEMENT
@@ -622,18 +629,23 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          let inputs : any = document.getElementsByClassName("InputBox");
 
         console.log(this.drawerFirstOpen)
-        if(this.drawerFirstOpen === true){
-           inputs[0].focus();
-           inputs[0].select();
-           this.drawerFirstOpen = false;
+        if(this.drawerFirstOpen === true ){
+           if(inputs[0] != undefined){
+               inputs[0].focus();
+               inputs[0].select();
+               this.drawerFirstOpen = false;
+           }
         }
      }
 
     render(){
-
          return (
              <>
-                 <TitleArea mainTitle="Spreadsheet View" subTitle="My Catalog" />
+                 <TitleArea
+                     mainTitle="Spreadsheet View"
+                     subTitle="My Catalog"
+                     titleType="subtitle-above"
+                 />
                  <DataGrid
                      ref={this.dataGridRef}
                      data={this.state.workingData}

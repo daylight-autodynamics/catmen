@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {ToolTip} from "../heru-tool-tip/tool-tip";
 import {CatmanIcon} from "../../svg/icons/icons";
-import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import AppButton from "../button/app-button";
 
 export type selectedStateType = "selected" | "active" | "inactive" | "";
@@ -13,6 +13,7 @@ interface iPROPS{
     mouseDownActions? : Function[];
     mouseUpActions? : Function[];
     hoverActions? : Function[];
+    mouseOutActions? : Function[];
     selectedClass : selectedStateType;
     classes? : string;
     action? : Function;
@@ -59,6 +60,20 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
             }
     }
 
+    doMouseOutActions(){
+        console.log("hovered 222 2 2");
+        console.log("hovered 222 2 2");
+        if(this.props.mouseOutActions != null){
+            for(let i=0; i < this.props.mouseOutActions.length; i++){
+
+                if(this.props.mouseOutActions !== undefined){
+                    this.props.mouseOutActions[i]();
+
+                }
+            }
+        }
+    }
+
     getTile(){
         switch (this.props.tileType) {
             case "column-header":
@@ -98,6 +113,7 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                         onMouseUp={()=>this.mouseUpAction()}
                         onMouseDown={()=>this.mouseDownAction()}
                         onMouseOver={()=>this.doHoverActions()}
+                        onMouseOut={()=>this.doMouseOutActions()}
                         className={`${this.props.selectedClass} cell-editable`}
                     >
                         <p className={`${this.props.selectedClass}`}>{`${this.props.tileLabel}`}&nbsp;</p>

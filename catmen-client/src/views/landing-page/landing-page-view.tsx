@@ -2,7 +2,7 @@ import React from "react";
 import {MainHeaderArea} from "../_common/main-header-area/main-header-area";
 import {Navigation} from "../../view-components/list-menu/intra-app-navigation";
 import {mainNavConfig} from "../_catman-configuration/common-app-configuration";
-import {toolTipContent} from "../_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../tool-tip-content/content-tool-tips";
 
 interface iPROPS {
     message: string;

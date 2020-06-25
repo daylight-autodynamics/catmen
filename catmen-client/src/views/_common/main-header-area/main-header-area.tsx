@@ -4,7 +4,7 @@ import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
 import AppButton from "../../../view-components/button/app-button";
 import {ToolTip} from "../../../view-components/heru-tool-tip/tool-tip";
 import {CatmanIcon} from "../../../svg/icons/icons";
-import {ContentToolTips, toolTipContent} from "../tool-tip-content/content-tool-tips";
+import {ContentToolTips, toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 import {ModalView} from "../../../view-components/modal/modal";
 import {UploadWizard} from "../../wizards/upload-wizard/upload-wizard";

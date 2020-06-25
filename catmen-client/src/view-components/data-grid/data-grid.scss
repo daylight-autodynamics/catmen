@@ -148,17 +148,6 @@
 
   }
 
-  &:hover .hover-row{
-    background-color: $black_10;
-    opacity: .5;
-    right: -10000%;
-    left: -10000%;
-    top: 0;
-    position: absolute;
-    bottom: 0;
-    z-index: -2;
-  }
-
   &:hover .affordance{
     background-color: $Primary;
     right: 0;
@@ -170,7 +159,7 @@
   }
      .affordance{
        &.selected{
-         background-color: $black_60;
+         background-color: $black_60 !important;
          right: 0;
          top: 0;
        }
@@ -190,7 +179,7 @@
 .cell{
   &:hover{
     .cell-editable{
-      z-index: 100000;
+      z-index: 100;
     }
   }
   &.checkbox-main{

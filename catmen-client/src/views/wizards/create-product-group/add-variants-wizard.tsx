@@ -1,7 +1,7 @@
 import * as React from "react";
 import {iWizardStep, Wizard} from "../../../view-components/wizard/wizard";
 import {ReactElement} from "react";
-import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../../svg/icons/icons";
 import AppButton from "../../../view-components/button/app-button";
 import {DividerLine} from "../../../view-components/divider-line/divider-line";
@@ -124,33 +124,19 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                     <div className="sentence-input">
                         <p>Add</p>
                         <StandardTextInput
+                            controlType="no-label"
                             label={"Number of variants"}
                             onChangeAction={this.getInputValue}
                             currentValue={"1"}
                         />
                         <p>New blank product stubs as variants: </p>
-                        <AppButton
-                            buttonType={"secondary-action"}
-                            buttonLabel="Go"
-                            OnClick={()=>this.addVariantsStaging()}
-                            tooltipType="custom"
-                            tooltip={toolTipContent.addBlankStubs()}
-                            toolTipTimeOutInMS={10000}
-                            tooltipXOffset={0}
-                            tooltipYOffset={20}
-                            iconLeft={
-                                <CatmanIcon
-                                    iconName="icon-add-invert"
-                                    classes="reverse"
-                                    height="100%"
-                                    width="100%"
-                                />
-                            }
-                        />
+
                     </div>
                 );
                 return(
                     <Wizard
+                        stepTitle={"Add Products Variants"}
+                        stepSubTitle={"Variants can be used to quickly set up different colors and sizes of your products."}
                         wizardButtons={startButtons}
                         sentenceInputs={startSentences}
                     />
@@ -175,6 +161,22 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             }
                         />
                         <AppButton
+                            buttonType="secondary-action"
+                            buttonLabel="Delete Selected"
+                            OnClick={ ()=>this.wizardNavigation("start") }
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerCancel()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-delete"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
                             buttonType={"secondary-action"}
                             buttonLabel="Confirm & Add to Catalog"
                             OnClick={()=>this.acceptVariants()}
@@ -183,7 +185,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
-                                    iconName="icon-delete"
+                                    iconName="icon-add"
                                     classes=" "
                                     height="100%"
                                     width="100%"
@@ -202,8 +204,11 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                     />
                 );
                 return(<Wizard
+                    stepTitle={"Confirm Variants"}
+                    stepSubTitle={"Verify and make changes before adding new product variants to your catalog"}
                     wizardButtons={stagingButtons}
                     sentenceInputs={stagingSentences}
+                    classes="expand-size"
                 />)
         }
     }

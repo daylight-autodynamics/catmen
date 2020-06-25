@@ -1,4 +1,18 @@
 
+@keyframes expand-size {
+  0% {
+    height: 30vh; width: 60vh;
+  }
+  100% {
+    height: 80vh; width: 90vh;
+  }
+}
+
+@keyframes expand-width {
+  from {width: 30vh;}
+  to {width: 80vh}
+}
+
 .wizard-content{
   padding: 0 1rem 1rem 1rem;
   border: 0;
@@ -6,9 +20,20 @@
   min-width: 60vw;
   display: flex;
   flex-flow: column;
+
+  &.expand-size{
+    animation-name: expand-size;
+    animation-duration: 1s;
+    height: 80vh;
+    width: 90vw;
+  }
+  &.full-width{
+
+  }
   .sentence-input{
     display: inline-flex;
     align-self: center;
+    align-items: center;
     p{
 
       &:first-child {
@@ -24,6 +49,7 @@
       display: inline-flex;
       align-self: center;
       margin: auto;
+      max-width: 100%;
     }
     .footer-btn-bar{
       margin-bottom: -1.5rem;

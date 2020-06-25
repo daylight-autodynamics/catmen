@@ -1,7 +1,7 @@
 import * as React from "react";
 import {iWizardStep} from "../../../view-components/wizard/wizard";
 import {ReactElement} from "react";
-import {toolTipContent} from "../../_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../../svg/icons/icons";
 import AppButton from "../../../view-components/button/app-button";
 import {DividerLine} from "../../../view-components/divider-line/divider-line";

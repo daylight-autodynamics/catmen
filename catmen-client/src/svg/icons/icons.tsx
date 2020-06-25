@@ -78,6 +78,21 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
 
                 );
 
+            case "clear":
+                return(
+                    <svg className={`icon-clear ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34.4 34.4" style={{overflow:"visible"}} >
+                        <circle className="filled" cx="17.2" cy="17.2" r="17.2"/>
+                        <g className="stroked" >
+                            <path d="M10.4,24.1l-3-3C6,19.7,6,17.4,7.4,16L19.2,4.2c0.5-0.5,1.2-0.5,1.7,0l7,7c0.5,0.5,0.5,1.2,0,1.7L16.8,24.1 c-0.2,0.2-0.5,0.3-0.8,0.3h-4.7C10.9,24.5,10.6,24.4,10.4,24.1z"/>
+                            <line x1="9.9" y1="13.6" x2="16.6" y2="20.4"/>
+                            <line x1="19.2" y1="25" x2="28.6" y2="25"/>
+                            <line x1="8.1" y1="26.2" x2="5.5" y2="26.2"/>
+                            <line x1="10.2" y1="27.9" x2="8.4" y2="29.7"/>
+                        </g>
+</svg>
+
+                )
+
             case "continue":
                 return(
                     <svg className={`icon-continue ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34 34" style={{overflow:"visible"}}>

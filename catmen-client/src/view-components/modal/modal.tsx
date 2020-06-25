@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import ReactDOM from "react-dom";
-import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../svg/icons/icons";
 import AppButton from "../button/app-button";
 

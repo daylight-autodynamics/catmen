@@ -5,7 +5,7 @@ import {InfoPanel} from "../../view-components/info-panel/info-panel";
 import {Illustration} from "../../svg/illustrations/illustrations";
 import {iToggleMenuItem} from "../../view-components/toggle-menu/toggle-component";
 import AppButton from "../../view-components/button/app-button";
-import {toolTipContent} from "../_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../tool-tip-content/content-tool-tips";
 import {navSettings} from "../_common/nav-settings";
 
 const iconSize : graphicSize = {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {iDataGridItem} from "../../view-components/data-grid/data-types-for-data-grid";
 import {iColumn} from "../../_sample-data/columns";
-import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 
 
 interface iDataManager {
