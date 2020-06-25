@@ -5,15 +5,6 @@
   }
 
   //TODO come back and clean up these color references
-  .st0{fill:#070707;}
-  .st1{fill:none;stroke:#FFFFFF;stroke-width:1.047;stroke-miterlimit:10;}
-  .st2{fill:#05778C;}
-  .st3{fill:none;stroke:#FFFFFF;stroke-width:0.6742;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-
-  .st0{fill:#FFFFFF;}
-  .st1{fill:#4D4D4D;}
-  .st2{fill:none;stroke:#4D4D4D;stroke-miterlimit:10;}
-
 
   .st0{fill:#F2F2F2;}
   .st1{fill:#515151;}
@@ -24,17 +15,28 @@
     fill:none;
     stroke:#515151;
     stroke-width:0.9734;stroke-miterlimit:10;}
-  .st4{
+  .st4zzzz{
     fill:#05778C;
     stroke:#FFFFFF;
-    stroke-width:1.1771;stroke-miterlimit:10;}
+    stroke-width:1;
+    stroke-miterlimit:10;
+  }
   .st5{fill:#FFFFFF;}
 
-
-  .icon-restore-btn{
-    .stroked{fill:none;stroke:#3D3D3D;stroke-miterlimit:10;}
-    .filled{fill:#3D3D3D;}
+.icon-add-invert{
+  .filled{
+    fill: $Primary_shade;
   }
+  .filled-highlight{
+    fill: white;
+  }
+}
+
+
+.icon-restore-btn{
+  .stroked{fill:none;stroke:#3D3D3D;stroke-miterlimit:10;}
+  .filled{fill:#3D3D3D;}
+}
 
   // icon read mode
 .icon-plus{
@@ -84,6 +86,12 @@
 
 
   .icon-select-row{
+    .filled-secondary{
+      fill:#05778C;
+      stroke:#FFFFFF;
+      stroke-width:1;
+      stroke-miterlimit:10;
+    }
     .filled-highlight{
       fill:#515151;
     }
@@ -374,6 +382,10 @@
 
 
     //CHECKBOXES
+
+  svg{
+    pointer-events: none;
+  }
 
     .cell {
       &.checkbox-main {

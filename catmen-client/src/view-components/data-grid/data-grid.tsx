@@ -19,13 +19,14 @@ interface iPROPS {
     selectionCallback? : Function;
     columnsData : iColumn[];
     classes? : string;
-    addAction : any;
+    addAction : Function;
 }
 
 interface iSTATE {
     selectionSet : selectionObject[];
     checkedRows :number[];
-    workingDataSet : iDataGridItem[][]
+    workingDataSet : iDataGridItem[][];
+    hoveredRow : string;
 }
 
 export type selectionObject = {
@@ -38,12 +39,11 @@ export type selectionObject = {
 export class DataGrid extends React.Component<iPROPS, iSTATE>{
     constructor(props:iPROPS) {
         super(props);
-
         this.state = {
             workingDataSet : this.props.data,
             selectionSet : [],
             checkedRows : [],
-
+            hoveredRow : ""
         };
         this.startSelectionRow = 0;
         this.startSelectionCell = 0;
@@ -172,11 +172,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 }
 
            }
-
             this.props.selectionCallback(selectedItems, this._checkedRows, "standard-launch");
-
-
-        }
+         }
     }
 
     clearSelection(){
@@ -228,6 +225,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         //console.log("@@@check", row, " ", cell, " ", columnName);
         this.manageSelection(row, cell, columnName, true);
         console.log("selection set: ", this.selectionSet);
+    }
+
+    hoverRowAction(row:number){
+        this.setState({hoveredRow : row.toString()})
+        console.log("hovered", row)
     }
 
     manageCheckbox(row : number){
@@ -300,9 +302,10 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             for(let j=0; j < this.state.workingDataSet[i].length; j++){
                 if(j === 0){
                     cells.push(
-                        <div className="cell checkbox-main" style={{gridColumn : j+1, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
+                        <div id={`row-${i+2}-start`} className={`cell checkbox-main `} style={{gridColumn : j+1, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
                                 OnClick={()=>this.manageCheckbox(i)}
+                                hoverActions={[()=>this.hoverRowAction(i+2)]}
                                 buttonType="transparent-bg"
                                 tooltipType="custom"
                                 tooltip={toolTipContent.selectRow()}
@@ -326,10 +329,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 }
 
                 let cell = (
-                    <div className="cell" style={{gridColumn : j+2, gridRow : i+2 }}>
+                    <div className={`cell row-${i+2}`} style={{gridColumn : j+2, gridRow : i+2 }}>
                         <Tile
                             tileType={this.props.columnsData[j].control}
                             tileLabel={this.state.workingDataSet[i][j].value}
+                            hoverActions={[()=>this.hoverRowAction(i+2)]}
                             mouseDownActions={
                                 [() => this.mouseDownAction(i+2,j+2)]
                             }
@@ -340,6 +344,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                                 ]
                             }
                             selectedClass={this.checkSelected(i+2, j+2)}
+
                         />
 
                     </div>
@@ -384,10 +389,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     getColumnHeaders(){
         let columnsHeads : ReactElement[] = [];
+
         for(let i=0; i < this.props.columnsData.length; i++ ){
             if(i === 0){
                 columnsHeads.push(
-                    <div className="cell checkbox-main grid-header" style={{gridColumn : i+1, gridRow : 1, zIndex : 100 + (this.numRows - i) }}>
+                    <div className="cell checkbox-main grid-header" style={{gridColumn : i+1, gridRow : 1, zIndex : 120 + (this.numCols) }}>
                         <AppButton
                             OnClick={()=>this.manageCheckbox(i)}
                             buttonType="transparent-bg"
@@ -431,7 +437,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
           };
 
             let columnHead = (
-                <div className="cell grid-header" style={{gridColumn : i+2, gridRow : 1, zIndex: this.numRows+10 }}>
+                <div className="cell grid-header" style={{gridColumn : i+2, gridRow : 1, zIndex: this.numRows+100+i  }}>
                     <Tile
                         tileType="column-header"
                         tileLabel={this.props.columnsData[i].columnLabel}
@@ -462,7 +468,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             if(i === this.props.columnsData.length-1){
                 columnsHeads.push(
                     <div className="cell details grid-header"
-                         style={{gridColumn : this.props.columnsData.length+2, gridRow : 1, zIndex : 100 + this.props.columnsData.length+2 }}
+                         style={{gridColumn : this.props.columnsData.length+2, gridRow : 1, zIndex : (200 + this.numCols+2) }}
                         >
                         <AppButton
                             buttonType="button-custom"
@@ -493,6 +499,19 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         return( columnsHeads );
     }
 
+    gridStyles(){
+
+            let style = `
+            .row-${this.state.hoveredRow} {
+                background-color: yellow;
+            }
+            `;
+
+
+
+        return <style dangerouslySetInnerHTML={{ __html: `${style}` }} />
+    }
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
         let columnHeaders : ReactElement[] = this.getColumnHeaders();
@@ -503,6 +522,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         let constructedGrid : ReactElement = (
             <>
                 <div className={`data-grid ${this.props.classes}`}>
+                    {this.gridStyles()}
                     <div className="viewport">
                         {columnHeaders}
                         {this.getGridItems()}

@@ -21,12 +21,23 @@ export class ModalView extends React.Component<iPROPS, iSTATE>{
         super(props);
     }
 
+    getHeader(){
+        if(this.props.modalTitle != undefined && this.props.modalTitle != "" ){
+            return (
+                <header className="modal-header">
+                    <h3>{this.props.modalTitle}</h3>
+                </header>
+            )
+        }else {
+            return null
+        }
+    }
+
     getModal(){
         return(
             <div className={`modal ${this.props.classes}`}>
                 <div className="modal-contents">
-                    <header className="modal-header">
-                        <h3>{this.props.modalTitle}</h3>
+                        {this.getHeader()}
                         <AppButton
                             buttonType={"secondary-action"}
                             buttonLabel=""
@@ -34,7 +45,7 @@ export class ModalView extends React.Component<iPROPS, iSTATE>{
                             tooltipType="custom"
                             tooltip={toolTipContent.closeModal()}
                             toolTipTimeOutInMS={10000}
-                            classes="icon-only-btn close-modal"
+                            classes="icon-only-btn close-modal "
                             iconLeft={
                                 <CatmanIcon
                                     iconName="icon-close"
@@ -44,7 +55,6 @@ export class ModalView extends React.Component<iPROPS, iSTATE>{
                                 />
                             }
                         />
-                    </header>
                     <div className="modal-page-content">
                         {this.props.children}
                     </div>
@@ -60,9 +70,7 @@ export class ModalView extends React.Component<iPROPS, iSTATE>{
                 return root;
             }
         };
-
         let modal : ReactElement = this.getModal();
-
         return ReactDOM.createPortal(modal, root() );
     }
 }

@@ -1,10 +1,41 @@
 
 .wizard-content{
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   border: 0;
-}
-.upload-modal-wizard{
+  flex-grow: 1;
+  min-width: 60vw;
+  display: flex;
+  flex-flow: column;
+  .sentence-input{
+    display: inline-flex;
+    align-self: center;
+    p{
 
+      &:first-child {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .interaction-area{
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    .vert-center-area{
+      display: inline-flex;
+      align-self: center;
+      margin: auto;
+    }
+    .footer-btn-bar{
+      margin-bottom: -1.5rem;
+    }
+  }
+  .footer-btn-bar{
+    display: inline-flex;
+  }
+}
+
+
+.upload-modal-wizard{
   p{
     &:first-of-type{
       margin-left: 0;

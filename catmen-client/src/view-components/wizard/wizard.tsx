@@ -1,8 +1,14 @@
 import * as React from "react";
 import {ReactElement} from "react";
+import {StandardTextInput} from "../text-input/standard-text-input";
+import AppButton from "../button/app-button";
+import {toolTipContent} from "../../views/_common/tool-tip-content/content-tool-tips";
+import {CatmanIcon} from "../../svg/icons/icons";
 
 interface iPROPS {
-    steps : iWizardStep[]
+    wizardButtons : ReactElement;
+    sentenceInputs : ReactElement;
+    classes? : string;
 }
 
 interface iSTATE{
@@ -17,7 +23,6 @@ export interface iWizardStep{
 }
 
 
-
 export class Wizard extends React.Component<iPROPS, iSTATE>{
     constructor(props:iPROPS) {
         super(props);
@@ -26,17 +31,24 @@ export class Wizard extends React.Component<iPROPS, iSTATE>{
         }
     }
 
-    getStep(){
+    getWizard(){
         return (
-            <>
-                <div className={"wizard-content"}>
-                    {this.props.steps[this.state.currentStep].panel}
+            <div className="wizard-content">
+                <h3>Add Products Variants</h3>
+                <div className={"interaction-area"}>
+                    <div className="vert-center-area">
+                        {this.props.sentenceInputs}
+                    </div>
+                    <div className="footer-btn-bar catman-footer">
+                        {this.props.wizardButtons}
+                    </div>
                 </div>
-            </>
-        );
+            </div>
+            );
+
     }
 
     render(){
-        return (<>{this.getStep()}</>)
+        return (<>{this.getWizard()}</>)
     }
 }

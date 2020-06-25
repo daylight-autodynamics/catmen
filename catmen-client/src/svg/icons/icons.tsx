@@ -62,7 +62,7 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                             <line x1="32.7" y1="31.2" x2="32.7" y2="1.1"/>
                         </g>
                         <path className="stroked st3" d="M33.9,31.2H12.4c-2.3,0-4.1-1.8-4.1-4.1V4.6c0-2.3,1.8-4.1,4.1-4.1h21.5c2.3,0,4.1,1.8,4.1,4.1v22.5 C38,29.3,36.2,31.2,33.9,31.2z"/>
-                        <path className="st4" d="M16.8,20.3H1.9c-0.7,0-1.3-0.6-1.3-1.3V4.3C0.6,3.6,1.2,3,1.9,3h14.9C17.5,3,18,3.6,18,4.3V19	C18,19.7,17.5,20.3,16.8,20.3z"/>
+                        <path className="filled-secondary st4" d="M16.8,20.3H1.9c-0.7,0-1.3-0.6-1.3-1.3V4.3C0.6,3.6,1.2,3,1.9,3h14.9C17.5,3,18,3.6,18,4.3V19	C18,19.7,17.5,20.3,16.8,20.3z"/>
                         <polygon className="action-highlight st5" points="13.6,6.8 7.1,13.3 5,11.3 2.9,13.4 7.1,17.6 9.2,15.4 15.7,8.9 "/>
                     </svg>
             );
@@ -76,6 +76,17 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                         <polyline className="stroked no-fill" points="13.1,21.2 7.7,17.2 13.1,13.2"/>
                     </svg>
 
+                );
+
+            case "continue":
+                return(
+                    <svg className={`icon-continue ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34 34" style={{overflow:"visible"}}>
+                        <svg x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 34.4 34.4" style={{overflow:"visible"}} >
+                            <circle className="filled" cx="17.2" cy="17.2" r="17.2"/>
+		                    <line className="stroked no-fill" x1="26.8" y1="17.6" x2="7.2" y2="17.6"/>
+		                    <polyline className="stroked no-fill" points="21.7,21.9 27.4,17.6 21.7,13.4 "/>
+	                    </svg>
+                    </svg>
                 );
 
             case "icon-restore-tooltip":
@@ -217,8 +228,8 @@ YT-=H                        <path className="filled" d="M5.1,0.7c5.3-0.8,10.3,0
             case "icon-add-invert":
                 return (
                     <svg className={`icon-add-invert ${this.props.classes}`}   x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 97.3 97.3" style={{overflow:"visible"}}>
-                        <circle className="st0" cx="48.6" cy="48.6" r="48.6"/>
-                        <path className="st1" d="M48.6,7.3C25.8,7.3,7.3,25.8,7.3,48.6c0,22.8,18.5,41.3,41.3,41.3s41.3-18.5,41.3-41.3 C89.9,25.8,71.4,7.3,48.6,7.3z M77.7,52H52v25.7h-6.7V52H19.6v-6.7h25.7V19.6H52v25.7h25.7V52z"/>
+                        <circle className="filled" cx="48.6" cy="48.6" r="48.6"/>
+                        <path className="filled-highlight" d="M48.6,7.3C25.8,7.3,7.3,25.8,7.3,48.6c0,22.8,18.5,41.3,41.3,41.3s41.3-18.5,41.3-41.3 C89.9,25.8,71.4,7.3,48.6,7.3z M77.7,52H52v25.7h-6.7V52H19.6v-6.7h25.7V19.6H52v25.7h25.7V52z"/>
                     </svg>
                 );
 

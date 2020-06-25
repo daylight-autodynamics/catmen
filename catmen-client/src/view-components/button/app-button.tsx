@@ -65,6 +65,7 @@ constructor(props:iPROPS) {
     toolTipTimeOut : number;
 
     doHoverActions(){
+        console.log("hovered from button");
       if(this.hoverActions !== undefined){
           for(let i=0; i < this.hoverActions.length; i++){
               if(this.hoverActions[i] !== undefined){
@@ -143,7 +144,9 @@ constructor(props:iPROPS) {
                         {this.props.iconLeft}
                     </div>
                     <div className="label">
-                        {this.props.buttonLabel}
+                        <p>
+                            {this.props.buttonLabel}
+                        </p>
                         {this.props.iconCenter}
                     </div>
 

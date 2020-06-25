@@ -7,7 +7,7 @@ import {CatmanIcon} from "../../../svg/icons/icons";
 import {ContentToolTips, toolTipContent} from "../tool-tip-content/content-tool-tips";
 import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 import {ModalView} from "../../../view-components/modal/modal";
-import {UploadWizard} from "../../_catman-configuration/wizards/upload-wizard/upload-wizard";
+import {UploadWizard} from "../../wizards/upload-wizard/upload-wizard";
 
 interface iPROPS{
     sectionTitle? : string;
@@ -90,14 +90,14 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                     <AppButton
                         buttonType={"main-action"}
                         classes={"main-add-btn"}
-                        buttonLabel=""
+                        buttonLabel="Add Product"
                         OnClick={()=>this.manageModals("add-products")}
                         tooltipType="custom"
                         tooltip={toolTipContent.addProducts()}
                         toolTipTimeOutInMS={10000}
-                        iconCenter={
+                        iconLeft={
                             <CatmanIcon
-                                iconName="icon-add"
+                                iconName="icon-add-invert"
                                 classes=" main-add"
                                 height="100%"
                                 width="100%"

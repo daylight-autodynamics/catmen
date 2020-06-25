@@ -21,10 +21,10 @@ import {TextInput} from "../../../view-components/text-input/text-input";
 
 import {DataManager, iUpdateSet} from "../../../data-components/data-manager/data-manager";
 import {ModalView} from "../../../view-components/modal/modal";
-import {AddVariantsWizard} from "../../_catman-configuration/wizards/create-product-group/add-variants-wizard";
+import {AddVariantsWizard} from "../../wizards/create-product-group/add-variants-wizard";
 import {dataManagerMain} from "../../../index";
 
-import {CreateProductGroupWizard} from "../../_catman-configuration/wizards/create-product-group/create-product-group-wizard";
+import {CreateProductGroupWizard} from "../../wizards/create-product-group/create-product-group-wizard";
 
 
 interface iPROPS   {
@@ -315,38 +315,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                 buttons = (
                     <div className="footer-btn-bar catman-footer">
                         <AppButton
-                            buttonType={"secondary-action"}
-                            buttonLabel="Cancel"
-                            OnClick={()=>this.footerActions("cancel")}
-                            tooltipType="custom"
-                            tooltip={toolTipContent.footerCancel()}
-                            toolTipTimeOutInMS={10000}
-                            iconLeft={
-                                <CatmanIcon
-                                    iconName="cancel"
-                                    classes=" "
-                                    height="100%"
-                                    width="100%"
-                                />
-                            }
-                        />
-                        <AppButton
-                            buttonType={"secondary-action"}
-                            buttonLabel="Delete Selected"
-                            OnClick={()=>this.footerActions("cancel")}
-                            tooltipType="custom"
-                            tooltip={toolTipContent.footerDelete()}
-                            toolTipTimeOutInMS={10000}
-                            iconLeft={
-                                <CatmanIcon
-                                    iconName="icon-delete"
-                                    classes=" "
-                                    height="100%"
-                                    width="100%"
-                                />
-                            }
-                        />
-                        <AppButton
                             classes={"separate-left"}
                             buttonType={"secondary-action"}
                             buttonLabel="Edit Selected"
@@ -380,6 +348,40 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                                 />
                             }
                         />
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Clear Selection"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerCancel()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="cancel"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+                        <AppButton
+                            buttonType={"secondary-action"}
+                            buttonLabel="Delete Selected"
+                            OnClick={()=>this.footerActions("cancel")}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.footerDelete()}
+                            toolTipTimeOutInMS={10000}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName="icon-delete"
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
+
+
                     </div>
                 );
                 break;
@@ -424,7 +426,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                             }
                         />
                         <AppButton
-                            classes={"separate-left"}
+                            classes={""}
                             buttonType={"secondary-action"}
                             buttonLabel="Edit Selected"
                             OnClick={()=>this.footerActions("cancel")}

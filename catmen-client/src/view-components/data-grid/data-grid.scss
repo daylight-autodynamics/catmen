@@ -188,6 +188,11 @@
 }
 
 .cell{
+  &:hover{
+    .cell-editable{
+      z-index: 100000;
+    }
+  }
   &.checkbox-main{
     display: flex;
     justify-content: center;

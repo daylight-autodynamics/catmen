@@ -92,6 +92,9 @@ $btn-padding : 1rem;
 .btn-main-action{
   &.nav-link{
     .button-decorator{
+      & > *{
+        pointer-events: none;
+      }
       display: grid;
       grid-template-columns: auto auto auto;
       .icon-left, .btn-label, .icon-right{
@@ -154,11 +157,35 @@ $btn-padding : 1rem;
 .main-add-btn{
   border-radius: 3rem;
   height: 2.25rem;
-  width: 2.25rem;
+  width: auto;
   margin-left: 0.5rem;
-  border: 0.3rem solid #1f596f;
+  background-color: $Primary_shade;
+  color: white;
   box-sizing: border-box;
-  padding: 0;
+  padding: 0rem 0.75rem 0rem 0.2rem;
+  .button-decorator{
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    height: 100%;
+    .btn-label{
+      align-items: center;
+      display: flex;
+      font-family: "Sofia Pro";
+    }
+    .icon-left{
+      width: 1.75rem;
+      height: inherit;
+      border-radius: 1rem;
+      margin-right: 0.25rem;
+
+    }
+  }
+  .main-add{
+    &.icon-add{
+
+    }
+  }
 }
 
 .main-add{

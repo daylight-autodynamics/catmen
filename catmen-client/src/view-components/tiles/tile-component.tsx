@@ -12,7 +12,9 @@ interface iPROPS{
     tileCustomElement? : ReactElement;
     mouseDownActions? : Function[];
     mouseUpActions? : Function[];
+    hoverActions? : Function[];
     selectedClass : selectedStateType;
+    classes? : string;
     action? : Function;
     toolTip? :  ReactElement | string;
 }
@@ -25,6 +27,7 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
     constructor(props:iPROPS) {
         super(props);
     }
+
 
     mouseDownAction(){
         if(this.props.mouseDownActions !== null && this.props.mouseDownActions !== undefined){
@@ -40,6 +43,20 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                 this.props.mouseUpActions[i]();
             }
         }
+    }
+
+    doHoverActions(){
+        console.log("hovered 222 2 2");
+        console.log("hovered 222 2 2");
+            if(this.props.hoverActions != null){
+                for(let i=0; i < this.props.hoverActions.length; i++){
+
+                    if(this.props.hoverActions !== undefined){
+                        this.props.hoverActions[i]();
+
+                    }
+                }
+            }
     }
 
     getTile(){
@@ -80,11 +97,12 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                         draggable={"false"}
                         onMouseUp={()=>this.mouseUpAction()}
                         onMouseDown={()=>this.mouseDownAction()}
+                        onMouseOver={()=>this.doHoverActions()}
                         className={`${this.props.selectedClass} cell-editable`}
                     >
                         <p className={`${this.props.selectedClass}`}>{`${this.props.tileLabel}`}&nbsp;</p>
                         <div className={`affordance ${this.props.selectedClass}`}></div>
-                        <div className={`hover-row `}></div>
+
                     </div>
                 );
             case "media":

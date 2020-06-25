@@ -1,23 +1,28 @@
+@import "views/_common/main-header-area/main-header-area";
+
+@import "svg/icons/icons";
+@import "svg/illustrations/illustrations";
+
+@import "view-components/heru-tool-tip/heru-tool-tip";
 @import "view-components/list-menu/list-menu";
 @import "view-components/button/app-buttons";
 @import "view-components/data-grid/data-grid";
 @import "view-components/file-menu-bar/file-menu-bar";
-@import "view-components/heru-tool-tip/heru-tool-tip";
-@import "views/_common/main-header-area/main-header-area";
 @import "view-components/sticky-panel/sticky-panel";
 @import "view-components/tiles/tile-component";
 @import "view-components/ribbon/ribbon";
 @import "view-components/toggle-menu/toggle-component";
-@import "svg/icons/icons";
-@import "svg/illustrations/illustrations";
 @import "view-components/info-panel/info-panel";
 @import "view-components/title-area/title-area";
 @import "view-components/text-input/text-input";
 @import "view-components/wizard/wizard";
 @import "view-components/divider-line/divider";
 @import "view-components/modal/modal";
+@import "view-components/footer/footer";
+
 @import "views/catalog-views/catalog-details/single-product-page";
 @import "views/_catman-configuration/catman-specific-wizards";
+
 
 .catman-app{
   height: 100%;
@@ -28,6 +33,6 @@
     flex-grow: 1;
   }
   .title-area{
-    margin: 0 0.5rem 0 0.5rem;
+    margin: 0 1rem 0 0.5rem;
   }
 }
