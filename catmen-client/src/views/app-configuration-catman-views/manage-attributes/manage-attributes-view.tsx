@@ -15,6 +15,7 @@ export class ManageAttributesView extends React.Component<iPROPS, iSTATE>{
         return(
             <>
                 <MainHeaderArea
+                    mainButtonLabel="Add Attributes"
                     addItemAction={()=>{}}
                     sectionTitle="Landing Page"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}

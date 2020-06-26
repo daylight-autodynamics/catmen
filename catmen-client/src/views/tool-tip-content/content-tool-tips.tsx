@@ -18,6 +18,8 @@ import productGroups from "../../images/SVG/tooltip-product-groups.svg"
 import referenceImage from "../../images/SVG/tooltip-reference-image.svg"
 import classesIllustration from "../../images/SVG/illustration-classes.svg"
 import clearSelection from "../../images/SVG/illustration-clear-selection.svg"
+import deleteItem from "../../images/SVG/illustration-delete-items.svg"
+import editItem from "../../images/SVG/illustration-edit.svg"
 
 interface iSTATE{
 
@@ -79,7 +81,12 @@ export class toolTipsLibrary {
     footerDelete(){
         return(<ToolTipContent
             header="Delete Selected"
-            copy="Permanently destroy the selected product data"
+            subHeader="Permanently destroy the selected product data"
+            copy={(
+                <div>
+                    <img className="tooltip-illustration" src={deleteItem}/>
+                </div>
+            )}
             tooltipType="deluxe"
             icon={
                 <CatmanIcon
@@ -95,7 +102,12 @@ export class toolTipsLibrary {
     footerEditSelection(){
         return(<ToolTipContent
             header="Edit Selected Rows"
-            copy="Switch to cell-editing mode"
+            subHeader="Switch to cell-editing mode"
+            copy={(
+                <div>
+                    <img className="tooltip-illustration" src={editItem}/>
+                </div>
+            )}
             tooltipType="deluxe"
             icon={
                 <CatmanIcon
@@ -564,6 +576,20 @@ export class toolTipsLibrary {
                 }
             />
         )
+    }
+
+    imageThumbnailPreview(imagePath : string){
+        return(<ToolTipContent
+            header=""
+            subHeader=""
+            copy={
+                <div>
+                    <img className="tooltip-photo" src={imagePath}/>
+                </div>
+            }
+            tooltipType="media"
+
+        />)
     }
 
     columnHeaderToolTips(tipName : string) {

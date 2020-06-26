@@ -47,28 +47,21 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
     }
 
     doHoverActions(){
-        console.log("hovered 222 2 2");
-        console.log("hovered 222 2 2");
             if(this.props.hoverActions != null){
                 for(let i=0; i < this.props.hoverActions.length; i++){
 
                     if(this.props.hoverActions !== undefined){
                         this.props.hoverActions[i]();
-
                     }
                 }
             }
     }
 
     doMouseOutActions(){
-        console.log("hovered 222 2 2");
-        console.log("hovered 222 2 2");
         if(this.props.mouseOutActions != null){
             for(let i=0; i < this.props.mouseOutActions.length; i++){
-
                 if(this.props.mouseOutActions !== undefined){
                     this.props.mouseOutActions[i]();
-
                 }
             }
         }
@@ -124,6 +117,12 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
             case "media":
                 return(
                     <div className={`media-cell `}>
+                        <AppButton
+                            buttonType="transparent-bg"
+                            tooltipType="custom"
+                            tooltip={toolTipContent.imageThumbnailPreview(this.props.tileLabel)}
+                            classes={``}
+                        />
                         <div className="thumb" style={{backgroundImage : `url(${this.props.tileLabel})` }}>
                             <p></p>
                         </div>

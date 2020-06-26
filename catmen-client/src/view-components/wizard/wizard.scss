@@ -45,11 +45,13 @@
     display: flex;
     flex-flow: column;
     flex-grow: 1;
+    height: calc(100% - 2.5rem);
     .vert-center-area{
       display: inline-flex;
       align-self: center;
       margin: auto;
       max-width: 100%;
+      height: inherit;
     }
     .footer-btn-bar{
       margin-bottom: -1.5rem;

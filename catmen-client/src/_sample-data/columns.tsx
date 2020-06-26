@@ -2,6 +2,7 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {ToolTip} from "../view-components/heru-tool-tip/tool-tip";
 import {ToolTipContent} from "../view-components/heru-tool-tip/tool-tip-content";
+import {validationActions} from "../data-components/data-manager/data-manager";
 
 export interface iColumn {
     columnLabel : string;
@@ -10,7 +11,8 @@ export interface iColumn {
     columnType : "hidden" | "standard" | "required" | "user-gen";
     control : "text-input" | "pick-list" | "list-editor" | "read-only" | "media" | "hidden";
     toolTip : ReactElement | string;
-    tooltipType : "custom" | "basic"
+    tooltipType : "custom" | "basic";
+    validationAction : validationActions[];
 }
 
 export class Columns{

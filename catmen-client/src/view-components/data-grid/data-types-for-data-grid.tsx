@@ -6,7 +6,8 @@ export type iDataGridItem = {
     value : string
     columnName : string
     attrType : "user-gen" | "standard" | "hidden" | "required";
-    class : "default" | string
+    class : "default" | string;
+    validationValue : string;
 }
 
 export type iComponentType = "drop-down" | "text-input" | "ye-no"

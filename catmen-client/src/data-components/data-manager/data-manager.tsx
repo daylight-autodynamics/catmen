@@ -2,7 +2,9 @@ import * as React from "react";
 import {iDataGridItem} from "../../view-components/data-grid/data-types-for-data-grid";
 import {iColumn} from "../../_sample-data/columns";
 import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
+import {mediaLibraryData, mediaObject} from "../../_sample-data/media-library";
 
+export type validationActions = "required" | "custom" | "no-duplicates";
 
 interface iDataManager {
     productData : iDataGridItem[][];
@@ -16,11 +18,12 @@ export class DataManager implements iDataManager{
         this.productData = productData;
     }
 
-    get getColumns() : iColumn[]{
+    get getColumns():iColumn[]{
         let testMenu = (<div style={{backgroundColor : "#cecece"}}>Menu</div>);
 
         return [
             {
+                validationAction : [],
                 columnName : "uniqueID",
                 columnLabel : " ",
                 columnMenu : testMenu,
@@ -30,6 +33,7 @@ export class DataManager implements iDataManager{
                 toolTip : "this is non-editable unique id"
             },
             {
+                validationAction : [],
                 columnName : "ReferenceImage",
                 columnLabel : "Reference Image",
                 columnMenu : testMenu,
@@ -39,6 +43,7 @@ export class DataManager implements iDataManager{
                 toolTip : toolTipContent.columnHeaderToolTips("ReferenceImage")
             },
             {
+                validationAction : ["no-duplicates", "required"],
                 columnName : "PartNumber",
                 columnLabel : "Part Number ",
                 columnMenu : testMenu,
@@ -48,6 +53,7 @@ export class DataManager implements iDataManager{
                 toolTip : toolTipContent.columnHeaderToolTips("PartNumber")
             },
             {
+                validationAction : [],
                 columnName : "ProductGroup",
                 columnLabel : "Product Group",
                 columnMenu : testMenu,
@@ -57,6 +63,7 @@ export class DataManager implements iDataManager{
                 toolTip : toolTipContent.columnHeaderToolTips("ProductGroup")
             },
             {
+                validationAction : [],
                 columnName : "ProductName",
                 columnLabel : "Product Name",
                 columnMenu : testMenu,
@@ -66,6 +73,7 @@ export class DataManager implements iDataManager{
                 toolTip : toolTipContent.columnHeaderToolTips("ProductName")
             },
             {
+                validationAction : [],
                 columnName : "Class",
                 columnLabel : "Class",
                 columnMenu : testMenu,
@@ -75,6 +83,7 @@ export class DataManager implements iDataManager{
                 toolTip : toolTipContent.columnHeaderToolTips("Class")
             },
             {
+                validationAction : [],
                 columnName : "ProductType",
                 columnLabel : "Product Type",
                 columnMenu : testMenu,
@@ -84,6 +93,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "OverallDimensions",
                 columnLabel : "Overall Dimensions",
                 columnMenu : testMenu,
@@ -95,6 +105,7 @@ export class DataManager implements iDataManager{
 
 
             {
+                validationAction : [],
                 columnName : "OverallDepth",
                 columnLabel : "Overall Depth",
                 columnMenu : testMenu,
@@ -104,6 +115,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "OverallHeight",
                 columnLabel : "Overall Height",
                 columnMenu : testMenu,
@@ -113,6 +125,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "OverallLength",
                 columnLabel : "Overall Length",
                 columnMenu : testMenu,
@@ -122,6 +135,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "Seat",
                 columnLabel : "Seat",
                 columnMenu : testMenu,
@@ -131,6 +145,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "ArmHeightFloorToArm",
                 columnLabel : "Arm Height - Floor to Arm",
                 columnMenu : testMenu,
@@ -140,6 +155,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "BackHeightSeatToTopOfBack",
                 columnLabel : "Back Height - Seat to Top of Back",
                 columnMenu : testMenu,
@@ -149,6 +165,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "FullyReclinedDepthFrontToBack",
                 columnLabel : "Fully Reclined Depth - Front to Back",
                 columnMenu : testMenu,
@@ -158,6 +175,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "LegHeightTopToBottom",
                 columnLabel : "Leg Height - Top to Bottom",
                 columnMenu : testMenu,
@@ -167,6 +185,7 @@ export class DataManager implements iDataManager{
                 toolTip : ""
             },
             {
+                validationAction : [],
                 columnName : "ClearanceFromFloorToBottomOfSofa",
                 columnLabel : "Clearance from Floor to Bottom of Sofa",
                 columnMenu : testMenu,
@@ -182,6 +201,11 @@ export class DataManager implements iDataManager{
 
     get getData():iDataGridItem[][]{
         return this.productData;
+    }
+
+    getMediaData():mediaObject[]{
+        //TODO replace this with a proper data service
+        return mediaLibraryData;
     }
 
     addToProductGroup(){

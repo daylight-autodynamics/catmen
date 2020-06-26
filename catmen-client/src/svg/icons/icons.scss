@@ -48,6 +48,19 @@
   }
 }
 
+  .icon-continue{
+    .stroked{
+      stroke: white;
+      stroke-width: 2;
+    }
+    .no-fill{
+      fill: none;
+    }
+    .filled{
+      fill:$Core_80
+    }
+  }
+
 
 .icon-restore-btn{
   .stroked{fill:none;stroke:#3D3D3D;stroke-miterlimit:10;}

@@ -545,6 +545,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
              this.dataGridRef.current.switchToEditModeFromCheckBoxMode();
              this.openEditDrawer();
+             this.initialized = false;
              this.setState({footerOpen : false})
          }
 

@@ -33,6 +33,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
 
     singleProductData = (uniqueID : string):iDataGridItem[]=>{
         let product : iDataGridItem[] = [{
+            validationValue : "",
             value : "string",
             columnName : "string",
             attrType : "user-gen",

@@ -11,11 +11,24 @@
 
 .app-tool-tip{
   user-select: none;
+  overflow: hidden;
+
   &.deluxe{
+    &.media{
+      width: auto !important;
+      padding: 0 !important;
+      grid-template-columns: auto auto !important;
+      backdrop-filter: none !important;
+      border: 1px solid $black_70;
+    }
     .tooltip-illustration{
       height: 6rem;
       width: 100%;
       padding-top: 1rem;
+    }
+    .tooltip-photo{
+      height: 40vh;
+      margin-bottom: -0.5rem;
     }
     padding: 0.25rem 0.5rem 0.5rem 0.5rem;
     border-radius: 0.5rem;

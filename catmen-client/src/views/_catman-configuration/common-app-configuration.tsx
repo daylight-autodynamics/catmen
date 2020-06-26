@@ -66,7 +66,7 @@ export let mainNavConfig : iNavItem[] = [
     },
     {
         label: "Media Library",
-        navPath: "/",
+        navPath: "/media-library",
         buttonType: "menu-link",
         iconLeft:
             (<CatmanIcon

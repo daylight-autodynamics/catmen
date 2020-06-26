@@ -24,6 +24,7 @@ export class CatalogDashboardView extends React.Component<iPROPS, iSTATE>{
                 <MainHeaderArea
                     addItemAction={()=>{}}
                     sectionTitle="Landing Page"
+                    mainButtonLabel="Add Products"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
                 />
                 <h2>Catalog Dashboard</h2>

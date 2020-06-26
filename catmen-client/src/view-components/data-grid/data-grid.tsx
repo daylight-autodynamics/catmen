@@ -231,7 +231,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     hoverRowAction(row:number){
         this.setState({hoveredRow : row.toString()});
-        console.log("hovered", row)
+
     }
     moueOutRowAction(){
         this.setState({hoveredRow : ""});
@@ -382,7 +382,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 );
 
 
-                if( this.props.columnsData[j].control != "hidden"){
+                if( this.props.columnsData[j].control !== "hidden"){
                     cells.push(cell);
                 }
 
@@ -554,7 +554,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
         let columnHeaders : ReactElement[] = this.getColumnHeaders();
-
 
         //having some trouble with layout of grid and checkboxes
         // style={{gridTemplateColumns : `1.5rem repeat(${this.getNumColumns().toString()}, max-content) 1rem`}}

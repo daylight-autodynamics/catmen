@@ -20,6 +20,7 @@ export class ManageAttributeMappingView extends React.Component<iPROPS, iSTATE>{
         return(
             <>
                 <MainHeaderArea
+                    mainButtonLabel="Add Attribute"
                     addItemAction={()=>{}}
                     sectionTitle="Landing Page"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}

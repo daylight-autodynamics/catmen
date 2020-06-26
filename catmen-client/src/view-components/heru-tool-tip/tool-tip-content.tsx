@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import {CatmanIcon} from "../../svg/icons/icons";
 
 interface iPROPS {
-    tooltipType : "deluxe" | "basic" | "empty";
+    tooltipType : "deluxe" | "basic" | "empty" | "media";
     header? : string;
     subHeader? : string;
     copy? : string | ReactElement;
@@ -34,6 +34,19 @@ export class ToolTipContent extends React.Component<iPROPS, iSTATE>{
                     <div className="tool-tip-copy">{this.props.copy}</div>
                 </div>
                 );
+
+            case "media":
+                return (
+                    <div className="app-tool-tip deluxe media tt-element-main">
+                        <div>
+                            <h3>{this.props.header}</h3>
+                            <p>{this.props.subHeader}</p>
+                        </div>
+                        <div className="tool-tip-icon">{this.props.icon}</div>
+                        <div className="tool-tip-copy">{this.props.copy}</div>
+                    </div>
+                );
+
             case "basic":
                 return(
                     <div id="toolTip" className="app-tool-tip basic tt-element-main">

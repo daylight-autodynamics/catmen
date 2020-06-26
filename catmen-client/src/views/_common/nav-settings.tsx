@@ -11,5 +11,6 @@ export let navSettings = {
     manageAttributes : '/manage-attributes',
     manageAttributeGroups : '/manage-attribute-groups',
     manageAttributeMappings : '/manage-attribute-mappings',
-    manageClasses : '/manage-classes'
+    manageClasses : '/manage-classes',
+    mediaLibrary : '/media-library'
 };

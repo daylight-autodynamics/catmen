@@ -18,6 +18,7 @@ import {CatalogDashboardView} from "./views/catalog-views/catalog-dashboard/cata
 
 import {ProductViews} from "./views/catalog-views/main-catalog/main-catalog";
 import {CatalogSingleProduct} from "./views/catalog-views/catalog-details/single-product-view";
+import {MediaLibraryView} from "./views/media-library/media-library";
 
 interface iSTATE{
     mousePos : {x:number, y: number}
@@ -51,6 +52,7 @@ class App extends React.Component<iPROPS, iSTATE>{
                       <Route exact path={navSettings.manageAttributes} component={ ()=><ManageAttributesView message={"managing attributes"}/> }/>
                       <Route exact path={navSettings.manageAttributeGroups} component={ ()=><ManageAttributeGroupsView message={"manage attributes groups view"}/> }/>
                       <Route exact path={navSettings.manageAttributeMappings} component={ ()=><ManageAttributeMappingView message={"manage attribute mappings"}/> }/>
+                      <Route exact path={navSettings.mediaLibrary} component={ ()=><MediaLibraryView message={"manage media library"}/> }/>
 
                       <Route exact path="/manage-classes" component={ ()=><ManageClassesView message={"attribute mappings"}/> }/>
 

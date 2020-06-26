@@ -13,12 +13,16 @@ import './fonts/sofia-bold.woff';
 
 import {ProductDataService} from "./services/product-data-service";
 import {catmanData} from "./_sample-data/products-data";
+import {ValidationService} from "./services/validations-service/validation";
 
 //initialization
 export let win = new WindowLevelCapture();
 win.windowEvent();
 
 export let dataManagerMain = new DataManager(catmanData.productData);
+//TODO need proper rules set
+export let dataValidations = new ValidationService(dataManagerMain.productData, [])
+dataValidations.initializeValidations();
 
 let productData = new ProductDataService();
 productData.initialize();

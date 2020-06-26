@@ -19,8 +19,11 @@
 @import "view-components/divider-line/divider";
 @import "view-components/modal/modal";
 @import "view-components/footer/footer";
+@import "view-components/card/card-component";
+@import "view-components/cards-area/card-area";
 
 @import "views/catalog-views/catalog-details/single-product-page";
+@import "views/media-library/media-library";
 @import "views/_catman-configuration/catman-specific-wizards";
 
 
@@ -33,6 +36,10 @@
     flex-grow: 1;
   }
   .title-area{
-    margin: 0 1rem 0 0.5rem;
+    margin: 1rem;
   }
+}
+
+.emphasize{
+  font-weight: 700;
 }

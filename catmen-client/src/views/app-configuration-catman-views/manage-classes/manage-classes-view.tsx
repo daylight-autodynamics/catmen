@@ -15,6 +15,7 @@ export class ManageClassesView extends React.Component<iPROPS, iSTATE>{
         return(
             <>
                 <MainHeaderArea
+                    mainButtonLabel="Add Classes"
                     addItemAction={()=>{}}
                     sectionTitle="Manage Classes"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}

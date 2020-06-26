@@ -65,6 +65,8 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
         this.props.manageModal();
     }
 
+
+
     getInputValue = (row:number, cell:number, value:string )=>{
         console.log("input value", row, " ", cell, " ", value);
         this.numberOfVariants = parseInt(value);
@@ -76,7 +78,12 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
             case "staging-area":
                 this.addVariantsStaging();
                 break;
+        }
+    }
 
+    manageModal(){
+        if(this.props.manageModal !== undefined){
+            this.props.manageModal();
         }
     }
 
@@ -88,7 +95,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                         <AppButton
                             buttonType="secondary-action"
                             buttonLabel="Cancel"
-                            OnClick={ ()=>{} }
+                            OnClick={ ()=>this.manageModal() }
                             tooltipType="custom"
                             tooltip={toolTipContent.footerCancel()}
                             toolTipTimeOutInMS={10000}
@@ -110,7 +117,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
-                                    iconName="icon-delete"
+                                    iconName="continue"
                                     classes=" "
                                     height="100%"
                                     width="100%"

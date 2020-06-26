@@ -231,9 +231,11 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
             }
 
             return (
-                <div ref={this.toolTipContainerRef} style={{  zIndex: 10000, border: "none", width:"1px", height:"1px", position: "fixed"}} >
-                    {tooltipInner}
-                </div>
+                <span id="tooltipPortal" className={`${this.handleFadeInOut()} tool-tip`}>
+                    <div ref={this.toolTipContainerRef} style={{  zIndex: 10000, border: "none", width:"1px", height:"1px", position: "fixed"}} >
+                        {tooltipInner}
+                    </div>
+                </span>
             )
 
     }
@@ -354,14 +356,9 @@ export class ToolTip extends React.Component<iPROPS, iSTATE>{
              if(root != null){
                  return root;
              }
-        } ;
+        };
 
-
-        let constructedToolTip = (
-              <span id="tooltipPortal" className={`${this.handleFadeInOut()} tool-tip`}>{tooltip}</span>
-        );
-
-        return ReactDOM.createPortal(constructedToolTip, root());
+        return ReactDOM.createPortal(tooltip, root());
     }
 
 }

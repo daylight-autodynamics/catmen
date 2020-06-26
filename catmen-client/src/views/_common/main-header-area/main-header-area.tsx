@@ -14,6 +14,7 @@ interface iPROPS{
     navigationElement? : ReactElement;
     ribbonElement? : ReactElement;
     addItemAction : Function;
+    mainButtonLabel : string;
 }
 
 interface iSTATE{
@@ -90,7 +91,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                     <AppButton
                         buttonType={"main-action"}
                         classes={"main-add-btn"}
-                        buttonLabel="Add Product"
+                        buttonLabel={this.props.mainButtonLabel}
                         OnClick={()=>this.manageModals("add-products")}
                         tooltipType="custom"
                         tooltip={toolTipContent.addProducts()}

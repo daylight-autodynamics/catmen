@@ -49,6 +49,7 @@ export function CatalogLanding() {
            <MainHeaderArea
                addItemAction={manageGridData}
                sectionTitle="Landing Page"
+               mainButtonLabel="Add Products"
                navigationElement={
                    <Navigation
                        menuHelpStyle="panel"

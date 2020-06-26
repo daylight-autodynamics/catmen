@@ -20,6 +20,7 @@ export class ManageAttributeGroupsView extends React.Component<iPROPS, iSTATE>{
         return(
             <>
                 <MainHeaderArea
+                    mainButtonLabel="Add Attributes Group"
                     addItemAction={()=>{}}
                     sectionTitle="Landing Page"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
