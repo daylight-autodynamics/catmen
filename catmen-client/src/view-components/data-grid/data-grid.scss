@@ -16,10 +16,24 @@
       display: inline;
       min-width: 3rem;
       box-sizing: border-box;
+      &.checkbox-main{
+        .btn-label{
+          margin-left: 0;
+        }
+      }
+      .checkbox-checked{
+        .btn-label{
+          margin-left: 0;
+        }
+      }
+      .checkbox-unchecked{
+        .btn-label{
+          margin-left: 0;
+        }
+      }
       &.details{
         border: solid $black_20;
         border-width: 0 0 1px 1px;
-
 
         .fader-right-to-left{
           position: absolute;
@@ -110,7 +124,6 @@
     &:active{
       box-shadow: none;
     }
-
 
     button{
       height: 100%;

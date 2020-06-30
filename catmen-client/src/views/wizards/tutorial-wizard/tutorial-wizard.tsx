@@ -1,6 +1,5 @@
 import * as React from "react";
 import goBackWizard from "../../../images/SVG/illustration-wizard-go-back.svg"
-
 import tutBulkEdit from "../../../images/SVG/illustration-bulk-edit.svg"
 import tutEditWithDrawer from "../../../images/SVG/illustration-edit-with-drawer.svg"
 import tutFooter from "../../../images/SVG/illustration-footer-menu.svg"

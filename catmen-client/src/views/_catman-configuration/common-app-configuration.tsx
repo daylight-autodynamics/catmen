@@ -92,7 +92,7 @@ export let mainNavConfig : iNavItem[] = [
     },
     {
         label : "Your Catalog",
-        navPath : "/catalog",
+        navPath : "/catalog/spreadsheet",
         buttonType : "nav-link",
         iconLeft : (
             <CatmanIcon
@@ -221,6 +221,7 @@ export let mainNavConfig : iNavItem[] = [
             />
                 )
     },
+
 ];
 
 export let catalogRibbonConfiguration : iNavItem[] = [

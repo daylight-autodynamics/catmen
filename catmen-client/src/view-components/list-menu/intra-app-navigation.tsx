@@ -122,7 +122,7 @@ export class Navigation extends React.Component<iPROPS, iSTATE> {
             }
 
             //insert the created buttons into a group container
-            let subMenuGroup : ReactElement = (<div key={`${i}${i}`} className="menu-sub-group">{subMenuItems}</div>);
+            let subMenuGroup : ReactElement = (<div key={`${i}`} className="menu-sub-group">{subMenuItems}</div>);
             constructedMenuItems.push(subMenuGroup);
         }
 

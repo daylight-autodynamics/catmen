@@ -118,11 +118,12 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
     }
 
     closeTutorialModal(){
-        this.setState({tutorialModal : false})
+        this.setState({tutorialModal : false});
+        toolTipContent.gridDragTutorial++;
     }
 
     tutorialModal(){
-        if(this.state.tutorialModal === true){
+        if(this.state.tutorialModal === true && toolTipContent.gridDragTutorial < 1){
             return(
                 <ModalView
                     modalTitle={"You Can Edit This Grid!"}
