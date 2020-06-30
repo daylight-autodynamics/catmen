@@ -30,7 +30,8 @@
   transition: box-shadow .25s,border-color .25s;
   margin-right: 0.5rem;
   &:focus-within{
-    box-shadow: 0 0 0 1px #1364f1, 0 0 4px #1364f1;
+    box-shadow: 0 0 0 2px $Core_30, 0 0 6px $Core_60;
+    border: 2px solid $Core_80;
   }
   .pl-FloatLabel-text{
     pointer-events: none;

@@ -13,3 +13,33 @@
   border-radius: 0.5rem;
   margin-left: 0.5rem;
 }
+
+.card{
+  .btn-transparent-bg{
+
+  }
+}
+
+//MEDIA DETAILS VIEW
+
+.temp-associations{
+  display: grid;
+  grid-template-columns: max-content auto 2rem;
+  width: 100%;
+  margin: 1rem 0 1rem 0;
+  border-top: 1px solid #cecece;
+  .cell{
+    &.details{
+      background-color: transparent;
+      border-bottom: 1px solid #cecece;
+    }
+  }
+}
+
+
+
+.cell-read-only{
+
+  padding: 0.5rem;
+  border-bottom: 1px solid #cecece;
+}

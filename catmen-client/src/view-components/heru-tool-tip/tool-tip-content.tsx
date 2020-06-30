@@ -9,6 +9,7 @@ interface iPROPS {
     copy? : string | ReactElement;
     icon? : ReactElement | "none";
     iconClasses? : string;
+    mainClasses? : string;
     toolTipContainerClasses?:string;
 }
 
@@ -25,8 +26,8 @@ export class ToolTipContent extends React.Component<iPROPS, iSTATE>{
         switch (this.props.tooltipType){
             case "deluxe":
                 return (
-                <div  className="app-tool-tip deluxe tt-element-main">
-                    <div>
+                <div  className={`${this.props.mainClasses} app-tool-tip deluxe tt-element-main`}>
+                    <div className="title-area">
                         <h3>{this.props.header}</h3>
                         <p>{this.props.subHeader}</p>
                     </div>
@@ -37,7 +38,7 @@ export class ToolTipContent extends React.Component<iPROPS, iSTATE>{
 
             case "media":
                 return (
-                    <div className="app-tool-tip deluxe media tt-element-main">
+                    <div className={`${this.props.mainClasses} app-tool-tip deluxe media tt-element-main`}>
                         <div>
                             <h3>{this.props.header}</h3>
                             <p>{this.props.subHeader}</p>
@@ -49,14 +50,14 @@ export class ToolTipContent extends React.Component<iPROPS, iSTATE>{
 
             case "basic":
                 return(
-                    <div id="toolTip" className="app-tool-tip basic tt-element-main">
+                    <div id="toolTip" className={`${this.props.mainClasses} app-tool-tip basic tt-element-main`}>
                         <h4>{this.props.header}</h4>
                         <div className="tool-tip-copy">{this.props.copy}</div>
                     </div>
                 );
             case "empty":
                 return(
-                <div id="toolTip" className="app-tool-tip basic tt-element-main"/>
+                <div id="toolTip" className={`${this.props.mainClasses} app-tool-tip basic tt-element-main`}/>
                 );
         }
     }

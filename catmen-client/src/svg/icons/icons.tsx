@@ -47,6 +47,97 @@ export class CatmanIcon extends React.Component<iPROPS, iSTATE>{
                     </>
                 );
 
+            case "info-icon-part-number":
+                return(
+                    <svg className={`${this.props.classes} info-icon-part-number`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}} >
+                        <path className="filled-bg" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                        <path className="filled" d="M29.5,27h-23c-1.3,0-2.3-1-2.3-2.3V11.1c0-1.3,1-2.3,2.3-2.3h23c1.3,0,2.3,1,2.3,2.3v13.6	C31.8,26,30.7,27,29.5,27z"/>
+                        <g className="filled-highlight">
+                            <rect x="8" y="10.8" width="1.9" height="12.3"/>
+                            <rect x="6.6" y="10.8"  width="0.8" height="14.1"/>
+                            <rect x="10.6" y="10.8" width="0.4" height="13.7"/>
+                            <rect x="11.6" y="10.8" width="1.1" height="13.7"/>
+                            <polygon points="13.9,10.8 13.7,10.8 13.1,10.8 13.1,24.5 13.7,24.5 13.7,24.5 14.7,24.5 14.7,10.8 "/>
+                            <rect x="15.4" y="10.8"  width="1.5" height="12.3"/>
+                            <rect x="22.3" y="10.8" width="1.5" height="12.3"/>
+                            <polygon points="19,10.8 18.8,10.8 18.6,10.8 17.4,10.8 17.4,24.5 18.8,24.5 18.8,24.5 19,24.5 "/>
+                            <rect x="27.9" y="10.8" width="1" height="14.1"/>
+                            <polygon points="25,10.8 25,10.8 24.2,10.8 24.2,23.2 24.9,23.2 25,23.2 25.7,23.2 25.7,10.8 "/>
+                            <polygon points="27.2,10.8 27,10.8 26.1,10.8 26.1,23.2 27,23.2 27.2,23.2 27.5,23.2 27.5,10.8 "/>
+                            <polygon points="20.6,10.8 20.4,10.8 19.6,10.8 19.6,24.5 20.4,24.5 20.4,24.5 21.7,24.5 21.7,10.8 "/>
+                        </g>
+                    </svg>
+
+                );
+
+            case "info-icon-product-name":
+                return(
+                    <svg className={`info-icon-product-name ${this.props.classes}`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9"  >
+                        <path className="filled-bg" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                        <path className="filled" d="M16.3,9.4l0.1-2.5c0,0,0.6-1.2,2.2-1.1c1.2,0.1,1.7,1.2,1.7,1.2l0.3,2.3L16.3,9.4z"/>
+                        <path className="filled-secondary stroked st2" d="M16.2,9.1V7.7c0-1.2,1-2.2,2.2-2.2h0c1.2,0,2.2,1,2.2,2.2v1.5"/>
+                        <path className="filled" d="M8.2,27.3c-2.1,0-3.8-1.7-3.8-3.8V13.4c0-2.1,1.7-3.8,3.8-3.8h20.3c2.1,0,3.8,1.7,3.8,3.8v10.2 c0,2.1-1.7,3.8-3.8,3.8H8.2z"/>
+                        <path className="filled-contrast" d="M28.6,10.1c1.8,0,3.3,1.5,3.3,3.3v10.2c0,1.8-1.5,3.3-3.3,3.3H8.2c-1.8,0-3.3-1.5-3.3-3.3V13.4 c0-1.8,1.5-3.3,3.3-3.3H28.6 M28.6,9.1H8.2c-2.4,0-4.3,1.9-4.3,4.3v10.2c0,2.4,1.9,4.3,4.3,4.3h20.3c2.4,0,4.3-1.9,4.3-4.3V13.4 C32.9,11,30.9,9.1,28.6,9.1L28.6,9.1z"/>
+                        <path className="stroked-secondary filled-bright " d="M17.5,24.8H8.8c-1.1,0-2-0.9-2-2V14c0-1.1,0.9-2,2-2h8.8c1.1,0,2,0.9,2,2v8.9C19.5,24,18.6,24.8,17.5,24.8z"/>
+                        <polygon className="brand-light" points="9.2,21.6 9.2,15.5 13.4,13.6 17.1,15.7 17.3,21.3 13.3,23.4 "/>
+                        <polygon className="brand-dark" points="13.7,18.1 13.6,22.9 17.1,21.3 17.1,16.3 "/>
+                        <polygon className="filled" points="9.9,20.9 9.9,16.9 12.6,18.3 12.8,19.3 12.8,18.1 9.4,16.3 9.4,21.3 12.8,22.8 "/>
+                            <g className="filled-saturated">
+                                <path d="M27.6,13.1h-5.4c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h5.4c0.4,0,0.7,0.3,0.7,0.7v0 C28.4,12.8,28,13.1,27.6,13.1z"/>
+                                <path d="M25.6,15.8h-3.4c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h3.4c0.4,0,0.7,0.3,0.7,0.7v0	C26.4,15.5,26,15.8,25.6,15.8z"/>
+                                <path d="M27.7,20.9h-5.4c-0.4,0-0.7-0.3-0.7-0.7l0,0c0-0.4,0.3-0.7,0.7-0.7h5.4c0.4,0,0.7,0.3,0.7,0.7v0 C28.4,20.6,28.1,20.9,27.7,20.9z"/>
+                                <path d="M23.9,18.3h-1.7c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h1.7c0.4,0,0.7,0.3,0.7,0.7v0	C24.6,17.9,24.3,18.3,23.9,18.3z"/>
+                                <path d="M27.6,18.3H26c-0.4,0-0.7-0.3-0.7-0.7v0c0-0.4,0.3-0.7,0.7-0.7h1.7c0.4,0,0.7,0.3,0.7,0.7v0 C28.4,17.9,28,18.3,27.6,18.3z"/>
+                            </g>
+                            <g className="stroked-secondary no-fill ">
+                                <polyline points="9.1,15.7 13.1,17.8 13.4,17.8 17.4,15.8 "/>
+                                <polygon points="9,15.8 9,18.3 9,21.5 13.1,23.5 13.4,23.5 17.4,21.5 17.5,21.4 17.5,15.9 17.4,15.6 13.4,13.6 13.1,13.6 9.1,15.6 "/>
+                                <line x1="13.3" y1="17.7" x2="13.3" y2="23.4"/>
+                            </g>
+                        <polygon className="filled-dark" points="16,14.4 11.1,16.9 11.1,17.5 10.5,17.1 10.5,16.5 15.3,14.1 "/>
+                        <polygon className="filled-contrast" points="15.3,14.1 10.5,16.5 10.5,17.1 10.6,17.2 10.6,16.6 15.5,14.2 "/>
+                        <polygon className="filled-contrast" points="16,14.4 11.1,16.8 11.1,17.4 11.2,17.5 11.2,16.9 16.1,14.5 "/>
+                        <circle className="filled-contrast" cx="18.4" cy="7.2" r="0.6"/>
+</svg>
+
+                );
+
+            case "info-icon-help":
+                return(
+                    <svg className={`${this.props.classes} info-icon-help`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" >
+                        <path className="bg-fill" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                    	<path className="filled" d="M15.2,20.5c-0.2-2.1,0.3-3.5,2.6-4.4l1-0.4c1-0.4,1.4-1.2,1.4-2c0-1.3-0.9-2.1-2.2-2.1c-1.2,0-2.3,0.9-2.4,2.4 h-3.4c0-3.8,2.5-5.8,5.7-5.8c3.3,0,5.7,2.1,5.7,5.4c0,2.7-1.6,4.4-3.7,5.2c-1,0.4-1.8,0.6-1.8,1.8l0,0.5h-2.9V20.5z M14.4,25.5 c0-1.3,1-2.2,2.3-2.2c1.3,0,2.3,0.9,2.3,2.2c0,1.3-1.1,2.2-2.3,2.2C15.4,27.7,14.4,26.8,14.4,25.5z"/>
+                    </svg>
+                );
+
+            case "info-icon-product-group":
+                return(
+                    <svg className={`info-icon-product-group ${this.props.classes}`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" >
+                        <path className="filled-bg" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                        <rect className="brand-1" x="10.4" y="9.2" width="7" height="7"/>
+                        <rect className="brand-2" x="19.4" y="9.2" width="7" height="7"/>
+                        <rect className="brand-3" x="10.4" y="18.3" width="7" height="7"/>
+                        <rect className="brand-4" x="19.4" y="18.3" width="7" height="7"/>
+                        <g className="filled-highlight">
+                            <polygon points="12.2,6.2 8.6,6.2 7.5,6.2 7.5,7.4 7.5,11 8.6,11 8.6,7.4 12.2,7.4 "/>
+                            <polygon points="24.6,6.2 28.2,6.2 29.4,6.2 29.4,7.4 29.4,11 28.2,11 28.2,7.4 24.6,7.4 "/>
+                            <polygon points="12.2,28.4 8.6,28.4 7.5,28.4 7.5,27.2 7.5,23.6 8.6,23.6 8.6,27.2 12.2,27.2 "/>
+                            <polygon points="24.6,28.4 28.2,28.4 29.4,28.4 29.4,27.2 29.4,23.6 28.2,23.6 28.2,27.2 24.6,27.2 "/>
+                        </g>
+                    </svg>
+
+                );
+
+            case "info-icon-image":
+                return(
+                    <svg className={`${this.props.classes} info-icon-image`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 35.9 35.9" style={{overflow:"visible"}}>
+                        <path className="filled-bg" d="M18,0C8,0,0,8,0,18s8,18,18,18c9.9,0,18-8,18-18S27.9,0,18,0z"/>
+                        <path className="filled" d="M26.5,26.1H10c-1.2,0-2.1-0.9-2.1-2.1V10.4c0-1.2,0.9-2.1,2.1-2.1h16.5c1.2,0,2.4,1.1,2.4,2.3L28.6,24	C28.6,25.1,27.7,26.1,26.5,26.1z"/>
+                        <polygon className="filled-highlight" points="26,21.6 22.3,12.9 17.9,18.6 15,15.7 10.4,21.6 "/>
+                        <circle className="filled-highlight" cx="12" cy="13.2" r="1.5"/>
+                    </svg>
+                );
+
             case "select-row":
                 return(
                     <svg className={`icon-select-row ${this.props.classes}`} x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 38.5 31.6" style={{overflow:"visible"}} >

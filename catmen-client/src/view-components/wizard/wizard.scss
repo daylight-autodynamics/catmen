@@ -78,3 +78,28 @@
     flex-flow: row;
   }
 }
+
+.tutorial-group{
+  max-width: 50vw;
+  height: 14rem;
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(50px, 1fr) );
+  grid-auto-columns: min-content;
+  width: 100%;
+  margin: 0 auto 0 auto;
+
+  .tooltip-illustration{
+    height: 7rem;
+  }
+  .tutorial-chunk {
+    display: flex;
+    flex-flow: column;
+    padding: 0 2rem 0 2rem;
+    p{
+      font-size: 0.75rem;
+    }
+    img{
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -20,6 +20,7 @@
         border: solid $black_20;
         border-width: 0 0 1px 1px;
 
+
         .fader-right-to-left{
           position: absolute;
           top: 0px;
@@ -124,6 +125,7 @@
       right: 0;
       width: 100%;
       border-radius: 0 1rem 1rem 0;
+      background-color: white;
       .btn-descriptors{
         display: flex;
         justify-content: center;
@@ -195,10 +197,39 @@
   }
 }
 
+//DRAG AREA
+.drag-area{
+  position: absolute;
+  background-color: rgba(147, 67, 152, 0.3);
+  border-color: white;
+  pointer-events: none;
+  border-width: 2px;
+  border-style: solid;
+  z-index: 100000;
+  padding: 0.25rem;
+ .drag-inner-container{
+   position: relative;
+   height: 100%;
+   width: 100%;
+  border: 1px dotted white;
+   .tool-tip{
+     margin-left: 1rem;
+     width: 12rem;
+     position: absolute;
+     right: -12rem;
+     top: 0;
+   }
+ }
 
-//HEADER
+}
 
+
+//COLUMN HEADER
 .grid-header{
+  .btn-descriptors{
+    pointer-events: none;
+  }
+  //pointer-events: none;
   background-color: white;
   position: sticky;
   top:0;
@@ -208,9 +239,29 @@
 
 //FOOTER
 
+//SELECTED COLUMN INDICATOR
+
+.cell {
+  &.selected-indicator{
+    border-width: 0 2px 2px 2px;
+    border-style: double;
+    border-color: $Core_60;
+    background-color: rgba(122, 12, 119, 0.4);
+    pointer-events: none;
+  }
+}
+
+.grid-header{
+  &.active{
+    border-bottom: none;
+  }
+}
+
+//TODO this is to account for scroll bar, we need to replace with super scroller
 .catman-footer{
   margin-bottom: 12px;
-
 }
+
+
 
 

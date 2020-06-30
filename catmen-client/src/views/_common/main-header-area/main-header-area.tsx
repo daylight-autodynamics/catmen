@@ -8,6 +8,7 @@ import {ContentToolTips, toolTipContent} from "../../tool-tip-content/content-to
 import {ToolTipContent} from "../../../view-components/heru-tool-tip/tool-tip-content";
 import {ModalView} from "../../../view-components/modal/modal";
 import {UploadWizard} from "../../wizards/upload-wizard/upload-wizard";
+import {TutorialWizard} from "../../wizards/tutorial-wizard/tutorial-wizard";
 
 interface iPROPS{
     sectionTitle? : string;
@@ -20,7 +21,8 @@ interface iPROPS{
 interface iSTATE{
     menuIsOpen : boolean;
     currentModal : "none" | "add-products" | "add-product-variant";
-    modalOpen : false;
+    modalOpen : boolean;
+    tutorialModal : boolean
 }
 
 export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
@@ -29,7 +31,8 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
         this.state = {
             menuIsOpen : false,
             modalOpen : false,
-            currentModal : "none"
+            currentModal : "none",
+            tutorialModal : true
         }
     }
 
@@ -110,8 +113,26 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
     }
 
     closeModal(){
-        this.setState({currentModal : "none"})
+        this.setState({currentModal : "none"});
         console.log("close modal try", this.state.currentModal)
+    }
+
+    closeTutorialModal(){
+        this.setState({tutorialModal : false})
+    }
+
+    tutorialModal(){
+        if(this.state.tutorialModal === true){
+            return(
+                <ModalView
+                    modalTitle={"You Can Edit This Grid!"}
+                    classes="upload-modal-wizard"
+                    closeModalFunc={()=>this.closeTutorialModal()}
+                >
+                    <TutorialWizard  />
+                </ModalView>
+            );
+        }
     }
 
     getModals(){
@@ -167,6 +188,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                       {this.navMenu()}
                   </div>
                   {this.getModals()}
+                  {this.tutorialModal()}
               </header>
           </>
         );

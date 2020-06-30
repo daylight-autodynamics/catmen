@@ -77,6 +77,28 @@
   margin: 0.5rem;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem 1rem 1rem;
+  footer{
+    display: flex;
+    justify-content: flex-end;
+
+  }
+  .hidden{
+    visibility: collapse;
+
+  }
+  .floating-button{
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+  &:hover .hidden{
+    visibility: visible;
+  }
+
+  &:hover{
+    background-color: $Primary_shade;
+    color: white;
+  }
 }
 
 .data-container{

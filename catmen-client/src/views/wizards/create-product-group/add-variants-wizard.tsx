@@ -97,7 +97,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             buttonLabel="Cancel"
                             OnClick={ ()=>this.manageModal() }
                             tooltipType="custom"
-                            tooltip={toolTipContent.footerCancel()}
+                            tooltip={toolTipContent.closeModal()}
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
@@ -113,7 +113,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             buttonLabel="Continue"
                             OnClick={()=>this.wizardNavigation("staging-area")}
                             tooltipType="custom"
-                            tooltip={toolTipContent.footerDelete()}
+                            tooltip={toolTipContent.continueWizard()}
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
@@ -156,7 +156,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             buttonLabel="Back"
                             OnClick={ ()=>this.wizardNavigation("start") }
                             tooltipType="custom"
-                            tooltip={toolTipContent.footerCancel()}
+                            tooltip={toolTipContent.goBackWizard()}
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
@@ -172,7 +172,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             buttonLabel="Delete Selected"
                             OnClick={ ()=>this.wizardNavigation("start") }
                             tooltipType="custom"
-                            tooltip={toolTipContent.footerCancel()}
+                            tooltip={toolTipContent.footerDelete()}
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon
@@ -188,7 +188,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                             buttonLabel="Confirm & Add to Catalog"
                             OnClick={()=>this.acceptVariants()}
                             tooltipType="custom"
-                            tooltip={toolTipContent.footerDelete()}
+                            tooltip={toolTipContent.insertFromStagingArea()}
                             toolTipTimeOutInMS={10000}
                             iconLeft={
                                 <CatmanIcon

@@ -77,8 +77,8 @@ export let mainNavConfig : iNavItem[] = [
         presentationGroup : "common",
         infoPanel : (
             <InfoPanel
-                header="Home - Get Started"
-                copy="Your landing page with info, help and quick-start actions to help you get the most out of the Catalog Manager"
+                header="Your Media Library"
+                copy="Manage, review and link with products. Take control of your media and better describe your products."
                 image={
                     <Illustration
                         illustrationName="illustration-media"

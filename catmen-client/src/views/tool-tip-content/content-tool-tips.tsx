@@ -2,24 +2,36 @@ import * as React from "react";
 import {CatmanIcon} from "../../svg/icons/icons";
 import {ToolTipContent} from "../../view-components/heru-tool-tip/tool-tip-content";
 
-import addVariantIllustration from "../../images/SVG/add-variant.svg"
-import createVariantGroupIllustration from "../../images/SVG/create-variant-group.svg"
-import maximizeDrawer from "../../images/SVG/maximize-drawer.svg"
-import closeDrawer from "../../images/SVG/close-drawer.svg"
-import restoreDrawer from "../../images/SVG/restore-drawer.svg"
-import closeModal from "../../images/SVG/close-modal-and-cancel.svg"
-import dragFiles from "../../images/SVG/drag-files.svg"
-import backToSpreadsheet from "../../images/SVG/back-to-spreadsheet.svg"
-import singleProductSwitchToEditMode from "../../images/SVG/sitch-to-edit-mode.svg"
-import singleProductSwitchToReadMode from "../../images/SVG/switch-to-read-only.svg"
-import insertColumn from "../../images/SVG/illustration-insert.svg"
-import partNumber from "../../images/SVG/tooltip-part-number.svg"
-import productGroups from "../../images/SVG/tooltip-product-groups.svg"
-import referenceImage from "../../images/SVG/tooltip-reference-image.svg"
-import classesIllustration from "../../images/SVG/illustration-classes.svg"
-import clearSelection from "../../images/SVG/illustration-clear-selection.svg"
-import deleteItem from "../../images/SVG/illustration-delete-items.svg"
-import editItem from "../../images/SVG/illustration-edit.svg"
+import addVariantIllustrationIllustration from "../../images/SVG/add-variant.svg"
+import createVariantGroupIllustrationIllustration from "../../images/SVG/create-variant-group.svg"
+import maximizeDrawerIllustration from "../../images/SVG/maximize-drawer.svg"
+import closeDrawerIllustration from "../../images/SVG/close-drawer.svg"
+import restoreDrawerIllustration from "../../images/SVG/restore-drawer.svg"
+import closeModalIllustration from "../../images/SVG/close-modal-and-cancel.svg"
+import dragFilesIllustration from "../../images/SVG/drag-files.svg"
+import backToSpreadsheetIllustration from "../../images/SVG/back-to-spreadsheet.svg"
+import singleProductSwitchToEditModeIllustration from "../../images/SVG/sitch-to-edit-mode.svg"
+import singleProductSwitchToReadModeIllustration from "../../images/SVG/switch-to-read-only.svg"
+import insertColumnIllustration from "../../images/SVG/illustration-insert.svg"
+import partNumberIllustration from "../../images/SVG/tooltip-part-number.svg"
+import productGroupsIllustration from "../../images/SVG/tooltip-product-groups.svg"
+import referenceImageIllustration from "../../images/SVG/tooltip-reference-image.svg"
+import classesIllustrationIllustration from "../../images/SVG/illustration-classes.svg"
+import clearSelectionIllustration from "../../images/SVG/illustration-clear-selection.svg"
+import deleteItemIllustration from "../../images/SVG/illustration-delete-items.svg"
+import deleteRowIllustration from "../../images/SVG/illustration-delete-rows.svg"
+import editItemIllustration from "../../images/SVG/illustration-edit.svg"
+import insertFromStagingIllustration from "../../images/SVG/illustration-insert-from-staging.svg"
+import continueWizardIllustration from "../../images/SVG/illustration-continue-next-step.svg"
+import goBackWizardIllustration from "../../images/SVG/illustration-wizard-go-back.svg"
+import productNamingIllustration from "../../images/SVG/illustration-product-name.svg"
+import clickDragGridCells from "../../images/SVG/illustration-click-drag-cells.svg"
+
+import tutBulkEdit from "../../images/SVG/illustration-bulk-edit.svg"
+import tutEditWithDrawer from "../../images/SVG/illustration-edit-with-drawer.svg"
+import tutFooter from "../../images/SVG/illustration-footer-menu.svg"
+
+
 
 interface iSTATE{
 
@@ -46,6 +58,12 @@ export class toolTipsLibrary {
     showSingleProduct : boolean = true;
     showCloseDrawer : number = 0;
     showMaximizeDrawer : number = 0;
+
+    gridIntroTutorial : number = 0;
+
+    gridDragTutorial : number = 0;
+    bulkEditTutorial : number = 0;
+
     mainNav(){
     return(<ToolTipContent
               header="Navigation"
@@ -81,10 +99,31 @@ export class toolTipsLibrary {
     footerDelete(){
         return(<ToolTipContent
             header="Delete Selected"
+            subHeader="Permanently destroy the product data in selected rows"
+            copy={(
+                <div>
+                    <img className="tooltip-illustration" src={deleteRowIllustration}/>
+                </div>
+            )}
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="icon-delete"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    deleteItem(){
+        return(<ToolTipContent
+            header="Delete Selected"
             subHeader="Permanently destroy the selected product data"
             copy={(
                 <div>
-                    <img className="tooltip-illustration" src={deleteItem}/>
+                    <img className="tooltip-illustration" src={deleteItemIllustration}/>
                 </div>
             )}
             tooltipType="deluxe"
@@ -105,7 +144,7 @@ export class toolTipsLibrary {
             subHeader="Switch to cell-editing mode"
             copy={(
                 <div>
-                    <img className="tooltip-illustration" src={editItem}/>
+                    <img className="tooltip-illustration" src={editItemIllustration}/>
                 </div>
             )}
             tooltipType="deluxe"
@@ -126,7 +165,7 @@ export class toolTipsLibrary {
             subHeader="Create a new product and add it to the selected product's group"
             copy={(
                 <div>
-                    <img className="tooltip-illustration" src={addVariantIllustration}/>
+                    <img className="tooltip-illustration" src={addVariantIllustrationIllustration}/>
                 </div>
             )}
             tooltipType="deluxe"
@@ -147,13 +186,13 @@ export class toolTipsLibrary {
             subHeader="Create a new product variants group from the selected items."
             copy={(
                 <div>
-                    <img className="tooltip-illustration" src={createVariantGroupIllustration}/>
+                    <img className="tooltip-illustration" src={createVariantGroupIllustrationIllustration}/>
                 </div>
             )}
             tooltipType="deluxe"
             icon={
                 <CatmanIcon
-                    iconName="icon-add"
+                    iconName="info-icon-product-group"
                     classes=""
                     height="1.5rem"
                     width="1.5rem"
@@ -262,7 +301,7 @@ export class toolTipsLibrary {
                     subHeader="Close edit drawer and clear cell selection set"
                     copy={(
                         <div>
-                            <img className="tooltip-illustration" src={closeDrawer}/>
+                            <img className="tooltip-illustration" src={closeDrawerIllustration}/>
                         </div>
                     )}
                     tooltipType="deluxe"
@@ -305,7 +344,7 @@ export class toolTipsLibrary {
                     subHeader="Close this window, you'll lose any work you've done in the window."
                     copy={(
                         <div>
-                            <img className="tooltip-illustration" src={closeModal}/>
+                            <img className="tooltip-illustration" src={closeModalIllustration}/>
                         </div>
                     )}
                     tooltipType="deluxe"
@@ -347,7 +386,7 @@ export class toolTipsLibrary {
                 subHeader="Restore drawer so the grid is in view again."
                 copy={(
                     <div>
-                        <img className="tooltip-illustration" src={restoreDrawer}/>
+                        <img className="tooltip-illustration" src={restoreDrawerIllustration}/>
                     </div>
                 )}
                 tooltipType="deluxe"
@@ -370,7 +409,7 @@ export class toolTipsLibrary {
                 subHeader="Expand the edit area"
                 copy={(
                     <div>
-                        <img className="tooltip-illustration" src={maximizeDrawer}/>
+                        <img className="tooltip-illustration" src={maximizeDrawerIllustration}/>
                     </div>
                 )}
                 tooltipType="deluxe"
@@ -456,7 +495,7 @@ export class toolTipsLibrary {
             subHeader="Drag files from your computer's folder onto this to upload them, or click to browse your computer."
             copy={
                     <div>
-                        <img className="tooltip-illustration" src={dragFiles}/>
+                        <img className="tooltip-illustration" src={dragFilesIllustration}/>
                     </div>
                 }
             tooltipType="deluxe"
@@ -477,7 +516,7 @@ export class toolTipsLibrary {
             subHeader="Any edits you made in the Single Product view will be saved"
             copy={
                 <div>
-                    <img className="tooltip-illustration" src={backToSpreadsheet}/>
+                    <img className="tooltip-illustration" src={backToSpreadsheetIllustration}/>
                 </div>
             }
             tooltipType="deluxe"
@@ -498,7 +537,7 @@ export class toolTipsLibrary {
             subHeader="this will turn this view into a web form style page with textboxes, dop-downs and such so you can edit this product's data"
             copy={
                 <div>
-                    <img className="tooltip-illustration" src={singleProductSwitchToEditMode}/>
+                    <img className="tooltip-illustration" src={singleProductSwitchToEditModeIllustration}/>
                 </div>
             }
             tooltipType="deluxe"
@@ -519,7 +558,7 @@ export class toolTipsLibrary {
             subHeader="this will turn off all the the web form text boxes, drop-downs and such so you can read this easier."
             copy={
                 <div>
-                    <img className="tooltip-illustration" src={singleProductSwitchToReadMode}/>
+                    <img className="tooltip-illustration" src={singleProductSwitchToReadModeIllustration}/>
                 </div>
             }
             tooltipType="deluxe"
@@ -540,7 +579,7 @@ export class toolTipsLibrary {
             subHeader="Insert a new attribute, this will make a new column."
             copy={
                 <div>
-                    <img className="tooltip-illustration" src={insertColumn}/>
+                    <img className="tooltip-illustration" src={insertColumnIllustration}/>
                 </div>
             }
             tooltipType="deluxe"
@@ -562,7 +601,7 @@ export class toolTipsLibrary {
                 subHeader="Unselect items & cancel current activity."
                 copy={
                     <div>
-                        <img className="tooltip-illustration" src={clearSelection}/>
+                        <img className="tooltip-illustration" src={clearSelectionIllustration}/>
                     </div>
                 }
                 tooltipType="deluxe"
@@ -576,6 +615,103 @@ export class toolTipsLibrary {
                 }
             />
         )
+    }
+
+    continueWizard(){
+        return(
+            <ToolTipContent
+                header="Continue To Next Step"
+                subHeader="We'll walk you through a few steps to help you a bit."
+                copy={
+                    <div>
+                        <img className="tooltip-illustration" src={continueWizardIllustration}/>
+                    </div>
+                }
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="clear"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />
+        )
+    }
+
+    goBackWizard(){
+        return(
+            <ToolTipContent
+                header="Go Back To Last Step"
+                subHeader="Whoops! Nevermind... let's go back a bit."
+                copy={
+                    <div>
+                        <img className="tooltip-illustration" src={goBackWizardIllustration}/>
+                    </div>
+                }
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="clear"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />
+        )
+    }
+
+    insertFromStagingArea(){
+        return(
+            <ToolTipContent
+                header="Insert Into Catalog"
+                subHeader="Insert these items into your catalog"
+                copy={
+                    <div>
+                        <img className="tooltip-illustration" src={insertFromStagingIllustration}/>
+                    </div>
+                }
+                tooltipType="deluxe"
+                icon={
+                    <CatmanIcon
+                        iconName="clear"
+                        classes=""
+                        height="1.5rem"
+                        width="1.5rem"
+                    />
+                }
+            />
+        )
+    }
+
+    clickDragGrid(){
+        if(this.gridDragTutorial <= 2 ){
+            return(
+                <ToolTipContent
+                    header=""
+                    subHeader="Click & drag to select & edit multiple cells"
+                    mainClasses="embedded-tip"
+                    copy={
+                        <div>
+                            <img className="tooltip-illustration" src={clickDragGridCells}/>
+                        </div>
+                    }
+                    tooltipType="deluxe"
+
+                />
+            )
+        }else if(this.gridDragTutorial > 2 && this.gridDragTutorial < 5){
+            return(
+                <ToolTipContent
+                    header=""
+                    subHeader="Click & drag to select & edit multiple cells"
+                    mainClasses="embedded-tip"
+                    tooltipType="deluxe"
+                />
+            )
+        }
     }
 
     imageThumbnailPreview(imagePath : string){
@@ -601,13 +737,13 @@ export class toolTipsLibrary {
                         subHeader="This is just to help you identify the product visually while you're working"
                         copy={
                             <div>
-                                <img className="tooltip-illustration" src={referenceImage}/>
+                                <img className="tooltip-illustration" src={referenceImageIllustration}/>
                             </div>
                         }
                         tooltipType="deluxe"
                         icon={
                             <CatmanIcon
-                                iconName="icon-add-invert"
+                                iconName="info-icon-image"
                                 classes=""
                                 height="1.5rem"
                                 width="1.5rem"
@@ -623,13 +759,13 @@ export class toolTipsLibrary {
                         subHeader="Must be unique, ideally you would use your existing descriptive part number"
                         copy={
                             <div>
-                                <img className="tooltip-illustration" src={partNumber}/>
+                                <img className="tooltip-illustration" src={partNumberIllustration}/>
                             </div>
                         }
                         tooltipType="deluxe"
                         icon={
                             <CatmanIcon
-                                iconName="icon-add-invert"
+                                iconName="info-icon-part-number"
                                 classes=""
                                 height="1.5rem"
                                 width="1.5rem"
@@ -645,13 +781,13 @@ export class toolTipsLibrary {
                         subHeader="To group products give items that have a relationship the same product name"
                         copy={
                             <div>
-                                <img className="tooltip-illustration" src={productGroups}/>
+                                <img className="tooltip-illustration" src={productGroupsIllustration}/>
                             </div>
                         }
                         tooltipType="deluxe"
                         icon={
                             <CatmanIcon
-                                iconName="icon-add-invert"
+                                iconName="info-icon-product-group"
                                 classes=""
                                 height="1.5rem"
                                 width="1.5rem"
@@ -667,13 +803,13 @@ export class toolTipsLibrary {
                         subHeader="Give each item a friendly human-readable name, this may or may not be used by Wayfair in the white-labeling process"
                         copy={
                             <div>
-                                <img className="tooltip-illustration" src={productGroups}/>
+                                <img className="tooltip-illustration" src={productNamingIllustration}/>
                             </div>
                         }
                         tooltipType="deluxe"
                         icon={
                             <CatmanIcon
-                                iconName="icon-add-invert"
+                                iconName="info-icon-product-name"
                                 classes=""
                                 height="1.5rem"
                                 width="1.5rem"
@@ -689,7 +825,7 @@ export class toolTipsLibrary {
                         subHeader="The Product Class is the species of product, by selecting a class you will define a set of attributes/column heads to describe that product"
                         copy={
                             <div>
-                                <img className="tooltip-illustration" src={classesIllustration}/>
+                                <img className="tooltip-illustration" src={classesIllustrationIllustration}/>
                             </div>
                         }
                         tooltipType="deluxe"
@@ -722,10 +858,69 @@ export class toolTipsLibrary {
             />
         );
     }
+
+    mediaRelatedTooltips(tipName : string){
+        switch(tipName){
+            case "media-details":
+                return(
+                    <ToolTipContent
+                        header="Media Details"
+                        subHeader="See all of the detailed information about this piece of media"
+                        copy={
+                            <div>
+                                <img className="tooltip-illustration" src={referenceImageIllustration}/>
+                                <div>
+                                    <ul>
+                                        <li>File information</li>
+                                        <li>Manage associated products</li>
+                                        <li>Manage media tags</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        tooltipType="deluxe"
+                        icon={
+                            <CatmanIcon
+                                iconName="info-icon-image"
+                                classes=""
+                                height="1.5rem"
+                                width="1.5rem"
+                            />
+                        }
+                    />
+                )
+        }
+
+        return (<></>);
+    }
+
+    tutorialEditGrid(){
+        if(this.gridDragTutorial < 1){
+            return(
+                <ToolTipContent
+                    header="You Can Edit Right in This Grid!"
+                    subHeader="This grid is editable, click in to try it (don't worry you can undo/redo)"
+                    copy={
+                        <div className="tutorial-group">
+                            <img className="tooltip-illustration" src={goBackWizardIllustration}/>
+                            <img className="tooltip-illustration" src={goBackWizardIllustration}/>
+                            <img className="tooltip-illustration" src={goBackWizardIllustration}/>
+                        </div>
+                    }
+                    tooltipType="deluxe"
+                    icon={
+                        <CatmanIcon
+                            iconName="clear"
+                            classes=""
+                            height="1.5rem"
+                            width="1.5rem"
+                        />
+                    }
+                />
+            )
+        }
+    }
 };
-
-
-
 
 
 export let toolTipContent = new toolTipsLibrary();

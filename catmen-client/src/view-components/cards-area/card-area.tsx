@@ -5,6 +5,7 @@ import {ReactElement} from "react";
 
 interface iPROPS{
     cards : ReactElement;
+    containerClasses?:string;
 }
 
 interface iSTATE{
@@ -18,7 +19,7 @@ export class CardArea extends React.Component<iPROPS, iSTATE>{
 
     getCardArea(){
         return (
-            <div className="card-area">
+            <div className={`card-area ${this.props.containerClasses}`}>
                 {this.props.cards}
             </div>
         )

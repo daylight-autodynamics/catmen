@@ -10,6 +10,7 @@ interface iPROPS{
     cardType : "media" | "product";
     mediaData? : mediaObject[];
     getDetailsFunctions? : Function;
+    actionToolTip : ReactElement;
 }
 
 interface iSTATE{
@@ -29,8 +30,6 @@ export class Card extends React.Component<iPROPS, iSTATE>{
             this.props.getDetailsFunctions(mediaIndex);
         }
     }
-
-
 
     getCard( cardTitle : string,
              thumbImageUrl : string,
@@ -52,7 +51,7 @@ export class Card extends React.Component<iPROPS, iSTATE>{
                                     OnClick={()=>{}}
                                     buttonType="transparent-bg"
                                     tooltipType="custom"
-                                    tooltip={toolTipContent.selectRow()}
+                                    tooltip={this.props.actionToolTip}
                                     classes={` `}
                                     iconCenter={(
                                         <CatmanIcon
@@ -83,7 +82,7 @@ export class Card extends React.Component<iPROPS, iSTATE>{
                                 OnClick={()=>this.manageDetails(index)}
                                 buttonType="transparent-bg"
                                 tooltipType="custom"
-                                tooltip={toolTipContent.selectRow()}
+                                tooltip={this.props.actionToolTip}
                                 classes={` `}
                                 iconCenter={(
                                     <CatmanIcon

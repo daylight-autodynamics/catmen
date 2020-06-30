@@ -26,7 +26,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
         super(props);
         this.state = {
             editMode : false
-        }
+        };
         this.productData = this.singleProductData(this.props.uniqueID);
     }
     productData : iDataGridItem[];
@@ -105,6 +105,7 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
                     </div>
 
                     <div className="product-card">
+
                         <h3>Weight & Dimensions</h3>
                         <div className="data-container">
                             <div className="data-section-readonly">
@@ -124,6 +125,25 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
                                 <div className={"data-value"}>5''</div>
                             </div>
                         </div>
+                        <AppButton
+                            classes={"hi-contrast primary"}
+                            buttonType={"secondary-action"}
+                            buttonLabel="edit"
+                            OnClick={()=>this.manageEditMode()}
+                            tooltipType="custom"
+                            tooltip={toolTipContent.singleProductSwitchToEditMode()}
+                            toolTipTimeOutInMS={10000}
+                            tooltipXOffset={0}
+                            tooltipYOffset={20}
+                            iconLeft={
+                                <CatmanIcon
+                                    iconName={`icon-edit`}
+                                    classes=" "
+                                    height="100%"
+                                    width="100%"
+                                />
+                            }
+                        />
                     </div>
 
                     <div className="product-card">
@@ -158,6 +178,27 @@ export class CatalogSingleProduct extends React.Component<iPROPS, iSTATE>{
                                 <div className={"data-value"}>Imitation Velvet</div>
                             </div>
                         </div>
+                        <footer>
+                            <AppButton
+                                classes={"hi-contrast primary"}
+                                buttonType={"secondary-action"}
+                                buttonLabel="edit"
+                                OnClick={()=>this.manageEditMode()}
+                                tooltipType="custom"
+                                tooltip={toolTipContent.singleProductSwitchToEditMode()}
+                                toolTipTimeOutInMS={10000}
+                                tooltipXOffset={0}
+                                tooltipYOffset={20}
+                                iconLeft={
+                                    <CatmanIcon
+                                        iconName={`icon-edit`}
+                                        classes=" "
+                                        height="100%"
+                                        width="100%"
+                                    />
+                                }
+                            />
+                        </footer>
                     </div>
 
                     <div className="product-card">

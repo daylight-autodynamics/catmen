@@ -48,26 +48,130 @@
   }
 }
 
-  .icon-continue{
-    .stroked{
-      stroke: white;
-      stroke-width: 2;
-    }
-    .no-fill{
-      fill: none;
-    }
-    .filled{
-      fill:$Core_80
-    }
+.icon-continue{
+  .stroked{
+    stroke: white;
+    stroke-width: 2;
+  }
+  .no-fill{
+    fill: none;
+  }
+  .filled{
+    fill:$Core_80
+  }
+}
+
+svg{
+  overflow: visible;
+}
+
+//ICON PRODUCT NAME
+  .erer-st0{fill:#070707;}
+  .eeee-st1{fill:#FFFFFF;}
+  .sss-st2{fill:#EFEFEF;stroke:#8E9094;stroke-width:1.0267;stroke-miterlimit:10;}
+  .eeee-st3{fill:#8E9094;}
+  .dd-st4{fill:#E5DA9A;stroke:#515151;stroke-width:1.0267;stroke-miterlimit:10;}
+  .dd-st5{fill:#B47CBF;}
+  .dd-st6{fill:#835D8C;}
+  .dd-st7{fill:#E7CE17;}
+  .dd-st8{fill:none;stroke:#515151;stroke-width:0.8737;stroke-miterlimit:10;}
+  .dd-st9{fill:#2D2D2D;}
+  .dd-st10{fill:#838589;}
+  .dd-st11{fill:#515151;}
+
+.info-icon-product-name{
+  .filled-bg{
+    fill:#070707;
+  }
+  .filled{
+    fill:#FFFFFF;
+  }
+  .filled-secondary{
+    fill:#EFEFEF;
+  }
+  .filled-contrast{
+    fill:#8E9094;
+  }
+  .filled-bright{
+    fill:#E5DA9A;
+  }
+  .filled-dark{
+    fill:#2D2D2D;
+  }
+  .filled-saturated{
+    fill:#E7CE17;
+  }
+  .stroked-secondary{
+    stroke:#515151;
+    stroke-width:1.0267;
+    stroke-miterlimit:10;
+  }
+  .stroked{
+    stroke:#8E9094;
+    stroke-width:1.0267;
+    stroke-miterlimit:10;
+  }
+  .brand-light{
+    fill:#B47CBF;
+  }
+  .brand-dark{
+    fill:#835D8C;
+  }
+  .no-fill{
+    fill: none;
   }
 
+
+}
 
 .icon-restore-btn{
   .stroked{fill:none;stroke:#3D3D3D;stroke-miterlimit:10;}
   .filled{fill:#3D3D3D;}
 }
 
-  // icon read mode
+//icon help "?"
+  .info-icon-help{
+    .bg-fill{
+      fill:#070707;
+    }
+    .filled{
+      fill:#BBDCB0;
+    }
+  }
+
+
+  .dd-st0{fill:#070707;}
+  .dd-st1{fill:#D6DD45;}
+  .dd-st2{fill:#D2EACA;}
+  .dd-st3{fill:#B47CBF;}
+  .dd-st4{fill:#F4DF60;}
+  .dd-st5{fill:#FFFFFF;}
+
+// product group info icon
+  .info-icon-product-group{
+    .filled-bg{
+      fill:#070707;
+    }
+    .filled-highlight{
+      fill: white;
+    }
+    .brand-1{
+      fill:#D6DD45;
+    }
+    .brand-2{
+      fill:#D2EACA;
+    }
+    .brand-3{
+      fill:#B47CBF;
+    }
+    .brand-4{
+      fill:#F4DF60;
+    }
+  }
+
+
+
+// icon read mode
 .icon-plus{
   .filled{
     fill: $Core_60;

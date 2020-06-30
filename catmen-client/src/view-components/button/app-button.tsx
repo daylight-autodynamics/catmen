@@ -84,7 +84,6 @@ constructor(props:iPROPS) {
     };
 
     doHoverOutActions(){
-
         this.doHoverClear();
         if(this.props.hoverLeaveActions != undefined && this.props.hoverLeaveActions != null){
             for(let i=0; i < this.props.hoverLeaveActions.length; i++){
@@ -209,8 +208,12 @@ constructor(props:iPROPS) {
                             onMouseOut={()=>this.doHoverOutActions()}
                             className={`btn-transparent-bg ${this.props.classes}`}
                         >
-                            {this.props.buttonLabel}
-                            {this.props.iconCenter}
+                            <div className="hover-panel"></div>
+                            <div className="button-decorator">
+                                <div className="icon-left">{this.props.iconLeft}</div>
+                                <div className="btn-label">{this.props.buttonLabel}{this.props.iconCenter}</div>
+                                <div className="icon-right">{this.props.iconRight}</div>
+                            </div>
                         </button>
                     </>
                 );

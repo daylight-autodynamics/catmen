@@ -58,11 +58,13 @@ export class MediaLibraryView extends React.Component<iPROPS, iSTATE>{
     getCardArea() {
         if (this.state.mediaDetailsOpen === false) {
             return (<CardArea
+                containerClasses="catman-media-cards"
                 cards={
                     <Card
                         cardType="media"
                         mediaData={dataManagerMain.getMediaData()}
                         getDetailsFunctions={this.manageMediaDetailsPage}
+                        actionToolTip={toolTipContent.mediaRelatedTooltips("media-details")}
                     />
                 }
             />)

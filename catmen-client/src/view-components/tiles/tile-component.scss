@@ -25,13 +25,23 @@
   pointer-events: none;
 }
 
+@keyframes active-entrance {
+  from {top : 12px}
+  to {top:0}
+}
+
 .grid-header{
   .column-header-btn{
     border: none;
     padding: 0;
+    background-color: transparent;
+    z-index: 100;
     .btn-descriptors{
       .cm-icon{
         margin: 0 0.25rem 0.1rem;
+        .column-carat{
+          margin-top: 0.25rem;
+        }
         &:first-child{
           margin: 0;
         }
@@ -43,6 +53,33 @@
     display: flex;
     padding: 0.25rem 0.75rem;
     background-color: white;
+    .active-indicator{
+      background-color: purple;
+      color: white;
+      padding: 0.25rem;
+      position: absolute;
+      width: 100%;
+      right: 0;
+      left: 0;
+      top: 0px;
+      bottom: 0px;
+      z-index: 0;
+      border-radius: 0.5rem 0.5rem 0 0;
+      box-sizing: border-box;
+      animation-name: active-entrance;
+      animation-duration: 750ms;
+      animation-timing-function: ease-out;
+    }
+    &.active-col{
+       .column-header-btn{
+          color:white;
+         .column-carat{
+           .filled{
+             fill:white;
+           }
+         }
+       }
+    }
   }
   .column-carat{
     align-self: center;

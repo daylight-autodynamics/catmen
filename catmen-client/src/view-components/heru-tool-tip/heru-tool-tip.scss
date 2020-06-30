@@ -14,6 +14,22 @@
   overflow: hidden;
 
   &.deluxe{
+    .title-area{
+      margin: 0;
+      color: white;
+      p{
+        font-size: 0.75rem;
+        line-height: 0.8rem;
+      }
+    }
+    &.embedded-tip{
+      width: 10rem;
+      height: auto;
+      .tooltip-illustration{
+        height: 4rem;
+        padding-top: 0;
+      }
+    }
     &.media{
       width: auto !important;
       padding: 0 !important;
@@ -21,6 +37,7 @@
       backdrop-filter: none !important;
       border: 1px solid $black_70;
     }
+
     .tooltip-illustration{
       height: 6rem;
       width: 100%;
@@ -65,8 +82,39 @@
     }
   }
 }
+.st0{fill:#070707;}
+.st1{fill:#FFFFFF;stroke:#7C7C7C;stroke-width:0.8905;stroke-miterlimit:10;}
+.st2{fill:#7C7C7C;}
 
+.info-icon-image{
+  .filled-bg{
+    fill:#070707;
+  }
+  .filled{
+    fill:#FFFFFF;
+    stroke:#7C7C7C;
+    stroke-width:0.8905;
+    stroke-miterlimit:10;
+  }
+  .filled-highlight{
+    fill:#7C7C7C
+  }
+}
 
+.info-icon-part-number{
+  .filled-bg{
+    fill:#070707;
+  }
+  .filled{
+    fill:#FFFFFF;
+    stroke:#534741;
+    stroke-width:0.4753;
+    stroke-miterlimit:10;
+  }
+  .filled-highlight{
+    fill:#534741;
+  }
+}
 
 .frosted-bg{
   @include blurred-bg-dark-40;
@@ -82,3 +130,4 @@
 .fade-4{  opacity: .2; z-index: 11000;}
 .fade-41{  opacity: .1; z-index: 11000;}
 .fade-5{  opacity: 0; z-index: 11000;}
+

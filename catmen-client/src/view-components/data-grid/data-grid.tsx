@@ -10,6 +10,9 @@ import {appColumns, iColumn} from "../../_sample-data/columns";
 import {DataManager} from "../../data-components/data-manager/data-manager";
 import classesIllustration from "../../images/SVG/illustration-classes.svg";
 import {ToolTipContent} from "../heru-tool-tip/tool-tip-content";
+import ReactDOM from "react-dom";
+import {win} from "../../index";
+import {focusInputType} from "../../views/catalog-views/catalog-details/catalog-details-view";
 
 //data grid data should be an array of arrays
 //each product is an array of attributes
@@ -20,6 +23,7 @@ interface iPROPS {
     columnsData : iColumn[];
     classes? : string;
     addAction : Function;
+    focusedItem? : focusInputType;
 }
 
 interface iSTATE {
@@ -27,6 +31,11 @@ interface iSTATE {
     checkedRows :number[];
     workingDataSet : iDataGridItem[][];
     hoveredRow : string;
+    mouseIsDown : boolean;
+    mouseX : number;
+    mouseY : number;
+    initialMouseX : number;
+    initialMouseY : number;
 }
 
 export type selectionObject = {
@@ -43,7 +52,12 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             workingDataSet : this.props.data,
             selectionSet : [],
             checkedRows : [],
-            hoveredRow : ""
+            hoveredRow : "",
+            mouseIsDown : false,
+            mouseX : 0,
+            mouseY : 0,
+            initialMouseX : 0,
+            initialMouseY : 0
         };
         this.startSelectionRow = 0;
         this.startSelectionCell = 0;
@@ -64,6 +78,14 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     numRows: number;
     startSelectionRow : number;
     startSelectionCell : number;
+
+    //used root for portals for overlays
+    root = ()=>{
+        let root : any | HTMLElement = document.getElementById("root");
+        if(root != null){
+            return root;
+        }
+    };
 
     cellRange : any;
     _checkedRows : number[] = [];
@@ -220,20 +242,25 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     mouseDownAction(row : number, cell:number){
         this.startSelectionCell = cell;
         this.startSelectionRow = row;
+        this.setState({
+            mouseIsDown : true,
+            initialMouseX : win.mousePos.x,
+            initialMouseY : win.mousePos.y
+        });
     }
 
     mouseUpAction(row:number, cell:number, columnName : string){
-
-        //console.log("@@@check", row, " ", cell, " ", columnName);
+        this.setState({mouseIsDown : false});
         this.manageSelection(row, cell, columnName, true);
         console.log("selection set: ", this.selectionSet);
+        this.manageAppCues();
     }
+
 
     hoverRowAction(row:number){
         this.setState({hoveredRow : row.toString()});
-
     }
-    moueOutRowAction(){
+    mouseOutRowAction(){
         this.setState({hoveredRow : ""});
     }
 
@@ -289,17 +316,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
         console.log("switch to edit mode");
 
-        // for(let i=0; i < this._checkedRows.length; i++){
-        //     for(let j=0; j < this.state.workingDataSet[this._checkedRows[i]].length; j++ ){
-        //         let selectedCell : selectionObject = {
-        //             row : this._checkedRows[i]+2,
-        //             cell : j+2,
-        //             selected : true,
-        //             columnName : this.props.columnsData[j].columnName
-        //         };
-        //         this.selectionSet.push(selectedCell);
-        //     }
-        // }
 
         this._checkedRows = [];
         this.setState({
@@ -312,7 +328,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
     }
 
-    iconCheck = (row : number):string=>{
+    iconForCheckBox = (row : number):string=>{
         for(let i=0; i < this.state.checkedRows.length; i++){
             if(row === this.state.checkedRows[i]){
                 return "checkbox-checked"
@@ -339,10 +355,10 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                                 buttonType="transparent-bg"
                                 tooltipType="custom"
                                 tooltip={toolTipContent.selectRow()}
-                                classes={`${this.iconCheck(i)}`}
+                                classes={`${this.iconForCheckBox(i)}`}
                                 iconCenter={(
                                     <CatmanIcon
-                                        iconName={`${this.iconCheck(i)}`}
+                                        iconName={`${this.iconForCheckBox(i)}`}
                                         width="100%"
                                         height="100%"
                                     />
@@ -363,8 +379,9 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                         <Tile
                             tileType={this.props.columnsData[j].control}
                             tileLabel={this.state.workingDataSet[i][j].value}
+                            action={() => this.clickCellsActions()}
                             hoverActions={[()=>this.hoverRowAction(i+2)]}
-                            mouseOutActions={[()=>this.moueOutRowAction()]}
+                            mouseOutActions={[()=>this.mouseOutRowAction()]}
                             mouseDownActions={
                                 [() => this.mouseDownAction(i+2,j+2)]
                             }
@@ -418,9 +435,34 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         return cells;
     }
 
+    columnHeadTooltip = (tooltiptype : "custom" | "basic", tooltip:ReactElement | string, header:string)=>{
+
+        switch (tooltiptype) {
+            case "basic":
+                return(<ToolTipContent
+                    header={header}
+                    copy={ tooltip }
+                    tooltipType="deluxe"
+                    icon={
+                        <CatmanIcon
+                            iconName="info-icon-help"
+                            classes=""
+                            height="1.5rem"
+                            width="1.5rem"
+                        />
+                    }
+                />);
+            case "custom":
+                return tooltip;
+        }
+
+        return (<></>)
+    };
+
     getColumnHeaders(){
         let columnsHeads : ReactElement[] = [];
 
+        //Header checkbox for "select all"
         for(let i=0; i < this.props.columnsData.length; i++ ){
             if(i === 0){
                 columnsHeads.push(
@@ -433,7 +475,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                             classes={` `}
                             iconCenter={(
                                 <CatmanIcon
-                                    iconName={`${this.iconCheck(i)}`}
+                                    iconName={`${this.iconForCheckBox(i)}`}
                                     width="0.5rem"
                                     height="100%"
                                 />
@@ -443,40 +485,27 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 )
             }
 
-          const columnHeadTooltip = (tooltiptype : "custom" | "basic", tooltip:ReactElement | string, header:string)=>{
+            //Handling the something-in-column selected visual indicator
+            const columnActiveCheck = ()=>{
+                if(this.props.focusedItem?.cell === (i+2) && this.props.focusedItem.editDrawerOpen === true){
+                    return {tileType:"header-active", cellClass:"active"};
+                }else{
+                    return {tileType:"column-header", cellClass:""};
+                }
+            };
 
-              switch (tooltiptype) {
-                  case "basic":
-                      return(<ToolTipContent
-                          header={header}
-                          copy={ tooltip }
-                          tooltipType="deluxe"
-                          icon={
-                              <CatmanIcon
-                                  iconName="icon-add-invert"
-                                  classes=""
-                                  height="1.5rem"
-                                  width="1.5rem"
-                              />
-                          }
-                      />);
-                  case "custom":
-                      return this.props.columnsData[i].toolTip;
-              }
-
-              return (<></>)
-          };
 
             let columnHead = (
-                <div className="cell grid-header" style={{gridColumn : i+2, gridRow : 1, zIndex: this.numRows+100+i  }}>
+                <div className={`cell grid-header ${columnActiveCheck().cellClass}`} style={{gridColumn : i+2, gridRow : 1, zIndex: this.numRows+100+i  }}>
                     <Tile
-                        tileType="column-header"
+                        tileType={columnActiveCheck().tileType}
                         tileLabel={this.props.columnsData[i].columnLabel}
-                        toolTip={ columnHeadTooltip(
+                        toolTip={ this.columnHeadTooltip(
                             this.props.columnsData[i].tooltipType,
                             this.props.columnsData[i].toolTip,
                             this.props.columnsData[i].columnLabel
                         )}
+                        toolTipTimeOut={30000}
                         mouseDownActions={
                             [ ]
                         }
@@ -493,7 +522,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             if(this.props.columnsData[i].control != "hidden"){
                 columnsHeads.push(columnHead);
             }
-
 
             //final column head action
             if(i === this.props.columnsData.length-1){
@@ -525,13 +553,26 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     </div>
                 )
             }
+
+
+            //create the selected overlay
+            if(this.props.focusedItem?.cell === (i+2) && this.props.focusedItem.editDrawerOpen === true){
+                           let selectedIndicator = (
+                               <div className="cell selected-indicator" style={{gridColumn : i+2, gridRowStart : this.cellRange.startRow, gridRowEnd:this.cellRange.endRow+1 }}>
+
+                               </div>
+                           );
+                columnsHeads.push(selectedIndicator)
+            }
         }
 
         return( columnsHeads );
     }
 
+    //HOVER ROW STYLE
     gridStyles(){
-
+        //This let's us have a hover row effect with css grid
+        //This way we don't have to put containers around each row just for visual cue
             let style = `
             .row-${this.state.hoveredRow} {
                 background-color: #f4f4f5;                
@@ -551,21 +592,97 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         return <style dangerouslySetInnerHTML={{ __html: `${style}` }} />
     }
 
+    clickCellsActions(){
+        this.setState({mouseIsDown : false})
+    }
+
+    //DRAG AREA - create bounding box while dragging
+    getDragArea(){
+        //Only run if mouse is down
+        if(this.state.mouseIsDown === true){
+            let calcStyles =()=> {
+                //calculate where the drag area will draw
+                let coordinates = {
+                    top : this.state.initialMouseY,
+                    bottom : win.windowSize().height - this.state.mouseY,
+                    left : this.state.initialMouseX,
+                    right: win.windowSize().width - this.state.mouseX
+                };
+
+                if(this.state.initialMouseY <=  this.state.mouseY ){
+                    coordinates.top = this.state.initialMouseY;
+                    coordinates.bottom = win.windowSize().height - this.state.mouseY;
+                }else if(this.state.initialMouseY >= this.state.mouseY){
+                    coordinates.top = win.mousePos.y;
+                    coordinates.bottom = win.windowSize().height - this.state.initialMouseY;
+                }
+
+                if( this.state.mouseX >=  this.state.initialMouseX ){
+                    coordinates.left = this.state.initialMouseX;
+                    coordinates.right = win.windowSize().width - this.state.mouseX;
+                }else if( this.state.mouseY >= this.state.initialMouseY){
+                    coordinates.left = win.mousePos.x;
+                    coordinates.right = win.windowSize().width - this.state.initialMouseX;
+                }
+
+                if( this.state.mouseX <=  this.state.initialMouseX && this.state.initialMouseY >=  this.state.mouseY ){
+                    coordinates.left = this.state.mouseX;
+                    coordinates.right = win.windowSize().width - this.state.initialMouseX;
+                }
+                return coordinates;
+            };
+            let dragArea = (
+                <div
+                    className="drag-area"
+                    style={ calcStyles() }
+                >
+                    <div className="drag-inner-container">
+                        <div className="tool-tip">
+                            {toolTipContent.clickDragGrid()}
+                        </div>
+                    </div>
+                </div>
+            );
+            return ReactDOM.createPortal(dragArea, this.root());
+        }
+    }
+
+    //Mouse move, this is used for defining the drag area rectangle but could be used for other stuff
+    mouseMoveActions(){
+        this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
+    }
+
+    //APP CUES aka Super tooltips
+    manageAppCues(){
+        console.log("selection set length", this.selectionSet);
+
+        if(this.selectionSet.length > 1){
+            toolTipContent.gridDragTutorial++;
+        }
+        console.log("grid tut ", toolTipContent.gridDragTutorial);
+    }
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
         let columnHeaders : ReactElement[] = this.getColumnHeaders();
 
-        //having some trouble with layout of grid and checkboxes
-        // style={{gridTemplateColumns : `1.5rem repeat(${this.getNumColumns().toString()}, max-content) 1rem`}}
+        let testTooltip : ReactElement = (
+            <div className="tool-tip" style={{height : "344px"}}>
+                {toolTipContent.clickDragGrid()}
+            </div>
+        );
+
         let constructedGrid : ReactElement = (
             <>
                 <div className={`data-grid ${this.props.classes}`}>
                     {this.gridStyles()}
-                    <div className="viewport">
+                    <div className="viewport" onMouseMove={()=>this.mouseMoveActions()}>
                         {columnHeaders}
                         {this.getGridItems()}
                     </div>
                 </div>
+                {this.getDragArea()}
+
             </>
         );
 

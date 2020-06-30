@@ -102,8 +102,6 @@ export class DataManager implements iDataManager{
                 tooltipType : "basic",
                 toolTip : ""
             },
-
-
             {
                 validationAction : [],
                 columnName : "OverallDepth",

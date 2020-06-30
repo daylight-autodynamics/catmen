@@ -35,6 +35,8 @@ interface iPROPS   {
 }
 
 export type modalStateType = "closed" | "add-to-product-group" | "create-product-group" | "delete-confirmation";
+//TODO need to make these types into a definitions file
+export type focusInputType = { row : number, cell : number, editDrawerOpen : boolean};
 
 interface iSTATE{
     productViewOpen : boolean;
@@ -46,7 +48,10 @@ interface iSTATE{
     selectionSet : selectionObject[];
     workingData : iDataGridItem[][];
     columnsData : iColumn[];
+    focusedInput : focusInputType;
 }
+
+
 
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
@@ -61,7 +66,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
              footerOpen : false,
              footerMode : "default",
              selectionSet : [],
-             modalState : "closed"
+             modalState : "closed",
+             focusedInput : { row:0, cell:0, editDrawerOpen : false}
          };
 
          this.workingDataSet = this.props.gridData.getData;
@@ -149,6 +155,13 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          console.log( "working data set:", this.state.workingData );
      };
 
+     inputFocusAction=(row : number, cell:number)=>{
+         console.log("row: ", row, " cell:", cell);
+         if(this.state.editDrawerOpen === true){
+             this.setState({focusedInput : { row : row, cell : cell, editDrawerOpen: this.state.editDrawerOpen}})
+         }
+     };
+
      getEditDrawer():ReactElement{
 
          if(this.state.editDrawerOpen === false){
@@ -185,6 +198,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      label={this.getColumnLabel( selectedItems[i].columnName )}
                      currentValue={ selectedItems[i].value}
                      onChangeAction={this.updateValues}
+                     onFocusAction={this.inputFocusAction}
                  />
              );
              inputs.push(input)
@@ -289,7 +303,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      closeEditDrawer(){
          this.setState({
              editDrawerOpen : false,
-             editDrawerMaximized : false
+             editDrawerMaximized : false,
+             focusedInput : {row:0, cell:0, editDrawerOpen:false}
          });
          if(this.dataGridRef.current != null && this.dataGridRef.current != undefined){
              this.dataGridRef.current.clearSelection();
@@ -655,6 +670,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      columnsData={this.state.columnsData}
                      classes={this.conditionClasses()}
                      addAction={this.addAction}
+                     focusedItem={this.state.focusedInput}
                  />
                  {this.getEditDrawer() }
                  {this.getFooterMenu() }
