@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f1e1058a35eec9533b7cc05f19fada82",
+    "revision": "b85f4d72825da85d262de9d653d429d1",
     "url": "/index.html"
   },
   {
-    "revision": "518004fd9f1caf5b4c1b",
-    "url": "/static/css/main.96339082.chunk.css"
+    "revision": "c849cb78b72b2c50a06c",
+    "url": "/static/css/main.16a1a67b.chunk.css"
   },
   {
-    "revision": "81c889df36413f63cf71",
-    "url": "/static/js/2.35ba16f2.chunk.js"
+    "revision": "3bebcc3a0274a54a79ca",
+    "url": "/static/js/2.7257656d.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/static/js/2.35ba16f2.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.7257656d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "518004fd9f1caf5b4c1b",
-    "url": "/static/js/main.e2cc3c66.chunk.js"
+    "revision": "c849cb78b72b2c50a06c",
+    "url": "/static/js/main.f9e586c5.chunk.js"
   },
   {
     "revision": "b7941916ff57a98ff93a",
@@ -68,6 +68,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/illustration-attribute-mapping.64f3a2d7.svg"
   },
   {
+    "revision": "c39507d19034b1b052366f4ab0e4089a",
+    "url": "/static/media/illustration-bulk-edit.c39507d1.svg"
+  },
+  {
     "revision": "30eff23c1087e327b76edd6f78badced",
     "url": "/static/media/illustration-catalog.30eff23c.svg"
   },
@@ -80,8 +84,40 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/illustration-clear-selection.7fba6fa2.svg"
   },
   {
+    "revision": "c1a3fcf95c79105f299f4b98e541315e",
+    "url": "/static/media/illustration-click-drag-cells.c1a3fcf9.svg"
+  },
+  {
+    "revision": "14119e43436c8a9b80727f9c84ee759b",
+    "url": "/static/media/illustration-continue-next-step.14119e43.svg"
+  },
+  {
     "revision": "7c22e985dc4607b63f591cc599be3761",
     "url": "/static/media/illustration-create-attributes.7c22e985.svg"
+  },
+  {
+    "revision": "a64a51d251f20412eaaaa3d7b58ee6e6",
+    "url": "/static/media/illustration-delete-items.a64a51d2.svg"
+  },
+  {
+    "revision": "98c091c199d041262be1d4c8fc644bd9",
+    "url": "/static/media/illustration-delete-rows.98c091c1.svg"
+  },
+  {
+    "revision": "caff5afcb59fa465a06f87fc89021c8a",
+    "url": "/static/media/illustration-edit-with-drawer.caff5afc.svg"
+  },
+  {
+    "revision": "233c34fe08a1acc5c54f526ec8598f02",
+    "url": "/static/media/illustration-edit.233c34fe.svg"
+  },
+  {
+    "revision": "30b0bc70c0e6c950d3b1611af5bbc894",
+    "url": "/static/media/illustration-footer-menu.30b0bc70.svg"
+  },
+  {
+    "revision": "b6421e77fc2c1888ace67b51bdf719a2",
+    "url": "/static/media/illustration-insert-from-staging.b6421e77.svg"
   },
   {
     "revision": "4c8794ac951c559aa53bd043b2da9706",
@@ -92,8 +128,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/illustration-media-library.453eef2f.svg"
   },
   {
+    "revision": "78378074d4b83d7f272d2763c6343800",
+    "url": "/static/media/illustration-product-name.78378074.svg"
+  },
+  {
     "revision": "9b6cb93b8cd5aed0ad5b7ab8e537b9b7",
     "url": "/static/media/illustration-start.9b6cb93b.svg"
+  },
+  {
+    "revision": "87d3abbc00a5ec2d022a22b921d1d1e5",
+    "url": "/static/media/illustration-wizard-go-back.87d3abbc.svg"
   },
   {
     "revision": "a847921838daa1b8fc6ee680535c8b82",
