@@ -398,7 +398,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     </div>
                 );
 
-
                 if( this.props.columnsData[j].control !== "hidden"){
                     cells.push(cell);
                 }

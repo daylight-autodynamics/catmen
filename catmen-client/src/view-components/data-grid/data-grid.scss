@@ -9,6 +9,7 @@
   }
   .viewport{
     display: inline-grid;
+    width: 100%;
     grid-auto-columns: minmax(max-content, 100%) max-content;
     .cell{
       font-size: 0.75rem;

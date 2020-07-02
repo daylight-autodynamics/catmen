@@ -417,8 +417,7 @@ YT-=H                        <path className="filled" d="M5.1,0.7c5.3-0.8,10.3,0
                         <polygon className="filled" points="13.9,11.1 11.8,6.3 9.4,9.5 7.8,7.8 5.1,11.1 "/>
                         <circle className="filled" cx="6.4" cy="6.2" r="1.1"/>
                         <path className="stroked st0" d="M1.9,10.2H1.4c-0.6,0-1.2-0.5-1.2-1.2V1.4c0-0.6,0.5-1.2,1.2-1.2h9.3c0.6,0,1.2,0.5,1.2,1.2V2"/>
-</svg>
-
+                    </svg>
                 );
             case "catalog":
                 return(
@@ -493,6 +492,50 @@ YT-=H                        <path className="filled" d="M5.1,0.7c5.3-0.8,10.3,0
 
                 )
 
+            case "icon-card-view":
+                return(
+                    <svg className={`${this.props.classes} icon-card-view`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 20.4 20.4" >
+	                    <g className="stroked">
+                            <path d="M4.4,1v3.4H1V1H4.4 M5.4,0H0v5.4h5.4V0L5.4,0z"/>
+                            <path d="M11.9,1v3.4H8.4V1H11.9 M12.9,0H7.4v5.4h5.4V0L12.9,0z"/>
+                            <path d="M19.4,1v3.4H16V1H19.4 M20.4,0H15v5.4h5.4V0L20.4,0z"/>
+                            <path d="M4.4,8.5v3.4H1V8.5H4.4 M5.4,7.5H0v5.4h5.4V7.5L5.4,7.5z"/>
+                            <path d="M11.9,8.5v3.4H8.4V8.5H11.9 M12.9,7.5H7.4v5.4h5.4V7.5L12.9,7.5z"/>
+                            <path d="M19.4,8.5v3.4H16V8.5H19.4 M20.4,7.5H15v5.4h5.4V7.5L20.4,7.5z"/>
+                            <path d="M4.4,16v3.4H1V16H4.4 M5.4,15H0v5.4h5.4V15L5.4,15z"/>
+                            <path d="M11.9,16v3.4H8.4V16H11.9 M12.9,15H7.4v5.4h5.4V15L12.9,15z"/>
+                            <path d="M19.4,16v3.4H16V16H19.4 M20.4,15H15v5.4h5.4V15L20.4,15z"/>
+                        </g>
+                    </svg>
+                );
+
+            case "icon-list-view":
+                return (
+                    <svg className={`${this.props.classes} icon-list-view`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 23.6 21.1" >
+                        <g className="stroked">
+                            <path d="M4.1,1v3.1H1V1H4.1 M5.1,0H0v5.1h5.1V0L5.1,0z"/>
+                            <path d="M22.6,1v3.1H7.8V1H22.6 M23.6,0H6.8v5.1h16.8V0L23.6,0z"/>
+                            <path d="M4.1,9v3.1H1V9H4.1 M5.1,8H0v5.1h5.1V8L5.1,8z"/>
+                            <path d="M22.6,9v3.1H7.8V9H22.6 M23.6,8H6.8v5.1h16.8V8L23.6,8z"/>
+                            <path d="M4.1,17v3.1H1V17H4.1 M5.1,16H0v5.1h5.1V16L5.1,16z"/>
+                            <path d="M22.6,17v3.1H7.8V17H22.6 M23.6,16H6.8v5.1h16.8V16L23.6,16z"/>
+                        </g>
+                	</svg>
+                );
+            case "icon-mosaic-view":
+                return (
+                    <svg className={`${this.props.classes} icon-mosaic-view`} version="1.1" x="0px" y="0px" width={this.props.width} height={this.props.height} viewBox="0 0 19.4 21.4" >
+                		<g className="stroked">
+                            <path d="M4.1,1v12.6H1V1H4.1 M5.1,0H0v14.6h5.1V0L5.1,0z"/>
+                            <path d="M18.4,1v4.6h-3.1V1H18.4 M19.4,0h-5.1v6.6h5.1V0L19.4,0z"/>
+                            <path d="M18.4,9.7v10.7h-3.2V9.7H18.4 M19.4,8.7h-5.1v12.7h5.1V8.7L19.4,8.7z"/>
+                            <path d="M11.3,1v8.2H8.1V1H11.3 M12.3,0H7.1v10.2h5.1V0L12.3,0z"/>
+                            <path d="M4.1,17.7v2.7H1v-2.7H4.1 M5.1,16.7H0v4.7h5.1V16.7L5.1,16.7z"/>
+                            <path d="M11.3,13.2v7.2H8.1v-7.2H11.3 M12.3,12.3H7.1v9.1h5.1V12.3L12.3,12.3z"/>
+                        </g>
+	                </svg>
+
+                )
         }
     }
 

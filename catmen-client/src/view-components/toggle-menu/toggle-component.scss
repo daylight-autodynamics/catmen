@@ -1,0 +1,39 @@
+@import "../../app-colors";
+
+.button-bar{
+  display: grid;
+  grid-template-columns: repeat( auto-fit, minmax(2rem, 1fr) );
+}
+
+.button-bar{
+  .btn-transparent-bg{
+    &:first-child{
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+    &:last-child{
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+    border: 1px solid $black_20;
+    padding: 0.25rem;
+  }
+  .button-decorator{
+    grid-template-columns: 0 auto 0 !important;
+    .btn-label{
+      margin: 0;
+    }
+  }
+  .active{
+    background-color: $black_60;
+    .stroked{
+
+      path{
+        stroke: none;
+        fill: white;
+      }
+    }
+  }
+}
+
+ .btn-transparent-bg {
+
+}

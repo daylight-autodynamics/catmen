@@ -94,7 +94,13 @@ export function ProductViews(props : iProdView) {
             return (<CatalogDashboardView message="this is the dashboards view" />);
 
         case "spreadsheet":
-            return (<CatalogDetailsView columnsData={dataManagerMain} gridData={dataManagerMain} query={productID()}  message={bla}/>)
+            return (
+                <CatalogDetailsView
+                    columnsData={dataManagerMain}
+                    gridData={dataManagerMain}
+                    query={productID()}
+                    targetDataSet="product-data"
+                    message={bla}/>)
     }
 
     return (<h3>Requested topic ID: {bla}</h3>);

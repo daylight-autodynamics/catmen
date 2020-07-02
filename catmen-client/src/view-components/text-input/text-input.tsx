@@ -10,6 +10,7 @@ interface iPROPS {
     cell? : number;
     columnName? : string;
     onFocusAction? : Function;
+    onBlurActions? : Function[];
 }
 
 interface iSTATE{
@@ -21,6 +22,14 @@ export class TextInput extends React.Component<iPROPS, iSTATE>{
         super(props);
         this.state = {
             value : this.props.currentValue
+        }
+    }
+
+    onBlurActions(){
+        if(this.props.onBlurActions != undefined){
+            for(let i=0; i < this.props.onBlurActions.length; i++){
+                this.props.onBlurActions[i]();
+            }
         }
     }
 
@@ -41,8 +50,7 @@ export class TextInput extends React.Component<iPROPS, iSTATE>{
         return (
             <div className="pl-TextInput-wrapper" >
                 <div className="pl-FloatLabel-text">{this.props.label}</div>
-                <input onFocus={()=>this.onFocusActions()} onChange={(evt:React.ChangeEvent)=>this.onChangeActions(evt as React.ChangeEvent)}  type="text" value={this.props.currentValue || ''} placeholder="" className="InputBox pl-TextInput-input has-text pl-FloatLabel-input" />
-
+                <input onBlur={()=>this.onBlurActions()} onFocus={()=>this.onFocusActions()} onChange={(evt:React.ChangeEvent)=>this.onChangeActions(evt as React.ChangeEvent)}  type="text" value={this.props.currentValue || ''} placeholder="" className="InputBox pl-TextInput-input has-text pl-FloatLabel-input" />
             </div>
         );
     }

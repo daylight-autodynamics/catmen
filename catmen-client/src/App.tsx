@@ -11,7 +11,7 @@ import ManageClassesView from "./views/app-configuration-catman-views/manage-cla
 
 import {ToolTip, WindowLevelCapture} from "./view-components/heru-tool-tip/tool-tip";
 import {navSettings} from "./views/_common/nav-settings";
-import {win} from "./index";
+import {dataManagerMain, win} from "./index";
 import {CatalogLanding } from "./views/catalog-views/main-catalog/main-catalog";
 import {CatalogDetailsView} from "./views/catalog-views/catalog-details/catalog-details-view";
 import {CatalogDashboardView} from "./views/catalog-views/catalog-dashboard/catalog-dashboard-view";
@@ -52,7 +52,14 @@ class App extends React.Component<iPROPS, iSTATE>{
                       <Route exact path={navSettings.manageAttributes} component={ ()=><ManageAttributesView message={"managing attributes"}/> }/>
                       <Route exact path={navSettings.manageAttributeGroups} component={ ()=><ManageAttributeGroupsView message={"manage attributes groups view"}/> }/>
                       <Route exact path={navSettings.manageAttributeMappings} component={ ()=><ManageAttributeMappingView message={"manage attribute mappings"}/> }/>
-                      <Route exact path={navSettings.mediaLibrary} component={ ()=><MediaLibraryView message={"manage media library"}/> }/>
+                      <Route exact path={navSettings.mediaLibrary}
+                             component={ ()=><MediaLibraryView
+                                 targetDataSet={"media-data"}
+                                 message={"manage media library"}
+                                 columnsData={dataManagerMain.getMediaColumnsForGrid()}
+                                 gridData={dataManagerMain.getMediaDataForGrid()}
+                                 dataManager={dataManagerMain}
+                             /> }/>
 
                       <Route exact path="/manage-classes" component={ ()=><ManageClassesView message={"attribute mappings"}/> }/>
 

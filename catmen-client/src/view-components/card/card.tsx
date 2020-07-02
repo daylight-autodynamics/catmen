@@ -33,11 +33,12 @@ export class Card extends React.Component<iPROPS, iSTATE>{
 
     getCard( cardTitle : string,
              thumbImageUrl : string,
-             assignedToTheseProducts : string[],
+             assignedToTheseProducts : string,
              mediaResolution : string,
              shotType : string,
              index : number
     ):ReactElement{
+
         switch(this.props.cardType){
             case "media":
                 return(

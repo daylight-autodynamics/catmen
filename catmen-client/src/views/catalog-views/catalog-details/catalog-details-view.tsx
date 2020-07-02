@@ -19,7 +19,7 @@ import {appColumns, iColumn} from "../../../_sample-data/columns";
 import {CatalogSingleProduct} from "./single-product-view";
 import {TextInput} from "../../../view-components/text-input/text-input";
 
-import {DataManager, iUpdateSet} from "../../../data-components/data-manager/data-manager";
+import {DataManager, dataSetType, iUpdateSet} from "../../../data-components/data-manager/data-manager";
 import {ModalView} from "../../../view-components/modal/modal";
 import {AddVariantsWizard} from "../../wizards/create-product-group/add-variants-wizard";
 import {dataManagerMain} from "../../../index";
@@ -32,6 +32,7 @@ interface iPROPS   {
     query:string | null;
     gridData : DataManager;
     columnsData : DataManager;
+    targetDataSet : dataSetType;
 }
 
 export type modalStateType = "closed" | "add-to-product-group" | "create-product-group" | "delete-confirmation";
@@ -51,14 +52,12 @@ interface iSTATE{
     focusedInput : focusInputType;
 }
 
-
-
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
          super(props);
          this.columns = this.props.columnsData.getColumns;
          this.state = {
-             workingData : this.props.gridData.getData,
+             workingData : this.props.gridData.getProductData(),
              columnsData : this.props.columnsData.getColumns,
              productViewOpen : false,
              editDrawerOpen : false,
@@ -70,7 +69,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
              focusedInput : { row:0, cell:0, editDrawerOpen : false}
          };
 
-         this.workingDataSet = this.props.gridData.getData;
+         this.workingDataSet = this.props.gridData.getProductData();
      }
      workingDataSet : iDataGridItem[][];
      //just for the fist launch of checkbox editing
@@ -82,7 +81,8 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      columns : iColumn[];
      //manage selection in the drawer
      drawerFirstOpen = false;
-
+     drawerInputsLength = 0;
+     inputsControls: any;
 
 
     getCheckBoxesSelection(){
@@ -121,14 +121,13 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      }
 
      getColumnLabel(colName : string) : string{
-
+         //utility method for getting column data obj from
          let columnLabel = "";
          for(let i = 0; i < this.columns.length; i++){
              if(this.columns[i].columnName === colName){
                  columnLabel = this.columns[i].columnLabel;
              }
          }
-
          return columnLabel;
      }
 
@@ -146,19 +145,37 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
                  //this.workingDataSet[ myRow-2][myCell-2].value = value;
                  const updateSet : iUpdateSet = { row:myRow ,cell:myCell, newData:value }
-                 this.props.gridData.setProductData = updateSet
+                 //this.props.gridData.setProductData = updateSet
+                 this.props.gridData.setData("product-data", updateSet)
              }
 
          }
 
-         this.setState({workingData : this.props.gridData.getData});
+         //TODO remove all of these .getProductData() and replace with generic version
+         this.setState({workingData : this.props.gridData.getProductData()});
          console.log( "working data set:", this.state.workingData );
      };
 
      inputFocusAction=(row : number, cell:number)=>{
-         console.log("row: ", row, " cell:", cell);
+         //console.log("row: ", row, " cell:", cell);
          if(this.state.editDrawerOpen === true){
              this.setState({focusedInput : { row : row, cell : cell, editDrawerOpen: this.state.editDrawerOpen}})
+         }
+     };
+
+     //TODO this should be a generic method
+     shiftFocus(shiftIndex: number){
+
+         console.log("shifted focus: ", shiftIndex);
+             let inputs: HTMLCollection = document.getElementsByClassName("InputBox");
+             if(inputs[0] != undefined){
+                 if(shiftIndex === inputs.length-1){
+                     console.log("shifted focus on end");
+                     // @ts-ignore
+                     inputs[0].focus();
+                     // @ts-ignore
+                     inputs[0].select();
+                 }
          }
      };
 
@@ -170,7 +187,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
          if(this.dataGridRef.current != null && this.dataGridRef.current != undefined ){
              this.selectionSet = this.dataGridRef.current.selectionSet;
-             console.log("cat details view selection set: ", this.selectionSet)
+            // console.log("cat details view selection set: ", this.selectionSet)
          }
 
          let inputs : ReactElement[] = [];
@@ -185,9 +202,14 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
             }
                  let row = this.selectionSet[i].row;
                  let cell = this.selectionSet[i].cell;
+                 //TODO this needs to be genericized
+                 //let productDataItem = catmanData.productData[row-2][cell-2];
                  let productDataItem = catmanData.productData[row-2][cell-2];
                  selectedItems.push(productDataItem);
         }
+
+        //Store number of inputs for later use
+         this.drawerInputsLength = selectedItems.length;
 
          for( let i=0; i < selectedItems.length; i++){
              let input = (
@@ -199,6 +221,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      currentValue={ selectedItems[i].value}
                      onChangeAction={this.updateValues}
                      onFocusAction={this.inputFocusAction}
+                     onBlurActions={[ ()=>this.shiftFocus(i) ]}
                  />
              );
              inputs.push(input)
@@ -563,12 +586,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
              this.initialized = false;
              this.setState({footerOpen : false})
          }
-
-
-         //manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string )
-
-         //this.footerActions("cancel");
-
      }
 
     //GRID MANAGEMENT

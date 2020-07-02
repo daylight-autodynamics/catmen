@@ -2,8 +2,9 @@ import * as React from "react";
 import {iDataGridItem} from "../../view-components/data-grid/data-types-for-data-grid";
 import {iColumn} from "../../_sample-data/columns";
 import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
-import {mediaLibraryData, mediaObject} from "../../_sample-data/media-library";
+import {mediaLibraryData, mediaLibraryDataMediaObjects, mediaObject, shotType} from "../../_sample-data/media-library";
 
+export type dataSetType = "media-data" | "media-grid-data" | "product-data" | "product-grid-data";
 export type validationActions = "required" | "custom" | "no-duplicates";
 
 interface iDataManager {
@@ -14,6 +15,7 @@ export type iUpdateSet = {row : number, cell : number, newData:string}
 
 export class DataManager implements iDataManager{
     productData : iDataGridItem[][];
+
     constructor(productData : iDataGridItem[][]) {
         this.productData = productData;
     }
@@ -197,12 +199,179 @@ export class DataManager implements iDataManager{
         ]
     }
 
-    get getData():iDataGridItem[][]{
+    getProductData():iDataGridItem[][]{
         return this.productData;
     }
 
-    getMediaData():mediaObject[]{
+    //update package is type iUpdateSet = {row : number, cell : number, newData:string}
+    setProductData(updatePackage : iUpdateSet){
+        mediaLibraryData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+    }
+
+    setMediaData(updatePackage : iUpdateSet){
+        console.log("update package: ", updatePackage);
+        this.productData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+    }
+
+    setData(targetDataSet : dataSetType, updatePackage : iUpdateSet){
+        switch (targetDataSet) {
+            case "media-data":
+                this.setMediaData(updatePackage);
+            case "product-data":
+                this.setProductData(updatePackage);
+        }
+    }
+
+    getData(targetDataSet:dataSetType){
+        switch (targetDataSet) {
+            case "media-data":
+               return this.getMediaObjectData();
+            case "media-grid-data":
+                return this.getMediaDataForGrid();
+            case "product-grid-data":
+                return this.getProductData();
+        }
+    }
+
+//CONVERT DATAGRID OBJECTS INTO MEDIA GRID OBJECTS
+    getMediaObjectData():mediaObject[]{
         //TODO replace this with a proper data service
+
+        let mediaObjects : mediaObject[] = [];
+        let mediaGridObjects : iDataGridItem[][] = this.getMediaDataForGrid();
+
+        const findColVal = ( row : number, colName : string ):string =>{
+            for(let i=0; i < mediaGridObjects[row].length; i++){
+                if(mediaGridObjects[row][i].columnName == colName){
+                   return mediaGridObjects[row][i].value;
+                }
+            }
+
+            return "";
+        };
+
+        for(let i = 0; i < mediaGridObjects.length; i++ ){
+            let mediaObject : mediaObject = {
+                id: findColVal(i, "uniqueID"),
+                mediaPath : findColVal(i,"mediaPath"),
+                mediaName : findColVal(i, "mediaName"),
+                description : findColVal(i, "description"),
+                shotType : findColVal(i, "shotType") as shotType,
+                productAssociations : findColVal(i, "productAssociations"),
+                mediaAssociations : findColVal(i, "mediaAssociations"),
+                classesAssociated : findColVal(i, "classesAssociated"),
+                resolution : findColVal(i, "resolution")
+            };
+
+            mediaObjects.push(mediaObject);
+        }
+
+        return mediaLibraryDataMediaObjects;
+    }
+
+    getMediaColumnsForGrid():iColumn[]{
+
+        let mediaColumns : iColumn[] = [
+            {
+                validationAction : [],
+                columnName : "uniqueId",
+                columnLabel : "Unique ID",
+                columnMenu : <></>,
+                columnType : "hidden",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "mediaPath",
+                columnLabel : "Media Path",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "mediaName",
+                columnLabel : "Media Name",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "description",
+                columnLabel : "Description",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "shotType",
+                columnLabel : "Shot Type",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "productAssociations",
+                columnLabel : "Product Associations",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "mediaAssociations",
+                columnLabel : "Media Associations",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "classesAssociated",
+                columnLabel : "Classes Associated",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+            {
+                validationAction : [],
+                columnName : "resolution",
+                columnLabel : "Resolution",
+                columnMenu : <></>,
+                columnType : "standard",
+                control : "text-input",
+                tooltipType : "basic",
+                toolTip : ""
+            },
+
+
+        ];
+
+        return mediaColumns;
+
+    }
+
+    getMediaDataForGrid():iDataGridItem[][]{
+
         return mediaLibraryData;
     }
 
@@ -246,9 +415,6 @@ export class DataManager implements iDataManager{
             return finalGroups;
     }
 
-    //update package is type iUpdateSet = {row : number, cell : number, newData:string}
-    set setProductData(updatePackage : iUpdateSet){
-        this.productData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
-    }
+
 
 }

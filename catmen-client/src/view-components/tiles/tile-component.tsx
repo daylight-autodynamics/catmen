@@ -110,7 +110,6 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
                         onMouseDown={()=>this.mouseDownAction()}
                         className={`${this.props.selectedClass} column-header active-col`}
                     >
-
                         <AppButton
                             buttonType="button-custom"
                             classes={`column-header-btn`}
