@@ -12,10 +12,10 @@ import {TitleArea} from "../../../view-components/title-area/title-area";
 import {Route, RouteComponentProps, Switch, useRouteMatch} from "react-router-dom";
 import StickyThing from "../../../view-components/sticky-panel/sticky-panel";
 import {ReactElement} from "react";
-import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
+import {iDataGridItem} from "../../../_catman-data-types";
 import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import AppButton from "../../../view-components/button/app-button";
-import {appColumns, iColumn} from "../../../_sample-data/columns";
+import {iColumn} from "../../../_sample-data/product-columns";
 import {CatalogSingleProduct} from "./single-product-view";
 import {TextInput} from "../../../view-components/text-input/text-input";
 
@@ -55,10 +55,10 @@ interface iSTATE{
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
          super(props);
-         this.columns = this.props.columnsData.getColumns;
+         this.columns = this.props.columnsData.getProductColumns;
          this.state = {
              workingData : this.props.gridData.getProductData(),
-             columnsData : this.props.columnsData.getColumns,
+             columnsData : this.props.columnsData.getProductColumns,
              productViewOpen : false,
              editDrawerOpen : false,
              editDrawerMaximized : false,

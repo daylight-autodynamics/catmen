@@ -1,5 +1,6 @@
 import * as React from "react";
-import {graphicSize, iNavItem} from "../../view-components/_common/component-data-types";
+//import {graphicSize, iNavItem} from "../../view-components/_common/component-data-types";
+import {iNavItem, graphicSize} from "../../_catman-data-types";
 import {CatmanIcon} from "../../svg/icons/icons";
 import {InfoPanel} from "../../view-components/info-panel/info-panel";
 import {Illustration} from "../../svg/illustrations/illustrations";

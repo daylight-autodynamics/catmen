@@ -1,6 +1,6 @@
 import {ReactElement} from "react";
 import {toolTipType} from "../view-components/heru-tool-tip/tool-tip";
-import {iDataGridItem} from "../view-components/data-grid/data-types-for-data-grid";
+import {iDataGridItem} from "../_catman-data-types";
 
 
 interface iAttributeService{

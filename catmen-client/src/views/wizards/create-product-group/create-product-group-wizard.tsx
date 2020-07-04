@@ -8,7 +8,7 @@ import {DividerLine} from "../../../view-components/divider-line/divider-line";
 import {TextInput} from "../../../view-components/text-input/text-input";
 import {Illustration} from "../../../svg/illustrations/illustrations";
 import {dataManagerMain} from "../../../index";
-import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
+import {iDataGridItem} from "../../../_catman-data-types";
 import {RefObject} from "react";
 import {StandardTextInput} from "../../../view-components/text-input/standard-text-input";
 

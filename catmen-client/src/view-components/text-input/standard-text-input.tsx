@@ -26,7 +26,7 @@ export class StandardTextInput extends React.Component<iPROPS, iSTATE>{
     value = this.props.currentValue;
 
     getInputVal(e: React.ChangeEvent){
-        console.log(this.props.row, this.props.cell, this.state.value, this.props.columnName);
+        //console.log(this.props.row, this.props.cell, this.state.value, this.props.columnName);
         let keyVal = e.target as HTMLInputElement;
         this.value = keyVal.value
         this.setState({value : keyVal.value});

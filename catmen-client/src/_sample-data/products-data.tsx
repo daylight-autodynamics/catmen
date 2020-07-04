@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {iColumnHeader, iComponentType, iDataGridItem} from "../view-components/data-grid/data-types-for-data-grid";
+import {iColumnHeader, iComponentType, iDataGridItem} from "../_catman-data-types";
 
 
 export class ProductsData{

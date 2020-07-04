@@ -10,7 +10,7 @@
   .viewport{
     display: inline-grid;
     width: 100%;
-    grid-auto-columns: minmax(max-content, 100%) max-content;
+    //grid-auto-columns: minmax(max-content, 100%) max-content;
     .cell{
       font-size: 0.75rem;
      // padding: 0.25rem 0.5rem;
@@ -158,6 +158,7 @@
     &.selected{
       color: white;
     }
+    pointer-events: none;
     user-select: none;
   }
   .hover-row{
@@ -173,23 +174,22 @@
     color: white;
     pointer-events: none;
   }
-     .affordance{
-       &.selected{
-         background-color: $black_60 !important;
-         right: 0;
-         top: 0;
-       }
-
-       position: absolute;
-       border: dashed #b9b7bc;
-       bottom: 0;
-       left: 0;
-       border-width: 0 0 1px 1px;
-       /* background-color: aquamarine; */
-       z-index: -1;
-       right: 0.5rem;
-       top: 65%;
+   .affordance{
+     &.selected{
+       background-color: $black_60 !important;
+       right: 0;
+       top: 0;
      }
+     pointer-events: none;
+     position: absolute;
+     border: dashed #b9b7bc;
+     bottom: 0;
+     left: 0;
+     border-width: 0 0 1px 1px;
+     z-index: -1;
+     right: 0.5rem;
+     top: 65%;
+   }
 }
 
 .cell{

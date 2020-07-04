@@ -1,12 +1,12 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {iDataGridItem} from "./data-types-for-data-grid";
+import {iDataGridItem} from "../../_catman-data-types";
 import AppButton from "../button/app-button";
 import {CatmanIcon} from "../../svg/icons/icons";
 import {selectedStateType, Tile} from "../tiles/tile-component";
 import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import camelcase from "camelcase";
-import {appColumns, iColumn} from "../../_sample-data/columns";
+import {iColumn} from "../../_sample-data/product-columns";
 import {DataManager} from "../../data-components/data-manager/data-manager";
 import classesIllustration from "../../images/SVG/illustration-classes.svg";
 import {ToolTipContent} from "../heru-tool-tip/tool-tip-content";
@@ -375,7 +375,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                 }
 
                 let cell = (
-                    <div className={`cell row-${i+2}`} style={{gridColumn : j+2, gridRow : i+2 }}>
+                    <div draggable={false} className={`cell row-${i+2}`} style={{gridColumn : j+2, gridRow : i+2 }}>
                         <Tile
                             tileType={this.props.columnsData[j].control}
                             tileLabel={this.state.workingDataSet[i][j].value}
@@ -671,11 +671,13 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             </div>
         );
 
+        let gridStyle = `1rem repeat(${this.getNumColumns()}, minmax(max-content, 1fr)) max-content`;
+
         let constructedGrid : ReactElement = (
             <>
                 <div className={`data-grid ${this.props.classes}`}>
                     {this.gridStyles()}
-                    <div className="viewport" onMouseMove={()=>this.mouseMoveActions()}>
+                    <div style={{ display:'grid', gridTemplateColumns:gridStyle}} className="viewport" onMouseMove={()=>this.mouseMoveActions()}>
                         {columnHeaders}
                         {this.getGridItems()}
                     </div>

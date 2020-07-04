@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {iNavItem} from "../_common/component-data-types";
+import {iNavItem} from "../../_catman-data-types";
 import AppButton from "../button/app-button";
 
 export type menuFormatDataType = "fly-out" | "slide-in" | "drop-down";

@@ -1,10 +1,11 @@
 import * as React from "react";
-import {iDataGridItem} from "../../view-components/data-grid/data-types-for-data-grid";
-import {iColumn} from "../../_sample-data/columns";
+import {iDataGridItem} from "../../_catman-data-types";
+import {iColumn} from "../../_sample-data/product-columns";
 import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import {mediaLibraryData, mediaLibraryDataMediaObjects, mediaObject, shotType} from "../../_sample-data/media-library";
+import {dataAttributesLibrary, standardAttributes} from "../../_sample-data/attributes-data-and-columns";
 
-export type dataSetType = "media-data" | "media-grid-data" | "product-data" | "product-grid-data";
+export type dataSetType = "media-data" | "media-grid-data" | "product-data" | "product-grid-data" | "attributes-data";
 export type validationActions = "required" | "custom" | "no-duplicates";
 
 interface iDataManager {
@@ -20,7 +21,7 @@ export class DataManager implements iDataManager{
         this.productData = productData;
     }
 
-    get getColumns():iColumn[]{
+    get getProductColumns():iColumn[]{
         let testMenu = (<div style={{backgroundColor : "#cecece"}}>Menu</div>);
 
         return [
@@ -194,8 +195,6 @@ export class DataManager implements iDataManager{
                 tooltipType : "basic",
                 toolTip : ""
             }
-
-
         ]
     }
 
@@ -203,9 +202,19 @@ export class DataManager implements iDataManager{
         return this.productData;
     }
 
+    //ATTRIBUTES
+    getAttributesData():iDataGridItem[][]{
+        return dataAttributesLibrary;
+    }
+
+    setAttributesData(updatePackage : iUpdateSet){
+        dataAttributesLibrary[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+        console.log("setAttributesData", dataAttributesLibrary);
+    }
+
     //update package is type iUpdateSet = {row : number, cell : number, newData:string}
     setProductData(updatePackage : iUpdateSet){
-        mediaLibraryData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+        this.productData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
     }
 
     setMediaData(updatePackage : iUpdateSet){
@@ -214,11 +223,18 @@ export class DataManager implements iDataManager{
     }
 
     setData(targetDataSet : dataSetType, updatePackage : iUpdateSet){
+        console.log("setData, updatePackag:",  updatePackage, "target data type: ", targetDataSet);
         switch (targetDataSet) {
             case "media-data":
                 this.setMediaData(updatePackage);
+                break;
             case "product-data":
                 this.setProductData(updatePackage);
+                break;
+            case "attributes-data":
+                console.log("attributes-data", dataAttributesLibrary);
+                this.setAttributesData(updatePackage);
+                break;
         }
     }
 
@@ -265,7 +281,6 @@ export class DataManager implements iDataManager{
 
             mediaObjects.push(mediaObject);
         }
-
         return mediaLibraryDataMediaObjects;
     }
 

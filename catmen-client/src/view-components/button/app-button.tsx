@@ -65,7 +65,6 @@ constructor(props:iPROPS) {
     toolTipTimeOut : number;
 
     doHoverActions(){
-        console.log("hovered from button");
       if(this.hoverActions !== undefined){
           for(let i=0; i < this.hoverActions.length; i++){
               if(this.hoverActions[i] !== undefined){

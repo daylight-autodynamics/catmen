@@ -12,11 +12,10 @@ import {SingleMediaDetailsView} from "./media-details-view";
 import {CatmanIcon} from "../../svg/icons/icons";
 import AppButton from "../../view-components/button/app-button";
 import {DataGrid, selectionObject} from "../../view-components/data-grid/data-grid";
-import {iDataGridItem} from "../../view-components/data-grid/data-types-for-data-grid";
+import {iDataGridItem} from "../../_catman-data-types";
 import {DataManager, iUpdateSet} from "../../data-components/data-manager/data-manager";
-import {iColumn} from "../../_sample-data/columns";
+import {iColumn} from "../../_sample-data/product-columns";
 import {focusInputType} from "../catalog-views/catalog-details/catalog-details-view";
-import {catmanData} from "../../_sample-data/products-data";
 import {TextInput} from "../../view-components/text-input/text-input";
 import {dataSetType} from "../../data-components/data-manager/data-manager";
 
@@ -151,7 +150,6 @@ export class MediaLibraryView extends React.Component<iPROPS, iSTATE>{
                 const updateSet : iUpdateSet = { row:myRow ,cell:myCell, newData:value };
                 this.props.dataManager.setData("media-data", updateSet);
             }
-
         }
 
         this.setState({workingData : this.props.dataManager.getProductData()});

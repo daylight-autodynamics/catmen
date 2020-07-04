@@ -4,11 +4,8 @@ import {ReactElement} from "react";
 import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import {CatmanIcon} from "../../../svg/icons/icons";
 import AppButton from "../../../view-components/button/app-button";
-import {DividerLine} from "../../../view-components/divider-line/divider-line";
-import {TextInput} from "../../../view-components/text-input/text-input";
-import {Illustration} from "../../../svg/illustrations/illustrations";
 import {dataManagerMain} from "../../../index";
-import {iDataGridItem} from "../../../view-components/data-grid/data-types-for-data-grid";
+import {iDataGridItem} from "../../../_catman-data-types";
 import {StandardTextInput} from "../../../view-components/text-input/standard-text-input";
 import {DataGrid} from "../../../view-components/data-grid/data-grid";
 
@@ -206,7 +203,7 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                     <DataGrid
                         data={this.stagingAreaProducts}
                         manageParentViews={()=>{}}
-                        columnsData={dataManagerMain.getColumns}
+                        columnsData={dataManagerMain.getProductColumns}
                         addAction={()=>{}}
                     />
                 );

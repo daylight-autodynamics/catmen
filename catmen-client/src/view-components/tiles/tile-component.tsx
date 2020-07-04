@@ -167,14 +167,14 @@ export class Tile extends React.Component<iPROPS, iSTATE>{
 
             case "hidden":
                 return(
-                    <div className="hidden-cell">
+                    <div draggable={false} className="hidden-cell">
 
                     </div>
                 );
 
             case "read-only-cell":
                 return (
-                    <div>
+                    <div draggable={false}>
                         <p>{this.props.tileLabel}</p>
                     </div>
                 )

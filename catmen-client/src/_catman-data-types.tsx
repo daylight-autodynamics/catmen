@@ -19,5 +19,20 @@ export type iColumnHeader ={
     acceptableInputs : string;
     weighting : number | "required";
     attributeGroup : string;
+}
 
+export interface iNavItem{
+    label : string;
+    navPath : string;
+    presentationGroup : string;
+    buttonType : any;
+    iconRight?:React.ReactElement;
+    iconLeft?:React.ReactElement;
+    infoPanel? : React.ReactElement;
+    tooltipHoverAction? : any;
+}
+
+export type graphicSize = {
+    height : string,
+    width : string
 }

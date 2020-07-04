@@ -1,4 +1,4 @@
-import {iDataGridItem} from "../../view-components/data-grid/data-types-for-data-grid";
+import {iDataGridItem} from "../../_catman-data-types";
 import {Worker} from "worker_threads";
 
 interface iValidation {

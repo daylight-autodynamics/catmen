@@ -1,5 +1,5 @@
 import * as React from "react";
-import {iNavItem} from "../../view-components/_common/component-data-types";
+import {iNavItem} from "../../_catman-data-types";
 
 
 export let navSettings = {
