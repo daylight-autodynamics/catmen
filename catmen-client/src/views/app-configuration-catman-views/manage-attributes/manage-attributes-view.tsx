@@ -28,6 +28,7 @@ export class ManageAttributesView extends React.Component<iPROPS, iSTATE>{
             columnsData={dataAttributeColumns}
             dataManager={dataManagerMain}
             targetDataSet={ "attributes-data"}
+            gridHasDetailsButton={true}
             />
     )
 

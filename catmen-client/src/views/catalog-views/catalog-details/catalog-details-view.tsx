@@ -25,6 +25,7 @@ import {AddVariantsWizard} from "../../wizards/create-product-group/add-variants
 import {dataManagerMain} from "../../../index";
 
 import {CreateProductGroupWizard} from "../../wizards/create-product-group/create-product-group-wizard";
+import {DataGridWithEditDrawer} from "../../../view-components/data-grid/data-grid-with-edit-drawer";
 
 
 interface iPROPS   {
@@ -55,10 +56,10 @@ interface iSTATE{
 export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      constructor(props:iPROPS) {
          super(props);
-         this.columns = this.props.columnsData.getProductColumns;
+         this.columns = this.props.columnsData.getProductColumns();
          this.state = {
              workingData : this.props.gridData.getProductData(),
-             columnsData : this.props.columnsData.getProductColumns,
+             columnsData : this.props.columnsData.getProductColumns(),
              productViewOpen : false,
              editDrawerOpen : false,
              editDrawerMaximized : false,
@@ -74,7 +75,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
      workingDataSet : iDataGridItem[][];
      //just for the fist launch of checkbox editing
      initialized:boolean = false;
-     dataGridRef = React.createRef<DataGrid>();
+     dataGridRef = React.createRef<DataGridWithEditDrawer>();
      editDrawerRef = React.createRef<StickyThing>();
      editDrawer : ReactElement = (<></>);
      selectionSet : selectionObject[] = [];
@@ -87,7 +88,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
 
     getCheckBoxesSelection(){
         if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
-            return this.dataGridRef.current._checkedRows;
+            return this.dataGridRef.current.getCheckedRows();
         }
     }
 
@@ -581,31 +582,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
         //FOOTER ACTIONS
      switchToEditMode(){
          if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
-             this.dataGridRef.current.switchToEditModeFromCheckBoxMode();
-             this.openEditDrawer();
-             this.initialized = false;
-             this.setState({footerOpen : false})
-         }
-     }
-
-    //GRID MANAGEMENT
-     manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string )=>{
-        if(checkBoxSelections.length > 0 || (this.initialized === false && checkBoxSelections.length === 0 && message === "checkbox-launched") ){
-            if(checkBoxSelections.length <= 1){
-                this.setState({editDrawerOpen : false, footerOpen : true, footerMode: "default"});
-            }else if(checkBoxSelections.length > 1 ){
-                this.setState({editDrawerOpen : false, footerOpen : true, footerMode: "multiple-selected"});
-            }
-            this.initialized = true;
-        }else{
-            this.setState({footerOpen : false});
-        }
-
-     };
-
-     conditionClasses(){
-         if(this.state.editDrawerOpen === true){
-             return "drawer-open";
+             this.dataGridRef.current.switchToEditMode();
          }
      }
 
@@ -657,19 +634,35 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
          }
      }
 
-     //RENDERING AND PORTALS
-    componentDidUpdate(): void {
-         let inputs : any = document.getElementsByClassName("InputBox");
+     //SELECTION ACTIONS from grid
+    openFooter = ()=>
+    {
 
-        console.log(this.drawerFirstOpen)
-        if(this.drawerFirstOpen === true ){
-           if(inputs[0] != undefined){
-               inputs[0].focus();
-               inputs[0].select();
-               this.drawerFirstOpen = false;
-           }
+        if(this.dataGridRef.current != undefined)
+        {
+            let checkedCount : number = 0;
+
+
+            if(this.dataGridRef.current.getCheckedRows() != undefined && this.dataGridRef.current != undefined ){
+                // @ts-ignore
+                checkedCount = this.dataGridRef.current.getCheckedRows().length;
+            }
+            if
+            (checkedCount > 0)
+            {
+                console.log("checked from selection Actions: ", checkedCount);
+                this.setState({footerOpen : true});
+            }
+            else if
+            (checkedCount === 0)
+            {
+                this.setState({footerOpen : false});
+            }
         }
-     }
+    };
+
+     //RENDERING AND PORTALS
+
 
     render(){
          return (
@@ -679,20 +672,20 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                      subTitle="My Catalog"
                      titleType="subtitle-above"
                  />
-                 <DataGrid
+                 <DataGridWithEditDrawer
+                     gridData={dataManagerMain.getProductData()}
+                     columnsData={dataManagerMain.getProductColumns()}
+                     dataManager={dataManagerMain}
+                     targetDataSet={"product-data"}
+                     selectionActions={[ this.openFooter ]}
                      ref={this.dataGridRef}
-                     data={this.state.workingData}
-                     manageParentViews={()=>this.openEditDrawer()}
-                     selectionCallback={this.manageSelectionSet}
-                     columnsData={this.state.columnsData}
-                     classes={this.conditionClasses()}
-                     addAction={this.addAction}
-                     focusedItem={this.state.focusedInput}
+                     gridHasDetailsButton={true}
                  />
                  {this.getEditDrawer() }
                  {this.getFooterMenu() }
                  {this.getProductViewDrawer()}
                  {this.getModals()}
+                 <button onClick={()=>this.switchToEditMode()}>Switch</button>
              </>
          )
      }

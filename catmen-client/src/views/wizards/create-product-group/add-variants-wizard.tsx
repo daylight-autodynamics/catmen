@@ -8,6 +8,7 @@ import {dataManagerMain} from "../../../index";
 import {iDataGridItem} from "../../../_catman-data-types";
 import {StandardTextInput} from "../../../view-components/text-input/standard-text-input";
 import {DataGrid} from "../../../view-components/data-grid/data-grid";
+import {DataGridWithEditDrawer} from "../../../view-components/data-grid/data-grid-with-edit-drawer";
 
 interface iPROPS{
     addAction : Function
@@ -34,12 +35,14 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
     numberOfVariants = 1;
 
     addVariantsStaging(){
-        console.log(this.props.selectedCheckBoxes);
+        console.log("selected checkboxes: ", this.props.selectedCheckBoxes);
+        console.log("selected checkboxes: ", this.props.selectedCheckBoxes);
+        let newItems : iDataGridItem[][] = [];
         let newItem : iDataGridItem[] = [];
+
         if(this.props.selectedCheckBoxes !== undefined){
             if(this.props.selectedCheckBoxes.length === 1){
                 newItem = JSON.parse(JSON.stringify(dataManagerMain.productData[ this.props.selectedCheckBoxes[0]]) );
-                let newItems = [];
 
                 for(let i=0; i < this.numberOfVariants; i++){
                     newItems.push( JSON.parse(JSON.stringify(newItem)) );
@@ -51,6 +54,8 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
 
             }
         }
+
+        return newItems;
         console.log("added variant",dataManagerMain.productData);
        // this.props.manageModal();
     }
@@ -61,8 +66,6 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
         }
         this.props.manageModal();
     }
-
-
 
     getInputValue = (row:number, cell:number, value:string )=>{
         console.log("input value", row, " ", cell, " ", value);
@@ -199,12 +202,24 @@ export class AddVariantsWizard extends React.Component<iPROPS, iSTATE>{
                     </>
                 );
 
-                const stagingSentences = (
+                const bla = (
                     <DataGrid
                         data={this.stagingAreaProducts}
                         manageParentViews={()=>{}}
-                        columnsData={dataManagerMain.getProductColumns}
+                        columnsData={dataManagerMain.getProductColumns()}
                         addAction={()=>{}}
+                        hasDetailsActionButton={true}
+                    />
+
+                );
+
+                let stagingSentences = (
+                    <DataGridWithEditDrawer
+                        gridData={this.stagingAreaProducts}
+                        columnsData={dataManagerMain.getProductColumns()}
+                        dataManager={dataManagerMain}
+                        targetDataSet={"custom-data"}
+                        gridHasDetailsButton={false}
                     />
                 );
                 return(<Wizard

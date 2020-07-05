@@ -24,6 +24,7 @@ interface iPROPS {
     classes? : string;
     addAction : Function;
     focusedItem? : focusInputType;
+    hasDetailsActionButton : boolean
 }
 
 interface iSTATE {
@@ -139,9 +140,6 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
 
         // handle single cell as start and end
-
-        console.log("@@@ this.selectionSet: ", this.selectionSet);
-        console.log("*** this.state.selectionSet: ", this.state.selectionSet);
 
         if(this.selectionSet.length === 2){
             if( this.selectionSet[0].row === this.selectionSet[1].row && this.selectionSet[0].cell === this.selectionSet[1].cell  ){
@@ -269,7 +267,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         //find if this number is in the list
         let found : boolean = false;
 
-        console.log("@@ checked rows: ",row);
+
 
         for(let i=0; i < this._checkedRows.length; i++){
             if(this._checkedRows[i] === row){
@@ -402,7 +400,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     cells.push(cell);
                 }
 
-                if(j === this.state.workingDataSet[i].length-1){
+                if(j === this.state.workingDataSet[i].length-1 && this.props.hasDetailsActionButton === true){
                     cells.push(
                         <div className="cell details" style={{gridColumn : j+3, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton

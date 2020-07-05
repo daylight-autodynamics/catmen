@@ -23,6 +23,8 @@ interface iPROPS {
     columnsData : iColumn[];
     dataManager : DataManager;
     targetDataSet : dataSetType;
+    selectionActions? : Function[];
+    gridHasDetailsButton : boolean;
 }
 
 interface iSTATE{
@@ -52,6 +54,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
             editDrawerMaximized : false
         }
     }
+
     selectedMediaIndex : number = 0;
     dataGridRef = React.createRef<DataGrid>();
     editDrawerRef = React.createRef<StickyThing>();
@@ -66,7 +69,6 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
     drawerInputsLength = 0;
 
     manageMediaDetailsPage=(mediaIndex : number)=>{
-
         this.selectedMediaIndex = mediaIndex;
         this.setState({detailsOpen : !this.state.detailsOpen})
     };
@@ -93,7 +95,6 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
         }
     }
 
-
     getColumnLabel(colName : string) : string{
         //utility method for getting column data obj from
         let columnLabel = "";
@@ -119,13 +120,15 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
 
                 //this.workingDataSet[ myRow-2][myCell-2].value = value;
                 const updateSet : iUpdateSet = { row:myRow ,cell:myCell, newData:value };
-                this.props.dataManager.setData(this.props.targetDataSet, updateSet);
+                if(this.props.targetDataSet === "custom-data"){
+                    //if it's custom we need to pass along the grid data package
+                    this.props.dataManager.setData(this.props.targetDataSet, updateSet, this.props.gridData);
+                }else{
+                    this.props.dataManager.setData(this.props.targetDataSet, updateSet);
+                }
             }
-
         }
-
         this.setState({workingData : this.props.dataManager.getProductData()});
-
     };
 
     openEditDrawer( ){
@@ -152,6 +155,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
 
     shiftFocus(shiftIndex: number){
         let inputs: HTMLCollection = document.getElementsByClassName("InputBox");
+        console.log(inputs);
         if(inputs[0] != undefined){
             if(shiftIndex === inputs.length-1){
                 // @ts-ignore
@@ -297,7 +301,6 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
 
                             </div>
                         </div>
-
                         <div className="drawer-edit-area">
                             {inputs}
                         </div>
@@ -308,8 +311,23 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
         return drawer;
     }
 
-    //MANAGE GRID
     //GRID MANAGEMENT
+    getGridArea(){
+        return (
+            <DataGrid
+                ref={this.dataGridRef}
+                data={this.state.workingData}
+                manageParentViews={()=>this.openEditDrawer()}
+                selectionCallback={this.manageSelectionSet}
+                columnsData={this.state.columnsData}
+                classes={this.conditionClasses()}
+                addAction={this.addAction}
+                focusedItem={this.state.focusedInput}
+                hasDetailsActionButton={this.props.gridHasDetailsButton}
+            />
+        )
+    }
+
     manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string )=>{
         if(checkBoxSelections.length > 0 || (this.initialized === false && checkBoxSelections.length === 0 && message === "checkbox-launched") ){
             if(checkBoxSelections.length <= 1){
@@ -320,6 +338,15 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
             this.initialized = true;
         }else{
             this.setState({footerOpen : false});
+        }
+
+        //this is a catch all for parent objects to do something when...
+        //... a selection has occurred
+
+        if(this.props.selectionActions != undefined){
+            for(let i=0; i < this.props.selectionActions.length; i++){
+                this.props.selectionActions[i]();
+            }
         }
 
     };
@@ -337,30 +364,51 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
             case "add-products":
 
                 return(<></>);
-
-
-
         }
     }
 
-    getGridArea(){
-        return (
-            <DataGrid
-                ref={this.dataGridRef}
-                data={this.state.workingData}
-                manageParentViews={()=>this.openEditDrawer()}
-                selectionCallback={this.manageSelectionSet}
-                columnsData={this.state.columnsData}
-                classes={this.conditionClasses()}
-                addAction={this.addAction}
-                focusedItem={this.state.focusedInput}
-            />
-        )
+    switchToEditMode(){
+        if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
+            this.dataGridRef.current.switchToEditModeFromCheckBoxMode();
+            this.openEditDrawer();
+            this.initialized = false;
+            this.setState({footerOpen : false})
+        }
     }
 
+    // Grid
+    clearSelection(){
+        if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
+            this.dataGridRef.current.clearSelection();
+        }
+    }
+    getCheckedRows(){
+        if(this.dataGridRef.current != undefined)
+        {
+            return this.dataGridRef.current._checkedRows
+        }
+    }
+    switchToEditModeFromCheckBoxMode(){
+        if(this.dataGridRef.current !== null && this.dataGridRef.current !== undefined){
+            this.dataGridRef.current.switchToEditModeFromCheckBoxMode();
+            this.openEditDrawer();
+            this.initialized = false;
+            this.setState({footerOpen : false})
+        }
+    }
 
+    //Life Cycle
+    componentDidUpdate(): void {
+        let inputs : any = document.getElementsByClassName("InputBox");
 
-
+        if(this.drawerFirstOpen === true ){
+            if(inputs[0] != undefined){
+                inputs[0].focus();
+                inputs[0].select();
+                this.drawerFirstOpen = false;
+            }
+        }
+    }
 
     render(){
         return(

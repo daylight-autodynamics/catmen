@@ -5,7 +5,14 @@ import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import {mediaLibraryData, mediaLibraryDataMediaObjects, mediaObject, shotType} from "../../_sample-data/media-library";
 import {dataAttributesLibrary, standardAttributes} from "../../_sample-data/attributes-data-and-columns";
 
-export type dataSetType = "media-data" | "media-grid-data" | "product-data" | "product-grid-data" | "attributes-data";
+export type dataSetType =
+    | "media-data"
+    | "media-grid-data"
+    | "product-data"
+    | "product-grid-data"
+    | "attributes-data"
+    | "custom-data";
+
 export type validationActions = "required" | "custom" | "no-duplicates";
 
 interface iDataManager {
@@ -16,12 +23,14 @@ export type iUpdateSet = {row : number, cell : number, newData:string}
 
 export class DataManager implements iDataManager{
     productData : iDataGridItem[][];
+    customGridData : iDataGridItem[][] | undefined;
 
-    constructor(productData : iDataGridItem[][]) {
+    constructor(productData : iDataGridItem[][], customGridData? : iDataGridItem[][] | undefined ) {
         this.productData = productData;
+         this.customGridData = customGridData;
     }
 
-    get getProductColumns():iColumn[]{
+    getProductColumns():iColumn[]{
         let testMenu = (<div style={{backgroundColor : "#cecece"}}>Menu</div>);
 
         return [
@@ -217,12 +226,18 @@ export class DataManager implements iDataManager{
         this.productData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
     }
 
-    setMediaData(updatePackage : iUpdateSet){
-        console.log("update package: ", updatePackage);
-        this.productData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+    setCustomData(updatePackage : iUpdateSet, customGridData? : iDataGridItem[][]){
+        if(customGridData != undefined){
+            customGridData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+        }
     }
 
-    setData(targetDataSet : dataSetType, updatePackage : iUpdateSet){
+    setMediaData(updatePackage : iUpdateSet){
+        console.log("update package: ", updatePackage);
+        mediaLibraryData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+    }
+
+    setData(targetDataSet : dataSetType, updatePackage : iUpdateSet, customGridData? : iDataGridItem[][]){
         console.log("setData, updatePackag:",  updatePackage, "target data type: ", targetDataSet);
         switch (targetDataSet) {
             case "media-data":
@@ -234,6 +249,11 @@ export class DataManager implements iDataManager{
             case "attributes-data":
                 console.log("attributes-data", dataAttributesLibrary);
                 this.setAttributesData(updatePackage);
+                break;
+
+            case "custom-data":
+                console.log("attributes-data", dataAttributesLibrary);
+                this.setCustomData(updatePackage, customGridData);
                 break;
         }
     }
