@@ -1,33 +1,55 @@
-import React from "react";
-import {Navigation} from "../../../view-components/list-menu/intra-app-navigation";
+import * as React from "react";
 import {MainHeaderArea} from "../../_common/main-header-area/main-header-area";
-
-//Configuration data:
+import {Navigation} from "../../../view-components/list-menu/intra-app-navigation";
 import {mainNavConfig} from "../../_catman-configuration/common-app-configuration";
+import {DataGridWithEditDrawer} from "../../../view-components/data-grid/data-grid-with-edit-drawer";
+import {
+    dataAttributeColumns,
+    dataAttributesLibrary,
+    standardAttributes
+} from "../../../_sample-data/attributes-data-and-columns";
+import {dataManagerMain} from "../../../index";
+import {TitleArea} from "../../../view-components/title-area/title-area";
 
-interface iPROPS {
-    message: string;
+interface iPROPS{
+    message : string;
 }
 
 interface iSTATE{
 
 }
 
-export class ManageAttributeGroupsView extends React.Component<iPROPS, iSTATE>{
+export class AttributeGroupsView extends React.Component<iPROPS, iSTATE>{
 
+    getDataGrid(){
+        return(<DataGridWithEditDrawer
+                gridData={dataManagerMain.getAttributeGroupsData()}
+                columnsData={dataManagerMain.getAttributeGroupsColumns()}
+                dataManager={dataManagerMain}
+                targetDataSet={"attribute-groups-data"}
+                gridHasDetailsButton={true}
+            />
+        )
+
+    }
     render(){
-        //TODO need to add real add action
         return(
             <>
                 <MainHeaderArea
                     mainButtonLabel="Add Attributes Group"
                     addItemAction={()=>{}}
-                    sectionTitle="Landing Page"
+                    sectionTitle="Attribute Groups"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
                 />
-                <h2>Manage Attribute Group</h2>
-                <h3>{this.props.message}</h3>
+                <TitleArea
+                    mainTitle="Manage Attribute Groups"
+                    titleType="subtitle-above"
+                    subTitle="e your products"
+                />
+                {this.getDataGrid()}
             </>
         );
     }
 }
+
+export default AttributeGroupsView;

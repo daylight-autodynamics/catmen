@@ -1,5 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
+import {validationActions} from "./data-components/data-manager/data-manager";
 
 
 export type iDataGridItem = {
@@ -10,9 +11,21 @@ export type iDataGridItem = {
     validationValue : string;
 }
 
-export type iComponentType = "drop-down" | "text-input" | "ye-no"
+export type iComponentType = "drop-down" | "text-input" | "yes-no"
 
+// Generic Column Head Definition
+export interface iColumn {
+    columnLabel : string;
+    columnName : string;
+    columnMenu : ReactElement;
+    columnType : "hidden" | "standard" | "required" | "user-gen";
+    control : "text-input" | "pick-list" | "list-editor" | "read-only" | "media" | "hidden";
+    toolTip : ReactElement | string;
+    tooltipType : "custom" | "basic";
+    validationAction : validationActions[];
+}
 
+// Generic Column Head Definition
 export type iColumnHeader ={
     attributeName : string;
     component : iComponentType;

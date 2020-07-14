@@ -15,26 +15,7 @@ const iconSize : graphicSize = {
 };
 
 export let ribbonConfig : iToggleMenuItem[] = [
-    {
-        element : (<AppButton
-            buttonType={"from-left"}
-            buttonLabel="catalog manager"
-            navPath={navSettings.catalogDashBoard}
-            tooltipType="custom"
-            tooltip={toolTipContent.mainNav()}
-            toolTipTimeOutInMS={10000}
-            iconRight={
-                <CatmanIcon
-                    iconName="down-arrow"
-                    classes="ui-icon"
-                    height="100%"
-                    width="100%"
-                />
-            }
-        />),
-        label:"",
-        toggleItemType : "nav"
-    }
+
 ];
 
 // Main Navigation

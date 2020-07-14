@@ -1,9 +1,11 @@
 import * as React from "react";
 import {iDataGridItem} from "../../_catman-data-types";
-import {iColumn} from "../../_sample-data/product-columns";
+import {iColumn} from "../../_catman-data-types";
 import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import {mediaLibraryData, mediaLibraryDataMediaObjects, mediaObject, shotType} from "../../_sample-data/media-library";
 import {dataAttributesLibrary, standardAttributes} from "../../_sample-data/attributes-data-and-columns";
+import {attributeGroupsLibrary, attributeGroupsLibraryColumns} from "../../_sample-data/attribute-groups-library";
+import {classesLibrary} from "../../_sample-data/classes-library";
 
 export type dataSetType =
     | "media-data"
@@ -11,7 +13,9 @@ export type dataSetType =
     | "product-data"
     | "product-grid-data"
     | "attributes-data"
-    | "custom-data";
+    | "custom-data"
+    | "attribute-groups-data"
+    | "classes-data";
 
 export type validationActions = "required" | "custom" | "no-duplicates";
 
@@ -29,7 +33,61 @@ export class DataManager implements iDataManager{
         this.productData = productData;
          this.customGridData = customGridData;
     }
+    //Main genericized methods
+    setData(targetDataSet : dataSetType, updatePackage : iUpdateSet, customGridData? : iDataGridItem[][]){
+        console.log("setData, updatePackag:",  updatePackage, "target data type: ", targetDataSet);
+        switch (targetDataSet) {
+            case "media-data":
+                this.setMediaData(updatePackage);
+                break;
+            case "product-data":
+                this.setProductData(updatePackage);
+                break;
+            case "attributes-data":
+                console.log("attributes-data", dataAttributesLibrary);
+                this.setAttributesData(updatePackage);
+                break;
 
+            case "attribute-groups-data":
+                this.setAttributeGroupsData(updatePackage);
+                break;
+
+            case "classes-data":
+                console.log("attributes-data", dataAttributesLibrary);
+                this.setCustomData(updatePackage, customGridData);
+                break;
+
+            case "custom-data":
+                console.log("attributes-data", dataAttributesLibrary);
+                this.setCustomData(updatePackage, customGridData);
+                break;
+
+
+        }
+    }
+
+    getData(targetDataSet:dataSetType){
+        switch (targetDataSet) {
+            case "media-data":
+                return this.getMediaObjectData();
+            case "media-grid-data":
+                return this.getMediaDataForGrid();
+            case "product-grid-data":
+                return this.getProductData();
+        }
+    }
+
+    //CLASSSES
+    getClassesData(){
+        return classesLibrary;
+    }
+
+    setClassesData(updatePackage : iUpdateSet){
+        classesLibrary[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+        console.log("setAttributesData", attributeGroupsLibrary);
+    }
+
+    //PRODUCT DATA
     getProductColumns():iColumn[]{
         let testMenu = (<div style={{backgroundColor : "#cecece"}}>Menu</div>);
 
@@ -216,6 +274,19 @@ export class DataManager implements iDataManager{
         return dataAttributesLibrary;
     }
 
+    //ATTRIBUTE GROUPS
+    getAttributeGroupsData():iDataGridItem[][]{
+        return attributeGroupsLibrary;
+    }
+    getAttributeGroupsColumns():iColumn[]{
+        return attributeGroupsLibraryColumns;
+    }
+
+    setAttributeGroupsData(updatePackage : iUpdateSet){
+        attributeGroupsLibrary[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
+        console.log("setAttributesData", attributeGroupsLibrary);
+    }
+
     setAttributesData(updatePackage : iUpdateSet){
         dataAttributesLibrary[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
         console.log("setAttributesData", dataAttributesLibrary);
@@ -237,37 +308,7 @@ export class DataManager implements iDataManager{
         mediaLibraryData[updatePackage.row][updatePackage.cell].value = updatePackage.newData;
     }
 
-    setData(targetDataSet : dataSetType, updatePackage : iUpdateSet, customGridData? : iDataGridItem[][]){
-        console.log("setData, updatePackag:",  updatePackage, "target data type: ", targetDataSet);
-        switch (targetDataSet) {
-            case "media-data":
-                this.setMediaData(updatePackage);
-                break;
-            case "product-data":
-                this.setProductData(updatePackage);
-                break;
-            case "attributes-data":
-                console.log("attributes-data", dataAttributesLibrary);
-                this.setAttributesData(updatePackage);
-                break;
 
-            case "custom-data":
-                console.log("attributes-data", dataAttributesLibrary);
-                this.setCustomData(updatePackage, customGridData);
-                break;
-        }
-    }
-
-    getData(targetDataSet:dataSetType){
-        switch (targetDataSet) {
-            case "media-data":
-               return this.getMediaObjectData();
-            case "media-grid-data":
-                return this.getMediaDataForGrid();
-            case "product-grid-data":
-                return this.getProductData();
-        }
-    }
 
 //CONVERT DATAGRID OBJECTS INTO MEDIA GRID OBJECTS
     getMediaObjectData():mediaObject[]{

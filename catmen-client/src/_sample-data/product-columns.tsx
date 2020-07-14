@@ -5,16 +5,7 @@ import {ToolTipContent} from "../view-components/heru-tool-tip/tool-tip-content"
 import {validationActions} from "../data-components/data-manager/data-manager";
 import {toolTipContent} from "../views/tool-tip-content/content-tool-tips";
 
-export interface iColumn {
-    columnLabel : string;
-    columnName : string;
-    columnMenu : ReactElement;
-    columnType : "hidden" | "standard" | "required" | "user-gen";
-    control : "text-input" | "pick-list" | "list-editor" | "read-only" | "media" | "hidden";
-    toolTip : ReactElement | string;
-    tooltipType : "custom" | "basic";
-    validationAction : validationActions[];
-}
+
 
 export class ProductColumns{
 

@@ -35,10 +35,6 @@ function useQuery() {
 export function CatalogLanding() {
     let match = useRouteMatch();
 
-    let ribbonMenu = (
-        <ToggleMenu message={"toggle menu"} />
-    );
-
     //TODO this will manage the grid
     let manageGridData = ()=>{
         console.log("manage grid data")
@@ -55,9 +51,7 @@ export function CatalogLanding() {
                        menuHelpStyle="panel"
                        navElements={mainNavConfig}
                    />}
-               ribbonElement={ribbonMenu}
            />
-           <br/>
 
            <Switch>
                <Route path={`${match.path}/:bla`}>

@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import {CatalogOverviewView} from "./views/catalog-views/catalog-overview/catalog-overview-view";
 import ManageAttributesView from "./views/app-configuration-catman-views/manage-attributes/manage-attributes-view";
 import DataConfigManageAttributeGroups from "./views/app-configuration-catman-views/manage-attribute-groups/data-config-manage-attribute-groups";
-import {ManageAttributeGroupsView} from "./views/app-configuration-catman-views/manage-attribute-groups/manage-attribute-groups-view";
+import {AttributeGroupsView} from "./views/app-configuration-catman-views/manage-attribute-groups/manage-attribute-groups-view";
 import {ManageAttributeMappingView} from "./views/app-configuration-catman-views/manage-attribute-mappings/manage-attribute-mapping-view";
 import ManageClassesView from "./views/app-configuration-catman-views/manage-classes/manage-classes-view";
 
@@ -21,7 +21,7 @@ import {CatalogSingleProduct} from "./views/catalog-views/catalog-details/single
 import {MediaLibraryView} from "./views/media-library/media-library";
 
 interface iSTATE{
-    mousePos : {x:number, y: number}
+    appmode : | 'material' | 'wayfair' | 'heru'
 }
 
 interface iPROPS {
@@ -34,9 +34,7 @@ class App extends React.Component<iPROPS, iSTATE>{
         super(props);
 
     }
-    getMousePosition(){
 
-    }
 
   render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
       return (
@@ -50,8 +48,23 @@ class App extends React.Component<iPROPS, iSTATE>{
                       </Route>
 
                       <Route exact path={navSettings.manageAttributes} component={ ()=><ManageAttributesView message={"managing attributes"}/> }/>
-                      <Route exact path={navSettings.manageAttributeGroups} component={ ()=><ManageAttributeGroupsView message={"manage attributes groups view"}/> }/>
-                      <Route exact path={navSettings.manageAttributeMappings} component={ ()=><ManageAttributeMappingView message={"manage attribute mappings"}/> }/>
+
+                      {/*ATTRIBUTE GROUPS*/}
+                      <Route exact path={navSettings.manageAttributeGroups}
+                             component={ ()=><AttributeGroupsView
+                                 message={"manage attributes groups view test"}
+                             />
+                             }
+                      />
+
+                      {/*ATTRIBUTE MAPPINGS*/}
+                      <Route exact path={navSettings.manageAttributeMappings}
+                             component={ ()=><ManageAttributeMappingView
+                                 message={"manage attribute mappings"}
+                             />}
+                      />
+
+                      {/*MEDIA LIBRARY*/}
                       <Route exact path={navSettings.mediaLibrary}
                              component={ ()=><MediaLibraryView
                                  targetDataSet={"media-data"}

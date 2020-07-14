@@ -9,7 +9,7 @@ import AppButton from "../../view-components/button/app-button";
 import {DataGrid, selectionObject} from "../../view-components/data-grid/data-grid";
 import {iDataGridItem} from "../../_catman-data-types";
 import {DataManager, iUpdateSet} from "../../data-components/data-manager/data-manager";
-import {iColumn} from "../../_sample-data/product-columns";
+import {iColumn} from "../../_catman-data-types";
 import {focusInputType} from "../../views/catalog-views/catalog-details/catalog-details-view";
 import {TextInput} from "../../view-components/text-input/text-input";
 import {dataSetType} from "../../data-components/data-manager/data-manager";
@@ -155,7 +155,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
 
     shiftFocus(shiftIndex: number){
         let inputs: HTMLCollection = document.getElementsByClassName("InputBox");
-        console.log(inputs);
+
         if(inputs[0] != undefined){
             if(shiftIndex === inputs.length-1){
                 // @ts-ignore
@@ -187,6 +187,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
 
         //Create list of selection items that need inputs (i.e. one input per column)
         i: for(let i=0; i < this.selectionSet.length; i++){
+
             j: for(let j=0; j < selectedItems.length; j++){
                 if(this.selectionSet[i].columnName === selectedItems[j].columnName){
                     continue i;
@@ -204,14 +205,51 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
         this.drawerInputsLength = selectedItems.length;
 
         //CREATE INPUTS for DRAWER
+
+        let checkValue = "";
         for( let i=0; i < selectedItems.length; i++){
+            //check for duplicate values
+            //make a list of all the items that match column name
+            let sameColumn : iDataGridItem[] = [];
+            j: for(let j = 0; j < this.selectionSet.length; j++)
+            {
+                    if(selectedItems[i].columnName === this.selectionSet[j].columnName)
+                    {
+                        sameColumn.push( this.state.workingData[this.selectionSet[j].row-2][this.selectionSet[j].cell-2]);
+                    }
+            }
+            //go over each item in the selection set and compare its corresponding value
+
+            k: for(let k = 0; k < sameColumn.length; k++)
+            {
+                if(k == 0)
+                {
+                    checkValue = sameColumn[k].value;
+                    continue k;
+                }
+
+                if(checkValue == sameColumn[k].value)
+                {
+                    continue k;
+                }
+                else
+                {
+                    checkValue = "--multiple values selected";
+                    break k;
+                }
+
+            }
+            console.log("sameColumn",sameColumn);
+            console.log("selectedItems",selectedItems);
+            console.log("checkValue",checkValue);
+
             let input = (
                 <TextInput
                     row={this.selectionSet[i].row}
                     cell={this.selectionSet[i].cell}
                     columnName={this.selectionSet[i].columnName}
                     label={this.getColumnLabel( selectedItems[i].columnName )}
-                    currentValue={ selectedItems[i].value}
+                    currentValue={ checkValue}
                     onChangeAction={this.updateValues}
                     onFocusAction={this.inputFocusAction}
                     onBlurActions={[ ()=>this.shiftFocus(i) ]}
@@ -328,7 +366,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
         )
     }
 
-    manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string )=>{
+    manageSelectionSet = (selectionSet : iDataGridItem[], checkBoxSelections : number[], message : string, row:number, cell:number )=>{
         if(checkBoxSelections.length > 0 || (this.initialized === false && checkBoxSelections.length === 0 && message === "checkbox-launched") ){
             if(checkBoxSelections.length <= 1){
                 this.setState({editDrawerOpen : false, footerOpen : true, footerMode: "default"});
@@ -347,6 +385,12 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
             for(let i=0; i < this.props.selectionActions.length; i++){
                 this.props.selectionActions[i]();
             }
+        }
+
+        //manage focus events
+        //we'll use the row & cell data here to manage the focus widget
+        if(this.state.editDrawerOpen === true){
+            this.setState({focusedInput : { row : row, cell : cell, editDrawerOpen:true}})
         }
 
     };

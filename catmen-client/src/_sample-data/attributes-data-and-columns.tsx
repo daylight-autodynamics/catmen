@@ -1,5 +1,5 @@
 import * as React from "react";
-import {iColumn} from "./product-columns";
+import {iColumn} from "../_catman-data-types";
 import {iDataGridItem} from "../_catman-data-types";
 
 export let dataAttributeColumns : iColumn[] = [
@@ -108,108 +108,6 @@ export let standardAttributes : iDataGridItem[][]=
                 class: "default"
             },
         ],
-        // [
-        //     { validationValue:"", columnName: "uniqueID", value: "100001", attrType: "hidden", class: "default"},
-        //     //PART NUMBER
-        //     {   validationValue:"",
-        //         value: "PartNumber",
-        //         columnName: "attributeName",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "Part Number",
-        //         columnName: "columnLabel",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "",
-        //         columnName: "acceptableInputs",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "This should be your unique identifier, preferably your descriptive part number",
-        //         columnName: "toolTip",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "all",
-        //         columnName: "classesAssignedTo",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        // ],
-        // [
-        //     { validationValue:"", columnName: "uniqueID", value: "100001", attrType: "hidden", class: "default"},
-        //     //PRODUCT GROUP
-        //     {   validationValue:"",
-        //         value: "ProductGroup",
-        //         columnName: "attributeName",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "Product Group",
-        //         columnName: "columnLabel",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "",
-        //         columnName: "acceptableInputs",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "Define associated products for describing variant groups or options groups",
-        //         columnName: "toolTip",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "all",
-        //         columnName: "classesAssignedTo",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        // ],
-        // [
-        //     { validationValue:"", columnName: "uniqueID", value: "100001", attrType: "hidden", class: "default"},
-        //     //PRODUCT NAME
-        //     {   validationValue:"",
-        //         value: "ProductName",
-        //         columnName: "attributeName",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "Product Name",
-        //         columnName: "columnLabel",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "",
-        //         columnName: "acceptableInputs",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "Define associated products for describing variant groups or options groups",
-        //         columnName: "toolTip",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        //     {   validationValue:"",
-        //         value: "all",
-        //         columnName: "classesAssignedTo",
-        //         attrType: "standard",
-        //         class: "default"
-        //     },
-        // ]
     ];
 
 export let dataAttributesLibrary : iDataGridItem[][] =

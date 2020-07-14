@@ -6,7 +6,7 @@ import {CatmanIcon} from "../../svg/icons/icons";
 import {selectedStateType, Tile} from "../tiles/tile-component";
 import {toolTipContent} from "../../views/tool-tip-content/content-tool-tips";
 import camelcase from "camelcase";
-import {iColumn} from "../../_sample-data/product-columns";
+import {iColumn} from "../../_catman-data-types";
 import {DataManager} from "../../data-components/data-manager/data-manager";
 import classesIllustration from "../../images/SVG/illustration-classes.svg";
 import {ToolTipContent} from "../heru-tool-tip/tool-tip-content";
@@ -194,7 +194,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
            }
 
 
-            this.props.selectionCallback(selectedItems, this._checkedRows, "standard-launch");
+            this.props.selectionCallback(selectedItems, this._checkedRows, "standard-launch", row, cell);
          }
     }
 
@@ -250,7 +250,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     mouseUpAction(row:number, cell:number, columnName : string){
         this.setState({mouseIsDown : false});
         this.manageSelection(row, cell, columnName, true);
-        console.log("selection set: ", this.selectionSet);
+
         this.manageAppCues();
     }
 
@@ -651,12 +651,9 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     //APP CUES aka Super tooltips
     manageAppCues(){
-        console.log("selection set length", this.selectionSet);
-
         if(this.selectionSet.length > 1){
             toolTipContent.gridDragTutorial++;
         }
-        console.log("grid tut ", toolTipContent.gridDragTutorial);
     }
 
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {

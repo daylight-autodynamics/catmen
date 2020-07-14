@@ -15,7 +15,7 @@ import {ReactElement} from "react";
 import {iDataGridItem} from "../../../_catman-data-types";
 import {toolTipContent} from "../../tool-tip-content/content-tool-tips";
 import AppButton from "../../../view-components/button/app-button";
-import {iColumn} from "../../../_sample-data/product-columns";
+import {iColumn} from "../../../_catman-data-types";
 import {CatalogSingleProduct} from "./single-product-view";
 import {TextInput} from "../../../view-components/text-input/text-input";
 

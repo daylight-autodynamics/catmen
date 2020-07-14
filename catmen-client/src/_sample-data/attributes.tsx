@@ -10,9 +10,9 @@ export class Attributes {
 
     productAttributes : iAttribute[] = [
         {
-        attributeLabel : "uniqueID",
-        attributeID : 0,
-        attributeControl : "text-input"
+            attributeLabel : "uniqueID",
+            attributeID : 0,
+            attributeControl : "text-input"
         },
         {
             attributeLabel : "ReferenceImage",

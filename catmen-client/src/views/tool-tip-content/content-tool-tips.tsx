@@ -26,6 +26,8 @@ import continueWizardIllustration from "../../images/SVG/illustration-continue-n
 import goBackWizardIllustration from "../../images/SVG/illustration-wizard-go-back.svg"
 import productNamingIllustration from "../../images/SVG/illustration-product-name.svg"
 import clickDragGridCells from "../../images/SVG/illustration-click-drag-cells.svg"
+import mediaCardsIllustration from "../../images/SVG/illustration-card-view.svg"
+import mediaGridIllustration from "../../images/SVG/illustration-media-grid.svg"
 
 import tutBulkEdit from "../../images/SVG/illustration-bulk-edit.svg"
 import tutEditWithDrawer from "../../images/SVG/illustration-edit-with-drawer.svg"
@@ -586,6 +588,48 @@ export class toolTipsLibrary {
             icon={
                 <CatmanIcon
                     iconName="icon-add-invert"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    mediaCardView(){
+        return(<ToolTipContent
+            header="Media Card View"
+            subHeader="View media assets as cards, good for inspection and review"
+            copy={
+                <div>
+                    <img className="tooltip-illustration" src={mediaCardsIllustration}/>
+                </div>
+            }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="media-nav-icon"
+                    classes=""
+                    height="1.5rem"
+                    width="1.5rem"
+                />
+            }
+        />)
+    }
+
+    mediaGridView(){
+        return(<ToolTipContent
+            header="Media Grid View"
+            subHeader="View media assets in a grid, good for bulk actions"
+            copy={
+                <div>
+                    <img className="tooltip-illustration" src={mediaGridIllustration}/>
+                </div>
+            }
+            tooltipType="deluxe"
+            icon={
+                <CatmanIcon
+                    iconName="media-nav-icon"
                     classes=""
                     height="1.5rem"
                     width="1.5rem"
