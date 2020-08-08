@@ -1,3 +1,12 @@
+live demo of project https://107.178.209.75/catalog/spreadsheet
+
+
+This project is a catalog data manager
+you can manage a data set using an Excel-like Grid
+click and drag over the cells and you can then edit across multiple cells using the controls in the drawer
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

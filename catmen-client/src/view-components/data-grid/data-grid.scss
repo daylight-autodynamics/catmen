@@ -256,12 +256,37 @@
 //SELECTED COLUMN INDICATOR
 
 .cell {
-  &.selected-indicator{
-    border-width: 0 2px 2px 2px;
+  &.selected-indicator
+  {
+    border-width: 0 3px 3px 3px;
     border-style: double;
     border-color: $Core_60;
-    background-color: rgba(122, 12, 119, 0.4);
+    //background-color: rgba(122, 12, 119, 0.4);
     pointer-events: none;
+    position: relative;
+    z-index: 110;
+    .handle
+    {
+      width : 0.75rem;
+      height : 0.75rem;
+      border-radius: 0.25rem;
+      position: absolute;
+      background-color: $Core_60;
+      border: 1px solid white;
+      bottom: -0.5rem;
+      right: -0.5rem;
+    }
+    &:before
+    {
+      content: " ";
+      position: absolute;
+      z-index: 0;
+      top: 2px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      border: 1px solid #ffffff;
+    }
   }
 }
 

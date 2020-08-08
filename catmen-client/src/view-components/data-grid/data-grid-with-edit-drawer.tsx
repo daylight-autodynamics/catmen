@@ -284,7 +284,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
 
 
         let drawer = (<></>);
-        if(this.state.editDrawerOpen === true){
+        if(this.state.editDrawerOpen === true && this.selectionSet.length > 0){
             drawer = (
                 <>
                     <StickyThing
@@ -349,6 +349,19 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
         return drawer;
     }
 
+    notifySelectionSetUpdate(){
+        if(this.dataGridRef.current != null && this.dataGridRef.current != undefined ){
+            this.selectionSet = this.dataGridRef.current.selectionSet;
+        }
+
+        //TODO move this drawer logic out
+        if(this.selectionSet.length > 0){
+            this.setState({ editDrawerOpen : true } );
+        }else {
+            this.setState({ editDrawerOpen : false } );
+        }
+    }
+
     //GRID MANAGEMENT
     getGridArea(){
         return (
@@ -357,6 +370,7 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
                 data={this.state.workingData}
                 manageParentViews={()=>this.openEditDrawer()}
                 selectionCallback={this.manageSelectionSet}
+                notifySelections={()=>this.notifySelectionSetUpdate()}
                 columnsData={this.state.columnsData}
                 classes={this.conditionClasses()}
                 addAction={this.addAction}
@@ -394,11 +408,13 @@ export class DataGridWithEditDrawer extends React.Component<iPROPS, iSTATE>{
         }
 
     };
+
     conditionClasses(){
         if(this.state.editDrawerOpen === true){
             return "drawer-open";
         }
     }
+
     addAction(addType:string){
 
         switch (addType) {

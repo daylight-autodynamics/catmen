@@ -14,6 +14,7 @@ import ReactDOM from "react-dom";
 import {win} from "../../index";
 import {focusInputType} from "../../views/catalog-views/catalog-details/catalog-details-view";
 
+
 //data grid data should be an array of arrays
 //each product is an array of attributes
 interface iPROPS {
@@ -25,6 +26,7 @@ interface iPROPS {
     addAction : Function;
     focusedItem? : focusInputType;
     hasDetailsActionButton : boolean
+    notifySelections? : Function
 }
 
 interface iSTATE {
@@ -79,6 +81,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     numRows: number;
     startSelectionRow : number;
     startSelectionCell : number;
+    dragInterval : number | null = null;
+    dragCounter : number = 0;
 
     //used root for portals for overlays
     root = ()=>{
@@ -90,6 +94,9 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     cellRange : any;
     _checkedRows : number[] = [];
+
+    shiftDown : boolean = false;
+    controlDown : boolean = false;
 
     manageSelection(row:number, cell:number, columnName : string,  clearSelection : boolean){
 
@@ -202,6 +209,10 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         this.setState({selectionSet:[], checkedRows:[]});
         this._checkedRows = [];
         this.selectionSet = [];
+        if(this.props.notifySelections != undefined)
+        {
+            this.props.notifySelections();
+        }
     }
 
     checkSelected(row:number, cell:number):selectedStateType{
@@ -238,6 +249,12 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     }
 
     mouseDownAction(row : number, cell:number){
+        //set timer for dragging
+        this.dragInterval = window.setInterval(()=>{
+             this.dragCounter++;
+            console.log("set interval", this.dragInterval);
+        }, 200);
+
         this.startSelectionCell = cell;
         this.startSelectionRow = row;
         this.setState({
@@ -250,14 +267,19 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     mouseUpAction(row:number, cell:number, columnName : string){
         this.setState({mouseIsDown : false});
         this.manageSelection(row, cell, columnName, true);
-
+        //clear dragging timer
+        if(this.dragInterval != null)
+        {
+            window.clearInterval(this.dragInterval);
+            this.dragCounter = 0;
+        }
         this.manageAppCues();
     }
-
 
     hoverRowAction(row:number){
         this.setState({hoveredRow : row.toString()});
     }
+
     mouseOutRowAction(){
         this.setState({hoveredRow : ""});
     }
@@ -337,8 +359,9 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     updateSelectionState = ()=>{
         this.setState({selectionSet : this.selectionSet});
-
     };
+
+
 
     getGridItems(){
         let cells : ReactElement[] = [];
@@ -385,7 +408,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                             }
                             mouseUpActions={
                                 [
-                                    () => this.props.manageParentViews(),
+                                    this.props.manageParentViews,
                                     () => this.mouseUpAction(i+2,j+2, this.props.columnsData[j].columnName)
                                 ]
                             }
@@ -508,7 +531,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                         }
                         mouseUpActions={
                             [
-                                () => this.props.manageParentViews()
+                                () => this.props.manageParentViews(true)
                             ]
                         }
                         selectedClass={""}
@@ -556,11 +579,21 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             if(this.props.focusedItem?.cell === (i+2) && this.props.focusedItem.editDrawerOpen === true){
                            let selectedIndicator = (
                                <div className="cell selected-indicator" style={{gridColumn : i+2, gridRowStart : this.cellRange.startRow, gridRowEnd:this.cellRange.endRow+1 }}>
-
+                                <div className="handle"></div>
                                </div>
                            );
                 columnsHeads.push(selectedIndicator)
+            }else if(this.state.selectionSet.length == 0)
+            {
+                let selectedIndicator = (
+                    <div className="cell selected-indicator" style={{gridColumn : 4, gridRowStart : 2, gridRowEnd: 2 }}>
+                        <div className="handle"></div>
+                    </div>
+                );
+                columnsHeads.push(selectedIndicator)
             }
+
+
         }
 
         return( columnsHeads );
@@ -596,57 +629,80 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     //DRAG AREA - create bounding box while dragging
     getDragArea(){
         //Only run if mouse is down
-        if(this.state.mouseIsDown === true){
-            let calcStyles =()=> {
-                //calculate where the drag area will draw
-                let coordinates = {
-                    top : this.state.initialMouseY,
-                    bottom : win.windowSize().height - this.state.mouseY,
-                    left : this.state.initialMouseX,
-                    right: win.windowSize().width - this.state.mouseX
+        if(this.dragInterval != undefined){
+            if(this.state.mouseIsDown === true  ){
+
+                let calcStyles =()=> {
+                    //calculate where the drag area will draw
+                    let coordinates = {
+                        top : this.state.initialMouseY,
+                        bottom : win.windowSize().height - this.state.mouseY,
+                        left : this.state.initialMouseX,
+                        right: win.windowSize().width - this.state.mouseX
+                    };
+
+                    if(this.state.initialMouseY <=  this.state.mouseY ){
+                        coordinates.top = this.state.initialMouseY;
+                        coordinates.bottom = win.windowSize().height - this.state.mouseY;
+                    }else if(this.state.initialMouseY >= this.state.mouseY){
+                        coordinates.top = win.mousePos.y;
+                        coordinates.bottom = win.windowSize().height - this.state.initialMouseY;
+                    }
+
+                    if( this.state.mouseX >=  this.state.initialMouseX ){
+                        coordinates.left = this.state.initialMouseX;
+                        coordinates.right = win.windowSize().width - this.state.mouseX;
+                    }else if( this.state.mouseY >= this.state.initialMouseY){
+                        coordinates.left = win.mousePos.x;
+                        coordinates.right = win.windowSize().width - this.state.initialMouseX;
+                    }
+
+                    if( this.state.mouseX <=  this.state.initialMouseX && this.state.initialMouseY >=  this.state.mouseY ){
+                        coordinates.left = this.state.mouseX;
+                        coordinates.right = win.windowSize().width - this.state.initialMouseX;
+                    }
+                    return coordinates;
                 };
-
-                if(this.state.initialMouseY <=  this.state.mouseY ){
-                    coordinates.top = this.state.initialMouseY;
-                    coordinates.bottom = win.windowSize().height - this.state.mouseY;
-                }else if(this.state.initialMouseY >= this.state.mouseY){
-                    coordinates.top = win.mousePos.y;
-                    coordinates.bottom = win.windowSize().height - this.state.initialMouseY;
-                }
-
-                if( this.state.mouseX >=  this.state.initialMouseX ){
-                    coordinates.left = this.state.initialMouseX;
-                    coordinates.right = win.windowSize().width - this.state.mouseX;
-                }else if( this.state.mouseY >= this.state.initialMouseY){
-                    coordinates.left = win.mousePos.x;
-                    coordinates.right = win.windowSize().width - this.state.initialMouseX;
-                }
-
-                if( this.state.mouseX <=  this.state.initialMouseX && this.state.initialMouseY >=  this.state.mouseY ){
-                    coordinates.left = this.state.mouseX;
-                    coordinates.right = win.windowSize().width - this.state.initialMouseX;
-                }
-                return coordinates;
-            };
-            let dragArea = (
-                <div
-                    className="drag-area"
-                    style={ calcStyles() }
-                >
-                    <div className="drag-inner-container">
-                        <div className="tool-tip">
-                            {toolTipContent.clickDragGrid()}
+                let dragArea = (
+                    <div
+                        className="drag-area"
+                        style={ calcStyles() }
+                    >
+                        <div className="drag-inner-container">
+                            <div className="tool-tip">
+                                {toolTipContent.clickDragGrid()}
+                            </div>
                         </div>
                     </div>
-                </div>
-            );
-            return ReactDOM.createPortal(dragArea, this.root());
+                );
+                return ReactDOM.createPortal(dragArea, this.root());
+            }else{
+                if(this.dragInterval != null){
+                    clearInterval(this.dragInterval);
+                }
+            }
         }
     }
 
     //Mouse move, this is used for defining the drag area rectangle but could be used for other stuff
     mouseMoveActions(){
-        this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
+        if(this.dragCounter % 2 == 0 ){
+            this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
+        }
+    }
+
+    selectionIndicator()
+    {
+        console.log("selection set", this.state.selectionSet.length);
+
+            let selectedIndicator = (
+                <div className="cell selected-indicator" style={{gridRowStart : 2, gridColumnStart : 2, gridRowEnd: 2, gridColumnEnd : "auto" }}>
+                    <div className="handle"></div>
+                </div>
+            );
+
+            return selectedIndicator;
+
     }
 
     //APP CUES aka Super tooltips
@@ -656,15 +712,68 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
         }
     }
 
+    manageKeyBoardEffect(key : string, keyAction:"up" | "down"){
+        console.log(key, " ", keyAction);
+        switch (key) {
+            case "ArrowDown":
+
+                break;
+            case "ArrowUp":
+
+                break;
+            case "ArrowLeft":
+
+                break;
+            case "ArrowRight":
+
+                break;
+            case "Enter":
+                console.log("Hit Enter");
+                this.clearSelection();
+                break;
+            case "Meta":
+                    if(keyAction == "up"){
+                        this.controlDown = false;
+                    }else if(keyAction == "down"){
+                        this.controlDown = true;
+                    }
+                break;
+            default:
+
+        }
+    }
+
+    componentDidMount(): void {
+
+        window.addEventListener("keyup", (evt: KeyboardEvent)=>{
+            this.manageKeyBoardEffect(evt.key, "up");
+        });
+
+        window.addEventListener("keydown", (evt: KeyboardEvent)=>{
+            this.manageKeyBoardEffect(evt.key, "down");
+        });
+    }
+
+    componentWillUnmount(): void {
+        //Clear keyboard events for this component
+        window.removeEventListener("keyup", (evt: KeyboardEvent)=>{
+            this.manageKeyBoardEffect(evt.key, "up");
+        });
+
+        window.removeEventListener("keydown", (evt: KeyboardEvent)=>{
+            this.manageKeyBoardEffect(evt.key, "down");
+        });
+    }
+
     render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
 
         let columnHeaders : ReactElement[] = this.getColumnHeaders();
 
-        let testTooltip : ReactElement = (
-            <div className="tool-tip" style={{height : "344px"}}>
-                {toolTipContent.clickDragGrid()}
-            </div>
-        );
+        // let testTooltip : ReactElement = (
+        //     <div className="tool-tip" style={{height : "344px"}}>
+        //         {toolTipContent.clickDragGrid()}
+        //     </div>
+        // );
 
         let gridStyle = `1rem repeat(${this.getNumColumns()}, minmax(max-content, 1fr)) max-content`;
 
@@ -672,6 +781,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
             <>
                 <div className={`data-grid ${this.props.classes}`}>
                     {this.gridStyles()}
+
                     <div style={{ display:'grid', gridTemplateColumns:gridStyle}} className="viewport" onMouseMove={()=>this.mouseMoveActions()}>
                         {columnHeaders}
                         {this.getGridItems()}

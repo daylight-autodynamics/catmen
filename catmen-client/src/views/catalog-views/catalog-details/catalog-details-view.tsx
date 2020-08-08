@@ -685,7 +685,7 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
                  {this.getFooterMenu() }
                  {this.getProductViewDrawer()}
                  {this.getModals()}
-                 <button onClick={()=>this.switchToEditMode()}>Switch</button>
+                 {/*<button onClick={()=>this.switchToEditMode()}>Switch</button>*/}
              </>
          )
      }
