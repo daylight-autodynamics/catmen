@@ -267,6 +267,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     mouseUpAction(row:number, cell:number, columnName : string){
         this.setState({mouseIsDown : false});
         this.manageSelection(row, cell, columnName, true);
+        this.manageKeyBoardEffect("dfdf", "up");
         //clear dragging timer
         if(this.dragInterval != null)
         {
@@ -423,7 +424,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
                     cells.push(cell);
                 }
 
-                if(j === this.state.workingDataSet[i].length-1 && this.props.hasDetailsActionButton === true){
+                if(j === this.state.workingDataSet[i].length-1 && this.props.hasDetailsActionButton){
                     cells.push(
                         <div className="cell details" style={{gridColumn : j+3, gridRow : i+2, zIndex : 100 + (this.numRows - i) }}>
                             <AppButton
@@ -686,7 +687,7 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     //Mouse move, this is used for defining the drag area rectangle but could be used for other stuff
     mouseMoveActions(){
-        if(this.dragCounter % 2 == 0 ){
+        if(this.dragCounter % 2 === 0 ){
             this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
         }
     }
