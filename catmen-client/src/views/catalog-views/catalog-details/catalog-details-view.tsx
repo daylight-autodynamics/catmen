@@ -667,11 +667,6 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
     render(){
          return (
              <>
-                 <TitleArea
-                     mainTitle="Spreadsheet View"
-                     subTitle="My Catalog"
-                     titleType="subtitle-above"
-                 />
                  <DataGridWithEditDrawer
                      gridData={dataManagerMain.getProductData()}
                      columnsData={dataManagerMain.getProductColumns()}

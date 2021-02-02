@@ -150,7 +150,7 @@
 }
 
 .cell-editable{
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 0.75rem;
   cursor: cell;
   position: relative;
 
@@ -166,7 +166,7 @@
   }
 
   &:hover .affordance{
-    background-color: $Primary;
+    background-color: $Secondary;
     right: 0;
     top: 0;
   }
@@ -182,13 +182,14 @@
      }
      pointer-events: none;
      position: absolute;
-     border: dashed #b9b7bc;
+     border-top: solid #b9b7bc;
+     border-left: solid #f2f2f2;
      bottom: 0;
      left: 0;
-     border-width: 0 0 1px 1px;
+     border-width: 1px 0 0 1px;
      z-index: -1;
-     right: 0.5rem;
-     top: 65%;
+     right: 0;
+     top: 0;
    }
 }
 
@@ -214,7 +215,7 @@
 //DRAG AREA
 .drag-area{
   position: absolute;
-  background-color: rgba(147, 67, 152, 0.3);
+  background-color: $area-of-interest;
   border-color: white;
   pointer-events: none;
   border-width: 2px;
@@ -240,6 +241,10 @@
 
 //COLUMN HEADER
 .grid-header{
+  padding-right: 1rem;
+  .column-header-btn{
+    font-weight: 700;
+  }
   .btn-descriptors{
     pointer-events: none;
   }
@@ -254,24 +259,95 @@
 //FOOTER
 
 //SELECTED COLUMN INDICATOR
+.hidden-cell{
+  width: 0;
+  pointer-events: none;
+}
+
+@keyframes active-entrance {
+  from {top : 12px}
+  to {top:0}
+}
+
+.grid-header{
+  .column-header-btn{
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    z-index: 100;
+    .btn-descriptors{
+      .cm-icon{
+        margin: 0 0.25rem 0.1rem;
+        .column-carat{
+          margin-top: 0.25rem;
+        }
+        &:first-child{
+          margin: 0;
+        }
+      }
+    }
+
+  }
+  .column-header{
+    display: flex;
+    padding: 0.25rem 0.75rem;
+    background-color: white;
+    .active-indicator{
+      background-color: $Secondary;
+      color: white;
+      padding: 0.25rem;
+      position: absolute;
+      width: 100%;
+      right: 0;
+      left: 0;
+      top: 0px;
+      bottom: 0px;
+      z-index: 0;
+      border-radius: 0.5rem 0.5rem 0 0;
+      box-sizing: border-box;
+      animation-name: active-entrance;
+      animation-duration: 750ms;
+      animation-timing-function: ease-out;
+    }
+    &.active-col{
+      .column-header-btn{
+        color:white;
+        .column-carat{
+          .filled{
+            fill:white;
+          }
+        }
+      }
+    }
+  }
+  .column-carat{
+    align-self: center;
+    .filled {
+      fill : $Secondary;
+    }
+  }
+}
+
+
+//
 
 .cell {
   &.selected-indicator
   {
     border-width: 0 3px 3px 3px;
     border-style: double;
-    border-color: $Core_60;
+    border-color: $Secondary;
     //background-color: rgba(122, 12, 119, 0.4);
     pointer-events: none;
     position: relative;
     z-index: 110;
     .handle
     {
-      width : 0.75rem;
-      height : 0.75rem;
-      border-radius: 0.25rem;
+      width : 0.5rem;
+      height : 0.5rem;
+      border-radius: 0.15rem;
       position: absolute;
-      background-color: $Core_60;
+      background-color: $Secondary;
       border: 1px solid white;
       bottom: -0.5rem;
       right: -0.5rem;

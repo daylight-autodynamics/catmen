@@ -43,11 +43,7 @@ export class ManageClassesView extends React.Component<iPROPS, iSTATE>{
                     sectionTitle="Landing Page"
                     navigationElement={<Navigation menuHelpStyle="panel" navElements={mainNavConfig} />}
                 />
-                <TitleArea
-                    mainTitle="Manage Classes"
-                    titleType="subtitle-above"
-                    subTitle="Manage the column-heads/attributes you use to describe your products"
-                />
+
                 {this.getDataGrid()}
             </>
         );

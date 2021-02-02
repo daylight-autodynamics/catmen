@@ -249,8 +249,12 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     }
 
     mouseDownAction(row : number, cell:number){
+        //start up the resize box
+        this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
+
         //set timer for dragging
         this.dragInterval = window.setInterval(()=>{
+            // set timer for spacing out the times we poll for updating drag window
              this.dragCounter++;
             console.log("set interval", this.dragInterval);
         }, 200);
@@ -278,11 +282,11 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     }
 
     hoverRowAction(row:number){
-        this.setState({hoveredRow : row.toString()});
+        //this.setState({hoveredRow : row.toString()});
     }
 
     mouseOutRowAction(){
-        this.setState({hoveredRow : ""});
+      //  this.setState({hoveredRow : ""});
     }
 
     manageCheckbox(row : number){
@@ -604,23 +608,23 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
     gridStyles(){
         //This let's us have a hover row effect with css grid
         //This way we don't have to put containers around each row just for visual cue
-            let style = `
-            .row-${this.state.hoveredRow} {
-                background-color: #f4f4f5;                
-            }
-            
-            .row-${this.state.hoveredRow} .cell-editable{
-                z-index:100;
-            }
-            
-            .row-${this.state.hoveredRow} p{
-                    color: #473F4A  ;
-            }
-            `;
-
-
-
-        return <style dangerouslySetInnerHTML={{ __html: `${style}` }} />
+        //     let style = `
+        //     .row-${this.state.hoveredRow} {
+        //         background-color: #f4f4f5;
+        //     }
+        //
+        //     .row-${this.state.hoveredRow} .cell-editable{
+        //         z-index:100;
+        //     }
+        //
+        //     .row-${this.state.hoveredRow} p{
+        //             color: #473F4A  ;
+        //     }
+        //     `;
+        //
+        //
+        //
+        // return <style dangerouslySetInnerHTML={{ __html: `${style}` }} />
     }
 
     clickCellsActions(){
@@ -687,8 +691,8 @@ export class DataGrid extends React.Component<iPROPS, iSTATE>{
 
     //Mouse move, this is used for defining the drag area rectangle but could be used for other stuff
     mouseMoveActions(){
-        if(this.dragCounter % 2 === 0 ){
-            this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
+        if(this.dragCounter % 2 === 0 && this.state.mouseIsDown === true){
+             this.setState({mouseX : win.mousePos.x, mouseY : win.mousePos.y})
         }
     }
 
