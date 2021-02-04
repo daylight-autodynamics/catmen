@@ -4,6 +4,7 @@
   margin: 0 0.5rem 0 0.5rem;
   box-sizing: border-box;
   overflow: auto;
+  font-family: "Jetbrains Mono" !important;
   &.drawer-open{
     margin-bottom: 40vh;
   }
@@ -12,7 +13,7 @@
     width: 100%;
     //grid-auto-columns: minmax(max-content, 100%) max-content;
     .cell{
-      font-size: 0.75rem;
+      font-size: 0.65rem;
      // padding: 0.25rem 0.5rem;
       display: inline;
       min-width: 3rem;
