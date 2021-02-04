@@ -76,20 +76,14 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
             return (
                 <div className="main-header-actions">
                     <AppButton
-                        buttonType={"from-left"}
-                        buttonLabel="catalog manager"
+                        buttonType={"menu-button"}
+                        classes={""}
+                        buttonLabel=""
                         OnClick={()=>this.handleMenu()}
                         tooltipType="custom"
                         tooltip={toolTipContent.mainNav()}
                         toolTipTimeOutInMS={10000}
-                        iconRight={
-                            <CatmanIcon
-                                iconName="down-arrow"
-                                classes="ui-icon "
-                                height="100%"
-                                width="100%"
-                            />
-                        }
+
                     />
                     <AppButton
                         buttonType={"main-action"}

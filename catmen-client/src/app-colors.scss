@@ -107,12 +107,9 @@ $beige: #f6f4ee;
   @include active-shadow;
 }
 
-
-
-
 @mixin blurred-bg-dark-65 {
   background-color: $translucent-black-65;
-  backdrop-filter: blur(0.65rem);
+  backdrop-filter: blur(0.45rem);
 }
 
 @mixin blurred-bg-dark-40 {

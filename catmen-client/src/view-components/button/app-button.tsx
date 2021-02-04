@@ -13,7 +13,8 @@ type AppButtonType = "from-left"
     | "drag-area-large"
     |"transparent-bg"
     |"button-custom"
-    |"boolean-button";
+    |"boolean-button"
+    |"menu-button";
 
 interface iPROPS{
     buttonType: AppButtonType;
@@ -121,6 +122,45 @@ constructor(props:iPROPS) {
                       />
             )
         }
+    }
+
+    menuButton(btnStyles : string | undefined){
+        if(btnStyles === undefined){
+            btnStyles = "";
+        }
+        return(
+            <>
+                {this.handleToolTip()}
+                <button
+                    ref={this.btnRef}
+                    onClick={()=>this.props.OnClick()}
+                    onMouseOver={()=>this.doHoverActions()}
+                    onMouseOut={()=>this.doHoverOutActions()}
+                    className={`btn-default menu ${btnStyles} ${this.props.classes} `}
+                >
+                    <div className="btn-descriptors">
+                        <div className="cm-icon">
+                            <div className="hamburger">
+                                <div className="dash-item"></div>
+                                <div className="dash-item"></div>
+                                <div className="dash-item"></div>
+                            </div>
+                        </div>
+                        <div className="label">
+                            <p>
+                                {this.props.buttonLabel}
+                            </p>
+                            {this.props.iconCenter}
+                        </div>
+
+                        <div className="cm-icon">
+                            {this.props.iconRight}
+                        </div>
+                    </div>
+                </button>
+            </>
+
+        )
     }
 
     baseButton(btnStyles : string | undefined){
@@ -292,6 +332,13 @@ constructor(props:iPROPS) {
                         </>
                     );
                 }
+
+            case "menu-button":
+                return (
+                    <>
+                        {this.menuButton(this.props.classes)}
+                    </>
+                );
 
             case "button-custom":
                 return(
