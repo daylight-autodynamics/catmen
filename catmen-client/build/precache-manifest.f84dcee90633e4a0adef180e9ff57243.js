@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2c0cb141d1dda4e5d142cb3cd6da5b59",
+    "revision": "5954f97679dd0e79454fe82b9f52cc09",
     "url": "/index.html"
   },
   {
-    "revision": "b1b01691f277ec5f582d",
-    "url": "/static/css/main.369387a9.chunk.css"
+    "revision": "6c3aa2e98eb2e9400724",
+    "url": "/static/css/main.5c492f05.chunk.css"
   },
   {
     "revision": "2f4c48d204cd56d34fc3",
@@ -16,12 +16,28 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.05d6cdb2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b1b01691f277ec5f582d",
+    "revision": "6c3aa2e98eb2e9400724",
     "url": "/static/js/main.ce39f9ad.chunk.js"
   },
   {
     "revision": "b7941916ff57a98ff93a",
     "url": "/static/js/runtime-main.9c6c7256.js"
+  },
+  {
+    "revision": "fec7c0631074d15624662820ff798887",
+    "url": "/static/media/JetBrainsMono-Bold.fec7c063.woff2"
+  },
+  {
+    "revision": "3eea00b86d453ecdad39af4f66cfee71",
+    "url": "/static/media/JetBrainsMono-ExtraBold.3eea00b8.woff2"
+  },
+  {
+    "revision": "88ffab6f8fee8a2df180540bcd51c366",
+    "url": "/static/media/JetBrainsMono-Medium.88ffab6f.woff2"
+  },
+  {
+    "revision": "8b0d4df1e1345ca043a37fff49f47ed6",
+    "url": "/static/media/JetBrainsMono-Regular.8b0d4df1.woff2"
   },
   {
     "revision": "c75e74a36272e9d2dc84d3869b13a5ed",

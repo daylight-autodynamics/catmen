@@ -85,23 +85,7 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                         toolTipTimeOutInMS={10000}
 
                     />
-                    <AppButton
-                        buttonType={"main-action"}
-                        classes={"main-add-btn"}
-                        buttonLabel={this.props.mainButtonLabel}
-                        OnClick={()=>this.manageModals("add-products")}
-                        tooltipType="custom"
-                        tooltip={toolTipContent.addProducts()}
-                        toolTipTimeOutInMS={10000}
-                        iconLeft={
-                            <CatmanIcon
-                                iconName="icon-add-invert"
-                                classes=" main-add"
-                                height="100%"
-                                width="100%"
-                            />
-                        }
-                    />
+
                 </div>
             )
     }
@@ -185,6 +169,25 @@ export class MainHeaderArea extends React.Component<iPROPS, iSTATE>{
                   {this.getModals()}
                   {this.tutorialModal()}
               </header>
+              <div className="ribbon-area">
+                  <AppButton
+                      buttonType={"main-action"}
+                      classes={"main-add-btn"}
+                      buttonLabel={this.props.mainButtonLabel}
+                      OnClick={()=>this.manageModals("add-products")}
+                      tooltipType="custom"
+                      tooltip={toolTipContent.addProducts()}
+                      toolTipTimeOutInMS={10000}
+                      iconLeft={
+                          <CatmanIcon
+                              iconName="icon-add-invert"
+                              classes=" main-add"
+                              height="100%"
+                              width="100%"
+                          />
+                      }
+                  />
+              </div>
           </>
         );
 

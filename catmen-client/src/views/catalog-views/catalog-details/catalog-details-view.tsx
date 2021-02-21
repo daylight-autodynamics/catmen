@@ -667,15 +667,17 @@ export class CatalogDetailsView extends React.Component<iPROPS, iSTATE>{
     render(){
          return (
              <>
-                 <DataGridWithEditDrawer
-                     gridData={dataManagerMain.getProductData()}
-                     columnsData={dataManagerMain.getProductColumns()}
-                     dataManager={dataManagerMain}
-                     targetDataSet={"product-data"}
-                     selectionActions={[ this.openFooter ]}
-                     ref={this.dataGridRef}
-                     gridHasDetailsButton={true}
-                 />
+
+                     <DataGridWithEditDrawer
+                         gridData={dataManagerMain.getProductData()}
+                         columnsData={dataManagerMain.getProductColumns()}
+                         dataManager={dataManagerMain}
+                         targetDataSet={"product-data"}
+                         selectionActions={[ this.openFooter ]}
+                         ref={this.dataGridRef}
+                         gridHasDetailsButton={true}
+                     />
+
                  {this.getEditDrawer() }
                  {this.getFooterMenu() }
                  {this.getProductViewDrawer()}

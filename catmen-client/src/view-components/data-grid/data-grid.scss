@@ -1,12 +1,25 @@
 @import "../../app-colors";
 
+.grid-area{
+  padding: 1rem;
+  background-color: $light-grey;
+}
+
+
 .data-grid{
+  background-color: $grey-faint;
   margin: 0 0.5rem 0 0.5rem;
   box-sizing: border-box;
-  overflow: auto;
+  overflow: scroll;
   font-family: "Jetbrains Mono" !important;
   &.drawer-open{
     margin-bottom: 40vh;
+  }
+  .column-header{
+    .label{
+      font-family: "Jetbrains Mono" !important;
+      font-weight: 800;
+    }
   }
   .viewport{
     display: inline-grid;
@@ -109,8 +122,9 @@
     background-color: white;
     min-width: 1rem !important;
     button.btn-transparent-bg{
+      padding: 0.25rem;
       &.checkbox-checked{
-        padding: 0.25rem;
+        padding: 0;
       }
     }
 
@@ -154,10 +168,14 @@
   padding: 0.75rem 0.75rem;
   cursor: cell;
   position: relative;
+  &.selected{
+    background-color: $Secondary;
+  }
 
   p{
     &.selected{
       color: white;
+      font-weight: 800;
     }
     pointer-events: none;
     user-select: none;
@@ -184,7 +202,7 @@
      pointer-events: none;
      position: absolute;
      border-top: solid #b9b7bc;
-     border-left: solid #f2f2f2;
+     border-left: dotted #dddcdc;
      bottom: 0;
      left: 0;
      border-width: 1px 0 0 1px;
@@ -204,10 +222,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1.5rem;
+    //width: 1.5rem;
     btn.btn-transparent-bg{
+      padding: 0;
         &.checkbox-checked{
-          padding: 0.25rem;
+          padding: 0rem;
         }
     }
   }
@@ -242,7 +261,6 @@
 
 //COLUMN HEADER
 .grid-header{
-  padding-right: 1rem;
   .column-header-btn{
     font-weight: 700;
   }
@@ -291,7 +309,7 @@
   }
   .column-header{
     display: flex;
-    padding: 0.25rem 0.75rem;
+    padding: 1rem 0.75rem;
     background-color: white;
     .active-indicator{
       background-color: $Secondary;
